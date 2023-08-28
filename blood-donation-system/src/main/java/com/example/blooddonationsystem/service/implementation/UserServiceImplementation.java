@@ -51,23 +51,23 @@ public class UserServiceImplementation implements UserService {
 
     private User editChangedUserInfo(User destination, EditUserDTO source){
 
-        if(!source.getAddress().isBlank()){
+        if(source.getAddress() != null && !source.getAddress().isBlank()){
             destination.setAddress(source.getAddress());
         }
 
-        if(!source.getCity().isBlank()){
+        if(source.getCity() != null && !source.getCity().isBlank()){
             destination.setCity(source.getCity());
         }
 
-        if(!source.getCountry().isBlank()){
+        if(source.getCountry() != null && !source.getCountry().isBlank()){
             destination.setCity(source.getCountry());
         }
 
-        if(!source.getPhoneNumber().isBlank()){
+        if(source.getPhoneNumber() != null && !source.getPhoneNumber().isBlank()){
             destination.setCity(source.getPhoneNumber());
         }
 
-        if(!source.getPassword().isBlank()){
+        if(source.getPassword() != null && !source.getPassword().isBlank()){
             destination.setPassword(passwordEncoder.encode(source.getPassword()));
         }
 
