@@ -2,6 +2,8 @@ package com.example.blooddonationsystem.model;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 public class BloodCenter {
 
@@ -31,6 +33,9 @@ public class BloodCenter {
     private String description;
     @OneToOne
     private User manager;
+
+    @OneToMany(mappedBy = "center", fetch = FetchType.EAGER)
+    private Set<Appointment> appointments;
 
     public Long getId() {
         return id;
@@ -80,6 +85,10 @@ public class BloodCenter {
         return manager;
     }
 
+    public Set<Appointment> getAppointments() {
+        return appointments;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -126,5 +135,9 @@ public class BloodCenter {
 
     public void setManager(User manager) {
         this.manager = manager;
+    }
+
+    public void setAppointments(Set<Appointment> appointments) {
+        this.appointments = appointments;
     }
 }

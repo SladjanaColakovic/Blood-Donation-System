@@ -1,7 +1,9 @@
 package com.example.blooddonationsystem.service.implementation;
 
+import com.example.blooddonationsystem.dto.AppointmentDTO;
 import com.example.blooddonationsystem.dto.BloodCenterDTO;
 import com.example.blooddonationsystem.dto.EditBloodCenterDTO;
+import com.example.blooddonationsystem.model.Appointment;
 import com.example.blooddonationsystem.model.BloodCenter;
 import com.example.blooddonationsystem.model.User;
 import com.example.blooddonationsystem.repository.BloodCenterRepository;
@@ -11,7 +13,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class BloodCenterServiceImplementation implements BloodCenterService {
@@ -49,6 +54,53 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
     @Override
     public List<BloodCenter> getAll() {
         return bloodCenterRepository.findAll();
+    }
+
+    @Override
+    public BloodCenter getById(Long id) {
+        return bloodCenterRepository.findById(id).get();
+    }
+
+    @Override
+    public List<BloodCenter> getFreeBloodCenters(LocalDateTime dateTime) {
+        List<BloodCenter> centers = bloodCenterRepository.findAll();
+        List<BloodCenter> freeBloodCenters = new ArrayList<>();
+        for (BloodCenter center: centers){
+            int overlappingAppointments = countOverlappingAppointments(center.getAppointments(), dateTime);
+            if(!isCapacityExceed(center.getCapacity(), overlappingAppointments)){
+                freeBloodCenters.add(center);
+            }
+        }
+        return  freeBloodCenters;
+    }
+
+    private Boolean isCapacityExceed(int allowedCapacity, int overlappingAppointments){
+        if(overlappingAppointments >= allowedCapacity){
+            return  true;
+        }
+        return false;
+    }
+
+    private int countOverlappingAppointments(Set<Appointment> existingAppointments,LocalDateTime newAppointmentTime){
+        int overlappingAppointments = 0;
+        for(Appointment existingAppointment: existingAppointments){
+            if(isOverlapping(existingAppointment.getStartDateTime(), newAppointmentTime)){
+                overlappingAppointments++;
+            }
+        }
+        return  overlappingAppointments;
+    }
+
+    private Boolean isOverlapping(LocalDateTime existingAppointment, LocalDateTime newAppointmnet){
+        if((newAppointmnet.isBefore(existingAppointment.plusMinutes(30))
+                || newAppointmnet.isEqual(existingAppointment.plusMinutes(30))
+        ) &&
+                (existingAppointment.isBefore(newAppointmnet.plusMinutes(30))
+                        || existingAppointment.isEqual(newAppointmnet.plusMinutes(30))
+                )){
+            return true;
+        }
+        return false;
     }
 
     private BloodCenter editChangedCenterInfo(BloodCenter center, EditBloodCenterDTO editBloodCenterDTO){

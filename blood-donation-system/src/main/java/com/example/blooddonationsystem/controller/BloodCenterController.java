@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping(value = "/api/center")
 public class BloodCenterController {
@@ -36,5 +38,11 @@ public class BloodCenterController {
     @GetMapping("/all")
     public ResponseEntity<?> getAll(){
         return new ResponseEntity<>(bloodCenterService.getAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/free/{dateTime}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> getFreeBloodCenters(@PathVariable LocalDateTime dateTime){
+        return new ResponseEntity<>(bloodCenterService.getFreeBloodCenters(dateTime), HttpStatus.OK);
     }
 }
