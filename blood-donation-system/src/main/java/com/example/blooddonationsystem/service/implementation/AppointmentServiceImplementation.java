@@ -2,6 +2,7 @@ package com.example.blooddonationsystem.service.implementation;
 
 import com.example.blooddonationsystem.dto.AppointmentDTO;
 import com.example.blooddonationsystem.dto.DonorAppointmentResponseDTO;
+import com.example.blooddonationsystem.dto.ManagerAppointmentResponseDTO;
 import com.example.blooddonationsystem.model.Appointment;
 import com.example.blooddonationsystem.model.BloodCenter;
 import com.example.blooddonationsystem.model.User;
@@ -46,7 +47,7 @@ public class AppointmentServiceImplementation implements AppointmentService {
         appointment.setCenter(center);
         appointment.setDonor(donor);
         appointment.setStartDateTime(newAppointment.getStartDateTime());
-
+        appointment.setCanceled(false);
         return appointmentRepository.save(appointment);
     }
 
@@ -58,6 +59,38 @@ public class AppointmentServiceImplementation implements AppointmentService {
                 .map(appointment -> modelMapper.map(appointment, DonorAppointmentResponseDTO.class))
                 .toList();
         return appointments;
+    }
+
+    @Override
+    public List<ManagerAppointmentResponseDTO> getBloodCenterAppointments(Long centerId) {
+        BloodCenter center = bloodCenterService.getById(centerId);
+        List<ManagerAppointmentResponseDTO> appointments = appointmentRepository
+                .findByCenter(center)
+                .stream()
+                .map(appointment -> modelMapper.map(appointment, ManagerAppointmentResponseDTO.class))
+                .toList();
+        return appointments;
+    }
+
+    @Override
+    public List<DonorAppointmentResponseDTO> getNotPassedAppointments(String donorUsername) {
+        User donor = userService.findByUsername(donorUsername);
+        return appointmentRepository
+                .getNotPassedAppointments(donor, LocalDateTime.now())
+                .stream()
+                .map(appointment -> modelMapper.map(appointment, DonorAppointmentResponseDTO.class))
+                .toList();
+    }
+
+    @Override
+    public Boolean cancel(Long id) {
+        Appointment appointment = appointmentRepository.findById(id).get();
+        if(appointment.getStartDateTime().minusHours(24).compareTo(LocalDateTime.now()) >= 0){
+            appointmentRepository.deleteById(id);
+            return true;
+        }
+        return false;
+
     }
 
     private int countOverlappingAppointments(Set<Appointment> existingAppointments, AppointmentDTO newAppointment){

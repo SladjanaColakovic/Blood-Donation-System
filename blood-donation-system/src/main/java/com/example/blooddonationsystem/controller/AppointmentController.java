@@ -31,4 +31,26 @@ public class AppointmentController {
     public ResponseEntity<?> getDonorAppointments(@PathVariable String donorUsername){
         return new ResponseEntity<>(appointmentService.getDonorAppointments(donorUsername), HttpStatus.OK);
     }
+
+    @GetMapping("/manager/{centerId}")
+    @PreAuthorize("hasRole('MANAGER')")
+    public ResponseEntity<?> getBloodCenterAppointments(@PathVariable  Long centerId){
+        System.out.println("-----------------------" + centerId);
+        return  new ResponseEntity<>(appointmentService.getBloodCenterAppointments(centerId), HttpStatus.OK);
+    }
+
+    @GetMapping("/notPassed/{donorUsername}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> getNotPassedAppointments(@PathVariable String donorUsername){
+        return  new ResponseEntity<>(appointmentService.getNotPassedAppointments(donorUsername), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> cancel(@PathVariable Long id){
+        if(appointmentService.cancel(id)){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 }
