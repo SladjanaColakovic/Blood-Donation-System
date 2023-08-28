@@ -32,4 +32,9 @@ public class BloodCenterController {
     public ResponseEntity<?> editCenter(@RequestBody EditBloodCenterDTO editBloodCenterDTO){
         return new ResponseEntity<>(bloodCenterService.edit(editBloodCenterDTO), HttpStatus.OK);
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAll(){
+        return new ResponseEntity<>(bloodCenterService.getAll(), HttpStatus.OK);
+    }
 }

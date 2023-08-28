@@ -11,6 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BloodCenterServiceImplementation implements BloodCenterService {
 
@@ -42,6 +44,11 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
         BloodCenter center = bloodCenterRepository.findById(editBloodCenterDTO.getId()).get();
 
         return bloodCenterRepository.save(editChangedCenterInfo(center, editBloodCenterDTO));
+    }
+
+    @Override
+    public List<BloodCenter> getAll() {
+        return bloodCenterRepository.findAll();
     }
 
     private BloodCenter editChangedCenterInfo(BloodCenter center, EditBloodCenterDTO editBloodCenterDTO){
