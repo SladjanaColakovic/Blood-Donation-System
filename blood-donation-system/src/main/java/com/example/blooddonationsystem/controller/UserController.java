@@ -1,5 +1,6 @@
 package com.example.blooddonationsystem.controller;
 
+import com.example.blooddonationsystem.dto.EditUserDTO;
 import com.example.blooddonationsystem.dto.UserDTO;
 import com.example.blooddonationsystem.model.User;
 import com.example.blooddonationsystem.service.UserService;
@@ -39,6 +40,22 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> adminFunc(){
         return new ResponseEntity<>("Admin func", HttpStatus.OK);
+    }
+
+    @GetMapping("/current/{username}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MANAGER')")
+    public ResponseEntity<?> current(@PathVariable String username){
+        return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
+    }
+
+    @PostMapping("/edit")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MANAGER')")
+    public ResponseEntity<?> edit(@RequestBody EditUserDTO editUserDTO){
+        User user = userService.edit(editUserDTO);
+        if(user == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 

@@ -42,7 +42,7 @@ public class User {
     @Column(nullable = false)
     private String phoneNumber;
 
-    @Column(nullable = false)
+    @Column(unique = true)
     private String jmbg;
 
     @Column(nullable = false)

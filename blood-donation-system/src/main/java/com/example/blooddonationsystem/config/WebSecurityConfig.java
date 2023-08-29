@@ -89,7 +89,8 @@ public class WebSecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
                 .requestMatchers(HttpMethod.POST, "/auth/login")
-                .requestMatchers(HttpMethod.POST, "api/user/register");
+                .requestMatchers(HttpMethod.POST, "api/user/register")
+                .requestMatchers(HttpMethod.GET, "api/center/all");
     }
 
 
