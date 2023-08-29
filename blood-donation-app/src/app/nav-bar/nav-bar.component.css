@@ -1,0 +1,139 @@
+.hero-image {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/assets/hero-image.jpg");
+    height: 720px;
+    margin: 10px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+.hero-cite {
+    font-weight: bold;
+    font-size: 34px;
+}
+
+.hero-author {
+    font-size: 18px;
+}
+
+.top-left {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+}
+
+.top-left:hover {
+    font-size: 22px;
+    cursor: none;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.menu-ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: transparent;
+    margin-bottom: 40px;
+}
+
+.menu-li {
+    float: right;
+}
+
+.menu-li a {
+    font-size: 18px;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.menu-li a:hover {
+    color: #d17272;
+}
+
+.menu-li-nav {
+    float: right;
+    display: none;
+
+}
+
+.menu-li-nav svg:hover {
+    fill: #d17272;
+    cursor: pointer;
+
+}
+
+
+@media screen and (max-width: 750px) {
+    .menu-li {
+        display: none;
+    }
+
+    .menu-li-nav {
+        display: flex;
+    }
+
+}
+
+
+.dropdown {
+    float: right;
+}
+
+
+.dropdown-content {
+    display: none;
+    margin-top: 29px;
+    right: 0;
+    max-width: 120px;
+    z-index: 1;
+    text-align: right;
+
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 7px 16px;
+    text-decoration: none;
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.dropdown-content a:hover {
+    color: #d17272;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+svg {
+    fill: #ffffff;
+    height: 1.5rem;
+}
+
+#logo {
+    height: 2rem;
+}
