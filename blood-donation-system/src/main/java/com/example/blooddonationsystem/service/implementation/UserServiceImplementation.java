@@ -28,6 +28,14 @@ public class UserServiceImplementation implements UserService {
     @Override
     public User register(UserDTO userDTO) {
 
+        User existUser = userRepository.findByUsername(userDTO.getUsername());
+        if(existUser != null){
+            return  null;
+        }
+        if(!userDTO.getPassword().equals(userDTO.getConfirmPassword())){
+            return null;
+        }
+
         User user = modelMapper.map(userDTO, User.class);
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         return userRepository.save(user);

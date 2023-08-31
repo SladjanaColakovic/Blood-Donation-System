@@ -34,7 +34,9 @@
             <div class="column">
                 <h3>Korisni linkovi</h3>
                 <ul class="footer-ul">
-                    <li><a href="/">Početna</a></li>  
+                    <li><a href="/">Početna</a></li>
+                    <li><a *ngIf = "!isLoggedIn()" href="/login">Uloguj se</a></li>  
+                    <li><a *ngIf = "!isLoggedIn()" href="/registration">Registruj se</a></li>  
                 </ul>
             </div>
 
