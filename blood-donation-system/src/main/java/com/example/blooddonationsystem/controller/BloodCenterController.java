@@ -5,9 +5,11 @@ import com.example.blooddonationsystem.dto.EditBloodCenterDTO;
 import com.example.blooddonationsystem.service.BloodCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -18,10 +20,11 @@ public class BloodCenterController {
     @Autowired
     private BloodCenterService bloodCenterService;
 
-    @PostMapping("/add")
+    @PostMapping(value = "/add")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> addNewCenter(@RequestBody BloodCenterDTO newCenter){
-        return new ResponseEntity<>(bloodCenterService.addNewCenter(newCenter), HttpStatus.OK);
+    public ResponseEntity<?> addNewCenter(@RequestPart("center") BloodCenterDTO newCenter,
+                                          @RequestPart("image") MultipartFile image){
+        return new ResponseEntity<>(bloodCenterService.addNewCenter(newCenter, image), HttpStatus.OK);
     }
 
     @GetMapping("/{managerUsername}")

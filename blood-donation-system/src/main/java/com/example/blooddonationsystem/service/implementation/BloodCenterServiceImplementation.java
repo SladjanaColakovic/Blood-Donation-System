@@ -5,6 +5,7 @@ import com.example.blooddonationsystem.dto.BloodCenterDTO;
 import com.example.blooddonationsystem.dto.EditBloodCenterDTO;
 import com.example.blooddonationsystem.model.Appointment;
 import com.example.blooddonationsystem.model.BloodCenter;
+import com.example.blooddonationsystem.model.Image;
 import com.example.blooddonationsystem.model.User;
 import com.example.blooddonationsystem.repository.BloodCenterRepository;
 import com.example.blooddonationsystem.service.BloodCenterService;
@@ -12,7 +13,9 @@ import com.example.blooddonationsystem.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +33,17 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
     @Autowired
     private UserService userService;
     @Override
-    public BloodCenter addNewCenter(BloodCenterDTO newCenter) {
+    public BloodCenter addNewCenter(BloodCenterDTO newCenter, MultipartFile image)  {
         BloodCenter center = modelMapper.map(newCenter, BloodCenter.class);
         User manager = userService.register(newCenter.getManager());
+        Image centerImage = new Image();
+        try {
+            centerImage = new Image(image.getOriginalFilename(), image.getContentType(), image.getBytes());
+        }
+        catch (IOException ex){
+            ex.printStackTrace();
+        }
+        center.setImage(centerImage);
         center.setManager(manager);
         return bloodCenterRepository.save(center);
     }

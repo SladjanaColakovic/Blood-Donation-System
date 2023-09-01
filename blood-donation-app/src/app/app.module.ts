@@ -16,6 +16,9 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { RegistrationComponent } from './registration/registration.component';
 import { ErrorAlertComponent } from './error-alert/error-alert.component';
+import { CenterRegistrationComponent } from './center-registration/center-registration.component';
+
+
 
 
 @NgModule({
@@ -28,7 +31,8 @@ import { ErrorAlertComponent } from './error-alert/error-alert.component';
     BloodDonationGaleryComponent,
     LoginComponent,
     RegistrationComponent,
-    ErrorAlertComponent
+    ErrorAlertComponent,
+    CenterRegistrationComponent
   ],
   imports: [
     BrowserModule,
