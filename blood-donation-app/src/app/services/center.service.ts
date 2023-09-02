@@ -27,5 +27,9 @@ export class CenterService {
     return this.http.get(this.baseURL + "/all");
   }
 
+  getById(id: any){
+    return this.http.get(this.baseURL + "/info/" + id);
+  }
+
   
 }

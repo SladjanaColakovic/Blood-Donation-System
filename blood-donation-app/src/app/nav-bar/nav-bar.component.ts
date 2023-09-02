@@ -11,7 +11,12 @@ export class NavBarComponent {
   constructor(private authService: AuthService){}
 
   isLoggedIn(){
-    return this.authService.isLoggedIn();
+    let loggedIn = this.authService.isLoggedIn();
+    if(loggedIn){
+      return !this.authService.tokenExpired(this.authService.getToken());
+    }
+    return false;
   }
+
 
 }

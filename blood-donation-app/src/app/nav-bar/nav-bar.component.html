@@ -22,12 +22,14 @@
             </li>
             <div class="dropdown-content">
                 <a href="/">Početna</a>
+                <a href="/centers">Centri</a>
                 <a *ngIf = "!isLoggedIn()" href="/login">Uloguj se</a>
                 <a *ngIf = "!isLoggedIn()" href="/registration">Registruj se</a>
                 <a *ngIf = "isLoggedIn()" href="/centerRegistration">Registracija centra</a>
             </div>
         </div>
         <li class="menu-li"><a href="/">Početna</a></li>
+        <li class="menu-li"><a href="/centers">Centri</a></li>
         <li *ngIf = "!isLoggedIn()" class="menu-li"><a href="/login">Uloguj se</a></li>
         <li *ngIf = "!isLoggedIn()" class="menu-li"><a href="/registration">Registruj se</a></li>
         <li *ngIf = "isLoggedIn()" class="menu-li"><a href="/centerRegistration">Registracija centra</a></li>

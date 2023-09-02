@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { RegistrationComponent } from './registration/registration.component';
 import { ErrorAlertComponent } from './error-alert/error-alert.component';
 import { CenterRegistrationComponent } from './center-registration/center-registration.component';
+import { CentersComponent } from './centers/centers.component';
+import { CenterDetailComponent } from './center-detail/center-detail.component';
 
 
 
@@ -32,7 +34,9 @@ import { CenterRegistrationComponent } from './center-registration/center-regist
     LoginComponent,
     RegistrationComponent,
     ErrorAlertComponent,
-    CenterRegistrationComponent
+    CenterRegistrationComponent,
+    CentersComponent,
+    CenterDetailComponent
   ],
   imports: [
     BrowserModule,

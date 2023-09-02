@@ -43,6 +43,11 @@ public class BloodCenterController {
         return new ResponseEntity<>(bloodCenterService.getAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/info/{id}")
+    public ResponseEntity<?> getById(@PathVariable Long id){
+        return new ResponseEntity<>(bloodCenterService.getById(id), HttpStatus.OK);
+    }
+
     @GetMapping("/free/{dateTime}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getFreeBloodCenters(@PathVariable LocalDateTime dateTime){

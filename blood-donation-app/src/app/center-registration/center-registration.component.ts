@@ -33,14 +33,10 @@ export class CenterRegistrationComponent {
   managerPassword = ""
   managerConfirmPassword = ""
 
-  centers: any[]
 
   constructor(private centerService: CenterService) { }
 
   ngOnInit(){
-    this.centerService.getAll().subscribe((res: any) => {
-      this.centers = res;
-    })
   }
 
   selectFile(event: any) {
@@ -84,9 +80,13 @@ export class CenterRegistrationComponent {
         surname: this.managerSurname,
         username: this.managerEmail,
         password: this.managerPassword,
+        confirmPassword: this.managerConfirmPassword,
         address: this.managerAddress,
         country: this.managerCountry,
-        city: this.managerCity
+        city: this.managerCity,
+        role: "MANAGER",
+        gender: this.managerGender,
+        phoneNumber: this.managerPhone
       }
     }
 

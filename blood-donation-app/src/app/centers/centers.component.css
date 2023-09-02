@@ -1,0 +1,203 @@
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.space {
+    margin-bottom: 15px;
+}
+
+input[type=datetime-local] {
+    width: 100%;
+    padding: 9px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    background: transparent;
+}
+
+.center {
+    width: 100%;
+    padding: 9px 27px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: horizontal;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'  height='16' width='16' class='bi bi-buildings' viewBox='0 0 16 16'%3E%3Cpath d='M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022ZM6 8.694 1 10.36V15h5V8.694ZM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15Z'%3E%3C/path%3E%3E%3Cpath d='M2 11h1v1H2v-1Zm2 0h1v1H4v-1Zm-2 2h1v1H2v-1Zm2 0h1v1H4v-1Zm4-4h1v1H8V9Zm2 0h1v1h-1V9Zm-2 2h1v1H8v-1Zm2 0h1v1h-1v-1Zm2-2h1v1h-1V9Zm0 2h1v1h-1v-1ZM8 7h1v1H8V7Zm2 0h1v1h-1V7Zm2 0h1v1h-1V7ZM8 5h1v1H8V5Zm2 0h1v1h-1V5Zm2 0h1v1h-1V5Zm0-2h1v1h-1V3Z'%3E%3C/path%3E%3C/svg%3E") no-repeat 7px;
+}
+
+.address {
+    width: 100%;
+    padding: 9px 27px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: horizontal;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-geo-alt' viewBox='0 0 16 16'%3E%3Cpath d='M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z'%3E%3C/path%3E%3E%3Cpath d='M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'%3E%3C/path%3E%3C/svg%3E") no-repeat 7px;
+}
+
+
+
+
+.button {
+    width: 90px;
+    background-color: #d17272;
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+    border-radius: 5px;
+    float: right;
+    margin-left: 10px;
+}
+
+.button:hover {
+    background-color: #9d4d4d;
+}
+
+.sortBtn {
+    background: transparent;
+    border: 1px solid #d6b8b8;
+    padding: 10px 12px;
+    text-align: center;
+    display: inline-block;
+    margin-top: 10px;
+    cursor: pointer;
+
+}
+
+.bg {
+    border: 1px solid #d6b8b8;
+    position: -webkit-sticky; 
+    position: sticky;
+    top: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 59px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 20px;
+    padding-bottom: 5px; 
+}
+
+.box {
+    margin-bottom: 10px;
+    padding: 25px;
+    border: 1px solid;
+    border-color: #d6b8b8;
+
+}
+
+h5 {
+    margin-left: -12px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+label{
+    margin-top: 20px;
+    margin-left: -12px;
+}
+
+.image {
+
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 100%;
+    
+    height:auto;
+}
+
+
+.about {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    /* start showing ellipsis when 3rd line is reached */
+}
+
+svg {
+    fill: #d17272;
+}
+
+.spanBtn{
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 800px) {
+    .col-3{
+        width: 100%;
+        margin-bottom: 60px;
+    }
+
+    .bg{
+        position: relative;
+        margin-top: 0px;
+        
+    }
+
+    .col-9{
+        width: 100%;
+    }
+
+    .col-5{
+        width: 100%;
+    }
+
+    .col-7{
+        width: 100%;
+    }
+
+    .about{
+        margin-top: 10px;
+    }
+
+}
+
+
+@media screen and (min-width: 800px) and (max-width:1100px) {
+    .col-3{
+        width: 100%;
+        margin-bottom: 60px;
+    }
+
+    .bg{
+        position: relative;
+        margin-top: 0px;   
+    }
+
+    .col-9{
+        width: 100%;
+    }
+
+    .col-6{
+        width: 20%;
+    }
+
+
+}
+
+
+@media screen and  (max-width:1520px) and (min-width:1100px) {
+    
+    .col-6{
+        width: 100%;
+    }
+
+    .sortBtn{
+        margin-left: -12px;
+    }
+
+    .spanBtn{
+        margin-left: 20px;
+    }
+
+
+}
