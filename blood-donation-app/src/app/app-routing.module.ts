@@ -7,14 +7,16 @@ import { RegistrationComponent } from './registration/registration.component';
 import { CenterRegistrationComponent } from './center-registration/center-registration.component';
 import { CentersComponent } from './centers/centers.component';
 import { CenterDetailComponent } from './center-detail/center-detail.component';
+import { EditCenterInfoComponent } from './edit-center-info/edit-center-info.component';
 
 const routes: Routes = [
-  { path: '', component: HomePageComponent, canActivate: [AuthGuard], data: { role: 'USER' } },
+  { path: '', component: HomePageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'centers', component: CentersComponent },
   { path: 'center/:id', component: CenterDetailComponent },
-  { path: 'centerRegistration', component: CenterRegistrationComponent, canActivate: [AuthGuard], data: { role: 'ADMIN' } }
+  { path: 'centerRegistration', component: CenterRegistrationComponent, canActivate: [AuthGuard], data: { role: 'ADMIN' } },
+  { path: 'editCenter', component: EditCenterInfoComponent, canActivate: [AuthGuard], data: { role: 'MANAGER' } },
 ];
 
 @NgModule({

@@ -31,5 +31,13 @@ export class CenterService {
     return this.http.get(this.baseURL + "/info/" + id);
   }
 
+  getManagerCenter(username: any){
+    return this.http.get(this.baseURL + "/" + username, this.getAuthoHeader());
+  }
+
+  editCenterInfo(data: any){
+    return this.http.put(this.baseURL + "/edit", data, this.getAuthoHeader());
+  }
+
   
 }

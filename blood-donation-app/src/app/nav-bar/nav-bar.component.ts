@@ -18,5 +18,14 @@ export class NavBarComponent {
     return false;
   }
 
+  getRole(){
+    return this.authService.getRole();
+  }
+
+  logout(){
+    this.authService.logout();
+    window.location.replace("/")
+  }
+
 
 }
