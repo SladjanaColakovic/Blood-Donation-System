@@ -6,7 +6,7 @@
 
                 <h5>Pretraga</h5>
                 <div class="row space">
-                    <input type="datetime-local">
+                    <input [(ngModel)]="searchDate" type="datetime-local">
                 </div>
                 <div class="row space">
                     <input class="center" type="text" placeholder="Ime centra..">
@@ -15,7 +15,7 @@
                     <input class="address" type="text" placeholder="Adresa..">
                 </div>
                 <div class="row space">
-                    <button class="button">Pretraga</button>
+                    <button (click)="searchFreeCenters()" class="button">Pretraga</button>
                 </div>
                 <h5>Sortiranje</h5>
                 <div class="row space">
@@ -106,7 +106,7 @@
                                 </svg>
                                 {{center.workingTimeFrom}} - {{center.workingTimeTo}} h
 
-                                <button class="button">Zakaži</button>
+                                <button (click)="schedule(center.id)"  *ngIf="role == 'USER'" class="button">Zakaži</button>
                                 <button (click)="centerDetail(center.id)" class="button">Detalji</button>
                             </p>
                             

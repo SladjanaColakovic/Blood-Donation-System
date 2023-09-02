@@ -39,5 +39,9 @@ export class CenterService {
     return this.http.put(this.baseURL + "/edit", data, this.getAuthoHeader());
   }
 
+  getFreeCenters(dateTime: any){
+    return this.http.get(this.baseURL + "/free/" + dateTime, this.getAuthoHeader());
+  }
+
   
 }
