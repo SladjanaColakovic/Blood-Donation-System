@@ -44,7 +44,7 @@ public class UserController {
         return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
     }
 
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MANAGER')")
     public ResponseEntity<?> edit(@RequestBody EditUserDTO editUserDTO){
         User user = userService.edit(editUserDTO);

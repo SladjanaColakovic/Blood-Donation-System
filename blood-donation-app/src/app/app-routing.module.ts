@@ -8,11 +8,13 @@ import { CenterRegistrationComponent } from './center-registration/center-regist
 import { CentersComponent } from './centers/centers.component';
 import { CenterDetailComponent } from './center-detail/center-detail.component';
 import { EditCenterInfoComponent } from './edit-center-info/edit-center-info.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
+  { path: 'profile', component: UserProfileComponent },
   { path: 'centers', component: CentersComponent },
   { path: 'center/:id', component: CenterDetailComponent },
   { path: 'centerRegistration', component: CenterRegistrationComponent, canActivate: [AuthGuard], data: { role: 'ADMIN' } },

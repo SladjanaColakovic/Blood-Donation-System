@@ -1,0 +1,91 @@
+<div>
+    <h2>Profil</h2>
+    <div style="margin: 40px;" class="row" id="bg-image">
+        <div class="col-1"></div>
+        <div class="col-5">
+            <div class="row">
+                <img style="width: 400px; height: auto; margin: auto;" [src]="url" alt="">
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-10">
+                    <div style="background-color: white;" class="box">
+                        <input class="info" type="text" disabled [value]="user.name + ' ' + user.surname">
+                        <input class="info" type="text" disabled [value]="user.username">
+                        <input *ngIf="user.role == 'USER'" type="text" class="info" disabled value="2410994123456">
+
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="row">
+                <div class="box">
+                    <div class="row space">
+
+                        <div class="col-6">
+                            <label>Adresa stanovanja:</label>
+                        </div>
+                        <div class="col-6">
+                            <input class="editable-info" type="text" [(ngModel)] = "user.address">
+                        </div>
+
+                    </div>
+                    <div class="row space">
+                        <div class="col-6">
+                            <label>Grad:</label>
+                        </div>
+                        <div class="col-6">
+                            <input class="editable-info" type="text" [(ngModel)] = "user.city">
+                        </div>
+                    </div>
+                    <div class="row space">
+                        <div class="col-6">
+                            <label>Država:</label>
+                        </div>
+                        <div class="col-6">
+                            <input class="editable-info" type="text" [(ngModel)] = "user.country">
+                        </div>
+                    </div>
+                    <div class="row space">
+                        <div class="col-6">
+                            <label>Broj telefona:</label>
+                        </div>
+                        <div class="col-6">
+                            <input class="editable-info" type="text" [(ngModel)] = "user.phoneNumber">
+                        </div>
+                    </div>
+                    <div class="row space">
+                        <button (click)="editUserInfo()">Ažuriraj</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="box">
+                    <div class="row space">
+                        <div class="col-6">
+                            <label>Lozinka:</label>
+                        </div>
+                        <div class="col-6">
+                            <input class="editable-info" type="password">
+                        </div>
+                    </div>
+                    <div class="row space">
+                        <div class="col-6">
+                            <label>Potvrda lozinke:</label>
+                        </div>
+                        <div class="col-6">
+                            <input class="editable-info" type="password">
+                        </div>
+                    </div>
+                    <div class="row space">
+                        <button>Izmijeni</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-1"></div>
+    </div>
+
+</div>

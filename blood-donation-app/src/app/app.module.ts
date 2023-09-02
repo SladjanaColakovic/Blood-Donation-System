@@ -20,6 +20,7 @@ import { CenterRegistrationComponent } from './center-registration/center-regist
 import { CentersComponent } from './centers/centers.component';
 import { CenterDetailComponent } from './center-detail/center-detail.component';
 import { EditCenterInfoComponent } from './edit-center-info/edit-center-info.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 
@@ -38,7 +39,8 @@ import { EditCenterInfoComponent } from './edit-center-info/edit-center-info.com
     CenterRegistrationComponent,
     CentersComponent,
     CenterDetailComponent,
-    EditCenterInfoComponent
+    EditCenterInfoComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,

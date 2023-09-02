@@ -27,15 +27,17 @@
                 <a *ngIf = "!isLoggedIn()" href="/registration">Registruj se</a>
                 <a *ngIf = "isLoggedIn() && getRole() == 'ADMIN'" href="/centerRegistration">Registracija centra</a>
                 <a *ngIf = "isLoggedIn() && getRole() == 'MANAGER'" href="/editCenter">Moj centar</a>
+                <a *ngIf = "isLoggedIn()" href="/profile">Profil</a>
                 <a href="#" (click) = "logout()" *ngIf="isLoggedIn()">Odjava</a>
             </div>
         </div>
         <li *ngIf="isLoggedIn()" class="menu-li"><a href="#" (click) = "logout()">Odjava</a></li>
+        <li *ngIf = "isLoggedIn()" class="menu-li"><a href="/profile">Profil</a></li>
         <li class="menu-li"><a href="/centers">Centri</a></li>
         <li *ngIf = "!isLoggedIn()" class="menu-li"><a href="/login">Uloguj se</a></li>
         <li *ngIf = "!isLoggedIn()" class="menu-li"><a href="/registration">Registruj se</a></li>
-        <li *ngIf = "isLoggedIn()&& getRole() == 'ADMIN'" class="menu-li"><a href="/centerRegistration">Registracija centra</a></li>
-        <li *ngIf = "isLoggedIn()&& getRole() == 'MANAGER'" class="menu-li"><a href="/editCenter">Moj centar</a></li>
+        <li *ngIf = "isLoggedIn() && getRole() == 'ADMIN'" class="menu-li"><a href="/centerRegistration">Registracija centra</a></li>
+        <li *ngIf = "isLoggedIn() && getRole() == 'MANAGER'" class="menu-li"><a href="/editCenter">Moj centar</a></li>
         <li class="menu-li"><a href="/">Početna</a></li>
     </ul>
 </div>
