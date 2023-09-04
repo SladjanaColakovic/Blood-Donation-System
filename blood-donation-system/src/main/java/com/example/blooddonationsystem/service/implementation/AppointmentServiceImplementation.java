@@ -55,7 +55,7 @@ public class AppointmentServiceImplementation implements AppointmentService {
     public List<DonorAppointmentResponseDTO> getDonorAppointments(String donorUsername) {
         User donor = userService.findByUsername(donorUsername);
         List<DonorAppointmentResponseDTO> appointments = appointmentRepository
-                .findByDonor(donor).stream()
+                .getPassedAppointments(donor, LocalDateTime.now()).stream()
                 .map(appointment -> modelMapper.map(appointment, DonorAppointmentResponseDTO.class))
                 .toList();
         return appointments;

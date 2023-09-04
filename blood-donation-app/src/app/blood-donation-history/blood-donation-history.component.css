@@ -1,0 +1,42 @@
+.table-div {
+    overflow-x: auto;
+}
+
+.margin-div{
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 30px;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#history {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#history td,
+#history th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#history tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#history tr:hover {
+    background-color: #ddd;
+}
+
+#history th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #d17272;
+    color: white;
+}

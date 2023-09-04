@@ -23,6 +23,7 @@ import { EditCenterInfoComponent } from './edit-center-info/edit-center-info.com
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ScheduledAppointmentsDonorComponent } from './scheduled-appointments-donor/scheduled-appointments-donor.component';
 import { ScheduledAppointmentDetailComponent } from './scheduled-appointment-detail/scheduled-appointment-detail.component';
+import { BloodDonationHistoryComponent } from './blood-donation-history/blood-donation-history.component';
 
 
 
@@ -45,6 +46,7 @@ import { ScheduledAppointmentDetailComponent } from './scheduled-appointment-det
     UserProfileComponent,
     ScheduledAppointmentsDonorComponent,
     ScheduledAppointmentDetailComponent,
+    BloodDonationHistoryComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,19 @@
+<div>
+    <h2>Istorija posjeta centrima</h2>
+    <div class="margin-div">
+        <div class="table-div">
+            <table id="history">
+                <tr>
+                    <th>Centar</th>
+                    <th>Adresa</th>
+                    <th>Datum</th>
+                </tr>
+                <tr *ngFor="let app of appointments">
+                    <td>{{app.center.name}}</td>
+                    <td>{{app.center.address}}, {{app.center.city}}, {{app.center.country}}</td>
+                    <td>{{app.startDateTime | date: 'short'}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

@@ -32,5 +32,9 @@ export class AppointmentService {
     return this.http.delete(this.baseURL + "/" + id, this.getAuthoHeader());
   }
 
+  getDonorAppointments(donorUsername: any){
+    return this.http.get(this.baseURL + "/donor/" + donorUsername, this.getAuthoHeader());
+  }
+
   
 }

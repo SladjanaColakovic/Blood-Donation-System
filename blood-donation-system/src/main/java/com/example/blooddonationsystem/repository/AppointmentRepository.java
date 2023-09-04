@@ -16,4 +16,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     public List<Appointment> findByCenter(BloodCenter centre);
     @Query("select a from Appointment a where a.donor = :donor AND a.startDateTime > :now")
     public List<Appointment> getNotPassedAppointments(User donor, LocalDateTime now);
+
+    @Query("select a from Appointment a where a.donor = :donor AND a.startDateTime <= :now")
+    public List<Appointment> getPassedAppointments(User donor, LocalDateTime now);
 }

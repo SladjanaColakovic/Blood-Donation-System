@@ -10,6 +10,7 @@ import { CenterDetailComponent } from './center-detail/center-detail.component';
 import { EditCenterInfoComponent } from './edit-center-info/edit-center-info.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ScheduledAppointmentsDonorComponent } from './scheduled-appointments-donor/scheduled-appointments-donor.component';
+import { BloodDonationHistoryComponent } from './blood-donation-history/blood-donation-history.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -21,6 +22,8 @@ const routes: Routes = [
   { path: 'centerRegistration', component: CenterRegistrationComponent, canActivate: [AuthGuard], data: { role: 'ADMIN' } },
   { path: 'editCenter', component: EditCenterInfoComponent, canActivate: [AuthGuard], data: { role: 'MANAGER' } },
   { path: 'scheduledAppointments', component: ScheduledAppointmentsDonorComponent, canActivate: [AuthGuard], data: { role: 'USER' } },
+  { path: 'history', component: BloodDonationHistoryComponent, canActivate: [AuthGuard], data: { role: 'USER' } },
+
 ];
 
 @NgModule({
