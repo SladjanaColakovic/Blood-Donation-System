@@ -21,6 +21,8 @@ import { CentersComponent } from './centers/centers.component';
 import { CenterDetailComponent } from './center-detail/center-detail.component';
 import { EditCenterInfoComponent } from './edit-center-info/edit-center-info.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ScheduledAppointmentsDonorComponent } from './scheduled-appointments-donor/scheduled-appointments-donor.component';
+import { ScheduledAppointmentDetailComponent } from './scheduled-appointment-detail/scheduled-appointment-detail.component';
 
 
 
@@ -41,6 +43,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     CenterDetailComponent,
     EditCenterInfoComponent,
     UserProfileComponent,
+    ScheduledAppointmentsDonorComponent,
+    ScheduledAppointmentDetailComponent,
   ],
   imports: [
     BrowserModule,

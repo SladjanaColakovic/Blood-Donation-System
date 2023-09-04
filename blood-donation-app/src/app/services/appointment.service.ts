@@ -23,4 +23,14 @@ export class AppointmentService {
   schedule(data: any){
     return this.http.post(this.baseURL + "/schedule", data, this.getAuthoHeader());
   }
+
+  notPassedAppointments(donorUsername: any){
+    return this.http.get(this.baseURL + "/notPassed/" + donorUsername, this.getAuthoHeader());
+  }
+
+  cancel(id: any){
+    return this.http.delete(this.baseURL + "/" + id, this.getAuthoHeader());
+  }
+
+  
 }
