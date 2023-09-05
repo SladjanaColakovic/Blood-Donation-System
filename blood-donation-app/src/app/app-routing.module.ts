@@ -11,6 +11,7 @@ import { EditCenterInfoComponent } from './edit-center-info/edit-center-info.com
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ScheduledAppointmentsDonorComponent } from './scheduled-appointments-donor/scheduled-appointments-donor.component';
 import { BloodDonationHistoryComponent } from './blood-donation-history/blood-donation-history.component';
+import { BloodCenterAppointmentHistoryComponent } from './blood-center-appointment-history/blood-center-appointment-history.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'editCenter', component: EditCenterInfoComponent, canActivate: [AuthGuard], data: { role: 'MANAGER' } },
   { path: 'scheduledAppointments', component: ScheduledAppointmentsDonorComponent, canActivate: [AuthGuard], data: { role: 'USER' } },
   { path: 'history', component: BloodDonationHistoryComponent, canActivate: [AuthGuard], data: { role: 'USER' } },
+  {path: 'appointmentsHistory', component: BloodCenterAppointmentHistoryComponent}
 
 ];
 

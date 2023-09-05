@@ -32,11 +32,10 @@ public class AppointmentController {
         return new ResponseEntity<>(appointmentService.getDonorAppointments(donorUsername), HttpStatus.OK);
     }
 
-    @GetMapping("/manager/{centerId}")
+    @GetMapping("/manager/{managerUsername}")
     @PreAuthorize("hasRole('MANAGER')")
-    public ResponseEntity<?> getBloodCenterAppointments(@PathVariable  Long centerId){
-        System.out.println("-----------------------" + centerId);
-        return  new ResponseEntity<>(appointmentService.getBloodCenterAppointments(centerId), HttpStatus.OK);
+    public ResponseEntity<?> getBloodCenterAppointments(@PathVariable  String managerUsername){
+        return  new ResponseEntity<>(appointmentService.getBloodCenterAppointments(managerUsername), HttpStatus.OK);
     }
 
     @GetMapping("/notPassed/{donorUsername}")

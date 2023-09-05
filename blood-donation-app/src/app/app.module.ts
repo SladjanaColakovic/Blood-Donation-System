@@ -24,6 +24,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ScheduledAppointmentsDonorComponent } from './scheduled-appointments-donor/scheduled-appointments-donor.component';
 import { ScheduledAppointmentDetailComponent } from './scheduled-appointment-detail/scheduled-appointment-detail.component';
 import { BloodDonationHistoryComponent } from './blood-donation-history/blood-donation-history.component';
+import { BloodCenterAppointmentHistoryComponent } from './blood-center-appointment-history/blood-center-appointment-history.component';
 
 
 
@@ -47,6 +48,7 @@ import { BloodDonationHistoryComponent } from './blood-donation-history/blood-do
     ScheduledAppointmentsDonorComponent,
     ScheduledAppointmentDetailComponent,
     BloodDonationHistoryComponent,
+    BloodCenterAppointmentHistoryComponent,
   ],
   imports: [
     BrowserModule,

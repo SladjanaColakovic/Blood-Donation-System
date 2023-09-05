@@ -62,8 +62,8 @@ public class AppointmentServiceImplementation implements AppointmentService {
     }
 
     @Override
-    public List<ManagerAppointmentResponseDTO> getBloodCenterAppointments(Long centerId) {
-        BloodCenter center = bloodCenterService.getById(centerId);
+    public List<ManagerAppointmentResponseDTO> getBloodCenterAppointments(String managerUsername) {
+        BloodCenter center = bloodCenterService.getManagerBloodCenter(managerUsername);
         List<ManagerAppointmentResponseDTO> appointments = appointmentRepository
                 .findByCenter(center)
                 .stream()

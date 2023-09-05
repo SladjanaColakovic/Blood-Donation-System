@@ -36,5 +36,9 @@ export class AppointmentService {
     return this.http.get(this.baseURL + "/donor/" + donorUsername, this.getAuthoHeader());
   }
 
+  getBloodCenterApppointments(managerUsername: any){
+    return this.http.get(this.baseURL + "/manager/" + managerUsername, this.getAuthoHeader());
+  }
+
   
 }

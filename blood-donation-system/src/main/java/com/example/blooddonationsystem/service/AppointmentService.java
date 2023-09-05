@@ -10,7 +10,7 @@ import java.util.List;
 public interface AppointmentService {
     public Appointment schedule(AppointmentDTO newAppointment);
     public List<DonorAppointmentResponseDTO> getDonorAppointments(String donorUsername);
-    public List<ManagerAppointmentResponseDTO> getBloodCenterAppointments(Long centerId);
+    public List<ManagerAppointmentResponseDTO> getBloodCenterAppointments(String managerUsername);
     public List<DonorAppointmentResponseDTO> getNotPassedAppointments(String donorUsername);
     public Boolean cancel(Long id);
 
