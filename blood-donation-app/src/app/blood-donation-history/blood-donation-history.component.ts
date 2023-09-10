@@ -10,12 +10,16 @@ import { AuthService } from '../authentication/auth.service';
 export class BloodDonationHistoryComponent {
 
   appointments: any[]
+  emptyResult = false;
 
   constructor(private appointmentService: AppointmentService, private authService: AuthService){}
 
   ngOnInit(){
     this.appointmentService.getDonorAppointments(this.authService.getUser()).subscribe((response: any) => {
       this.appointments = response;
+      if(this.appointments.length == 0){
+        this.emptyResult = true;
+      }
     })
   }
 }

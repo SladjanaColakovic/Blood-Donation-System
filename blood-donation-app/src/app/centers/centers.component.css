@@ -131,6 +131,12 @@ svg {
     margin-left: 10px;
 }
 
+.emptyResult{
+    text-align: center;
+    color: #9d4d4d;
+    font-size: 20px;
+}
+
 @media screen and (max-width: 800px) {
     .col-3{
         width: 100%;

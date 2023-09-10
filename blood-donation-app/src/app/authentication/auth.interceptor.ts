@@ -15,8 +15,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private authService: AuthService) {}
 
-  
-
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     console.log("Ok")
     if(this.authService.getToken() != null && this.authService.tokenExpired(this.authService.getToken())){

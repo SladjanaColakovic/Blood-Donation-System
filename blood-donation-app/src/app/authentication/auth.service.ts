@@ -33,13 +33,7 @@ export class AuthService {
   }
 
   public login(data: any) {
-    this.http.post(this.baseURL + "/login", data).subscribe((response: any) => {
-      localStorage.setItem('token', response.accessToken);
-      window.location.href="http://localhost:4200/"
-    },
-      error => {
-        console.log(error)
-      })
+    return this.http.post(this.baseURL + "/login", data);
   }
 
   public logout() {

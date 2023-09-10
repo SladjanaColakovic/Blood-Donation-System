@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CenterService } from '../services/center.service';
+import { ErrorAlertComponent } from '../error-alert/error-alert.component';
 
 @Component({
   selector: 'app-center-registration',
@@ -32,6 +33,11 @@ export class CenterRegistrationComponent {
   managerGender = "Female"
   managerPassword = ""
   managerConfirmPassword = ""
+
+  message = ""
+
+  @ViewChild(ErrorAlertComponent) alert: ErrorAlertComponent;
+  alertClosed = true;
 
 
   constructor(private centerService: CenterService) { }
@@ -96,12 +102,20 @@ export class CenterRegistrationComponent {
 
     this.centerService.register(formData).subscribe((response: any) => {
       console.log(response)
+    }, error => {
+      this.message = "Neuspješna registracija centra"
+      this.alertClosed = false
+      this.alert.timeoutSet();
     })
 
   }
 
   radioButtonChanged(value: any) {
     this.managerGender = value;
+  }
+
+  closeAlert(event: any) {
+    this.alertClosed = event
   }
 
 

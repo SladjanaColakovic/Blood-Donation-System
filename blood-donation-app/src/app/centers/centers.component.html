@@ -67,6 +67,11 @@
 
         <div class="col-9">
             <h2>Centri</h2>
+            <div *ngIf="emptyResult">
+                <p class="emptyResult">
+                    Nema rezultata pretrage...
+                </p>
+            </div>
             <div class="row" *ngFor="let center of centers">
                 <div class="box">
                     <div class="row">
@@ -119,4 +124,6 @@
 
         </div>
     </div>
+    <app-error-alert (emitAlertClosed)="closeAlert($event)" [message]="message" [alertClosed]="alertClosed"></app-error-alert>
+
 </div>

@@ -242,5 +242,6 @@
         </div>
         <div id="col-2-margin" class="col-2"></div>
     </div>
+    <app-error-alert (emitAlertClosed)="closeAlert($event)" [message]="message" [alertClosed]="alertClosed"></app-error-alert>
 
 </div>

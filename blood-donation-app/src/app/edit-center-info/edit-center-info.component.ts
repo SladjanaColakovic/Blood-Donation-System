@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CenterService } from '../services/center.service';
 import { AuthService } from '../authentication/auth.service';
+import { ErrorAlertComponent } from '../error-alert/error-alert.component';
 
 @Component({
   selector: 'app-edit-center-info',
@@ -10,6 +11,11 @@ import { AuthService } from '../authentication/auth.service';
 export class EditCenterInfoComponent {
 
   center: any = {} as any;
+
+  message = ""
+
+  @ViewChild(ErrorAlertComponent) alert: ErrorAlertComponent;
+  alertClosed = true;
 
   constructor(private centerService: CenterService, private authService: AuthService){}
 
@@ -37,8 +43,15 @@ export class EditCenterInfoComponent {
     }
     this.centerService.editCenterInfo(data).subscribe((response: any) => {
       this.center = response;
-      console.log(this.center)
+    }, error => {
+      this.message = "Neuspješno ažuriranje podataka"
+      this.alertClosed = false
+      this.alert.timeoutSet();
     })
+  }
+
+  closeAlert(event: any) {
+    this.alertClosed = event
   }
 
 }

@@ -21,4 +21,5 @@
             <button (click)="login()">Uloguj se</button>
         </div>
     </div>
+    <app-error-alert (emitAlertClosed)="closeAlert($event)" [message]="message" [alertClosed]="alertClosed"></app-error-alert>
 </div>

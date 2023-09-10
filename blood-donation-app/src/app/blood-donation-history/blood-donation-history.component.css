@@ -2,7 +2,7 @@
     overflow-x: auto;
 }
 
-.margin-div{
+.margin-div {
     margin-left: 100px;
     margin-right: 100px;
     margin-top: 30px;
@@ -39,4 +39,10 @@ h2 {
     text-align: left;
     background-color: #d17272;
     color: white;
+}
+
+.emptyResult {
+    text-align: center;
+    color: #9d4d4d;
+    font-size: 20px;
 }

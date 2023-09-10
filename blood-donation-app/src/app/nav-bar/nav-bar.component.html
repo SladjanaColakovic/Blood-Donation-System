@@ -36,7 +36,6 @@
         </div>
         <li *ngIf="isLoggedIn()" class="menu-li"><a href="#" (click) = "logout()">Odjava</a></li>
         <li *ngIf = "isLoggedIn()" class="menu-li"><a href="/profile">Profil</a></li>
-        <li class="menu-li"><a href="/centers">Centri</a></li>
         <li *ngIf = "!isLoggedIn()" class="menu-li"><a href="/login">Uloguj se</a></li>
         <li *ngIf = "!isLoggedIn()" class="menu-li"><a href="/registration">Registruj se</a></li>
         <li *ngIf = "isLoggedIn() && getRole() == 'ADMIN'" class="menu-li"><a href="/centerRegistration">Registracija centra</a></li>
@@ -44,7 +43,7 @@
         <li *ngIf = "isLoggedIn() && getRole() == 'MANAGER'" class="menu-li"><a href="/appointmentsHistory">Pregled posjeta</a></li>
         <li *ngIf = "isLoggedIn() && getRole() == 'USER'" class="menu-li"><a href="/scheduledAppointments">Zakazani termini</a></li>
         <li *ngIf = "isLoggedIn() && getRole() == 'USER'" class="menu-li"><a href="/history">Istorija posjeta</a></li>
-
+        <li class="menu-li"><a href="/centers">Centri</a></li>
         <li class="menu-li"><a href="/">Početna</a></li>
     </ul>
 </div>

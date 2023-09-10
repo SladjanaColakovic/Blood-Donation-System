@@ -9,3 +9,4 @@
     <button (click)="cancel()" class="cancel">Otkaži</button>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Zatvori</button>
 </div>
+<app-error-alert (emitAlertClosed)="closeAlert($event)" [message]="message" [alertClosed]="alertClosed"></app-error-alert>
