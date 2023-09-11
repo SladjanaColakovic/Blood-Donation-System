@@ -84,7 +84,6 @@
 
 }
 
-
 @media screen and (max-width: 850px) {
     .menu-li {
         display: none;
@@ -96,11 +95,9 @@
 
 }
 
-
 .dropdown {
     float: right;
 }
-
 
 .dropdown-content {
     display: none;
@@ -109,7 +106,6 @@
     max-width: 120px;
     z-index: 1;
     text-align: right;
-
 }
 
 .dropdown-content a {

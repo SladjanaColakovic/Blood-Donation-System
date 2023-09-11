@@ -1,0 +1,95 @@
+<div class="row">
+    <div class="col-6">
+        <label>Naziv:</label>
+    </div>
+    <div class="col-6">
+        <input type="text" [(ngModel)]="center.name">
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <label>E-mail adresa:</label>
+    </div>
+    <div class="col-6">
+        <input type="text" [(ngModel)]="center.email">
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <label>Adresa:</label>
+    </div>
+    <div class="col-6">
+        <input type="text" [(ngModel)]="center.address">
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <label>Grad:</label>
+    </div>
+    <div class="col-6">
+        <input type="text" [(ngModel)]="center.city">
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <label>Država:</label>
+    </div>
+    <div class="col-6">
+        <input type="text" [(ngModel)]="center.country">
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <label>Broj telefona:</label>
+    </div>
+    <div class="col-6">
+        <input type="text" [(ngModel)]="center.phoneNumber">
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <label>Radno vrijeme:</label>
+    </div>
+    <div class="col-6">
+        <div class="row">
+            <div class="col-2">
+                <label>Od:</label>
+            </div>
+            <div class="col-4">
+                <input type="text" [(ngModel)]="center.workingTimeFrom">
+            </div>
+            <div class="col-2">
+                <label>Do:</label>
+            </div>
+            <div class="col-4">
+                <input type="text" [(ngModel)]="center.workingTimeTo">
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <label>Kapacitet centra:</label>
+    </div>
+    <div class="col-6">
+        <input type="text" [(ngModel)]="center.capacity">
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <label style="margin-bottom: -10px;">Opis centra:</label>
+    </div>
+    <div class="col-6">
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <textarea [(ngModel)]="center.description" name="description" id="description" rows="6"></textarea>
+    </div>
+</div>
+<div class="row">
+    <button (click)="editCenterInfo()">Izmijeni</button>
+</div>
+<app-error-alert (emitAlertClosed)="closeAlert($event)" [message]="message"
+    [alertClosed]="alertClosed"></app-error-alert>

@@ -7,6 +7,9 @@ footer {
     margin-top: 60px;
 }
 
+.main-div {
+    overflow: hidden;
+}
 
 .row {
     padding: 1em 1em;
@@ -68,12 +71,10 @@ div.social {
     margin-right: 50px;
 }
 
-
 .copyright {
     padding: 0.3em 1em;
     background-color: rgb(101, 101, 101);
 }
-
 
 .icon:hover {
     fill: #d17272;

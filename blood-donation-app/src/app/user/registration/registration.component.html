@@ -1,0 +1,102 @@
+<div style="margin: 10px;">
+    <h2>Registracija</h2>
+    <div class="box">
+        <div class="row">
+            <div class="col-6">
+                <label>Ime:</label>
+            </div>
+            <div class="col-6">
+                <input [(ngModel)] = "name" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label>Prezime:</label>
+            </div>
+            <div class="col-6">
+                <input [(ngModel)] = "surname" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label>E-mail adresa:</label>
+            </div>
+            <div class="col-6">
+                <input [(ngModel)] = "email" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label>JMBG:</label>
+            </div>
+            <div class="col-6">
+                <input [(ngModel)] = "jmbg" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label>Pol:</label>
+            </div>
+            <div class="col-6">
+                <label class="radio-inline">
+                    <input checked  value="Female" (change)="radioButtonChanged('Female')" type="radio" name="optradio"> Ženski
+                </label>
+                <label class="radio-inline">
+                    <input value="Male" (change)="radioButtonChanged('Male')" type="radio" name="optradio"> Muški
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label>Adresa stanovanja:</label>
+            </div>
+            <div class="col-6">
+                <input [(ngModel)] = "address" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label>Grad:</label>
+            </div>
+            <div class="col-6">
+                <input [(ngModel)] = "city" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label>Država:</label>
+            </div>
+            <div class="col-6">
+                <input [(ngModel)] = "country" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label>Broj telefona:</label>
+            </div>
+            <div class="col-6">
+                <input [(ngModel)] = "phone" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label>Lozinka:</label>
+            </div>
+            <div class="col-6">
+                <input [(ngModel)] = "password" type="password">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label>Potvrda lozinke:</label>
+            </div>
+            <div class="col-6">
+                <input [(ngModel)] = "confirmPassword" type="password">
+            </div>
+        </div>
+        <div class="row">
+            <button (click)="register()">Potvrdi</button>
+        </div>
+    </div>
+    <app-error-alert (emitAlertClosed)="closeAlert($event)" [message]="message" [alertClosed]="alertClosed"></app-error-alert>
+</div>

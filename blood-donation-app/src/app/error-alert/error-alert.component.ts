@@ -14,8 +14,7 @@ export class ErrorAlertComponent {
   @Input() alertClosed = true
   @Output() emitAlertClosed = new EventEmitter<boolean>();
   
- 
-  timeoutSet(){
+  setAlertTime(){
     setTimeout(() => this.staticAlert.close(), 15000);
   }
 

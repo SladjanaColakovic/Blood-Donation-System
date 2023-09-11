@@ -1,0 +1,47 @@
+.main-div {
+    overflow: hidden;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.box {
+    margin: 10px;
+    padding: 25px;
+    border: 1px solid;
+    border-color: #d6b8b8;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.image {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 100%;
+    height: auto;
+
+}
+
+h5 {
+    margin-top: 20px;
+}
+
+.image:hover {
+    opacity: 0.8;
+}
+
+svg {
+    fill: #d17272;
+}
+
+p {
+    margin-top: 10px;
+    text-align: justify;
+}
+
+@media screen and (max-width: 1000px) {
+    .col-6 {
+        width: 100%;
+    }
+}

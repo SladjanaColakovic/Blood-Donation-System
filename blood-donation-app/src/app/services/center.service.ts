@@ -19,29 +19,28 @@ export class CenterService {
 
   constructor(private http: HttpClient) { }
 
-  register(data: FormData){
+  public register(data: FormData){
     return this.http.post(this.baseURL + "/add", data,  this.getAuthoHeader())
   }
 
-  getAll(){
+  public getAll(){
     return this.http.get(this.baseURL + "/all");
   }
 
-  getById(id: any){
+  public getById(id: any){
     return this.http.get(this.baseURL + "/info/" + id);
   }
 
-  getManagerCenter(username: any){
+  public getManagerCenter(username: any){
     return this.http.get(this.baseURL + "/" + username, this.getAuthoHeader());
   }
 
-  editCenterInfo(data: any){
+  public editCenterInfo(data: any){
     return this.http.put(this.baseURL + "/edit", data, this.getAuthoHeader());
   }
 
-  getFreeCenters(dateTime: any){
+  public getFreeCenters(dateTime: any){
     return this.http.get(this.baseURL + "/free/" + dateTime, this.getAuthoHeader());
   }
-
-  
+ 
 }

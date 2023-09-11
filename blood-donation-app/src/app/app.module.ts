@@ -12,22 +12,24 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HomePageComponent } from './homepage/home-page/home-page.component';
 import { BloodDonationInformationComponent } from './homepage/blood-donation-information/blood-donation-information.component';
 import { BloodDonationGaleryComponent } from './homepage/blood-donation-galery/blood-donation-galery.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './user/login/login.component';
 import { FormsModule } from '@angular/forms';
-import { RegistrationComponent } from './registration/registration.component';
+import { RegistrationComponent } from './user/registration/registration.component';
 import { ErrorAlertComponent } from './error-alert/error-alert.component';
-import { CenterRegistrationComponent } from './center-registration/center-registration.component';
-import { CentersComponent } from './centers/centers.component';
-import { CenterDetailComponent } from './center-detail/center-detail.component';
-import { EditCenterInfoComponent } from './edit-center-info/edit-center-info.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { ScheduledAppointmentsDonorComponent } from './scheduled-appointments-donor/scheduled-appointments-donor.component';
-import { ScheduledAppointmentDetailComponent } from './scheduled-appointment-detail/scheduled-appointment-detail.component';
-import { BloodDonationHistoryComponent } from './blood-donation-history/blood-donation-history.component';
-import { BloodCenterAppointmentHistoryComponent } from './blood-center-appointment-history/blood-center-appointment-history.component';
-
-
-
+import { CenterRegistrationComponent } from './centers/center-registration/center-registration.component';
+import { CentersReviewComponent } from './centers/centers-review/centers-review.component';
+import { CenterDetailComponent } from './centers/center-detail/center-detail.component';
+import { CenterProfileComponent } from './centers/center-profile/center-profile.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { ScheduledAppointmentsDonorComponent } from './appointments/scheduled-appointments-donor/scheduled-appointments-donor.component';
+import { ScheduledAppointmentDetailComponent } from './appointments/scheduled-appointment-detail/scheduled-appointment-detail.component';
+import { BloodDonationHistoryDonorComponent } from './appointments/blood-donation-history-donor/blood-donation-history-donor.component';
+import { BloodDonationHistoryManagerComponent } from './appointments/blood-donation-history-manager/blood-donation-history-manager.component';
+import { AppointmentsCalendarComponent } from './appointments/appointments-calendar/appointments-calendar.component';
+import { UserInfoEditComponent } from './user/user-info-edit/user-info-edit.component';
+import { UserPasswordEditComponent } from './user/user-password-edit/user-password-edit.component';
+import { CenterInfoEditComponent } from './centers/center-info-edit/center-info-edit.component';
+import { CenterSearchSortComponent } from './centers/center-search-sort/center-search-sort.component';
 
 @NgModule({
   declarations: [
@@ -41,14 +43,19 @@ import { BloodCenterAppointmentHistoryComponent } from './blood-center-appointme
     RegistrationComponent,
     ErrorAlertComponent,
     CenterRegistrationComponent,
-    CentersComponent,
+    CentersReviewComponent,
     CenterDetailComponent,
-    EditCenterInfoComponent,
+    CenterProfileComponent,
     UserProfileComponent,
     ScheduledAppointmentsDonorComponent,
     ScheduledAppointmentDetailComponent,
-    BloodDonationHistoryComponent,
-    BloodCenterAppointmentHistoryComponent,
+    BloodDonationHistoryDonorComponent,
+    BloodDonationHistoryManagerComponent,
+    AppointmentsCalendarComponent,
+    UserInfoEditComponent,
+    UserPasswordEditComponent,
+    CenterInfoEditComponent,
+    CenterSearchSortComponent,
   ],
   imports: [
     BrowserModule,

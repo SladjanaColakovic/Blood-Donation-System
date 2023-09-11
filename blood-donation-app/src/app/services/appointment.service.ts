@@ -20,25 +20,24 @@ export class AppointmentService {
 
   constructor(private http: HttpClient) { }
 
-  schedule(data: any){
+  public schedule(data: any){
     return this.http.post(this.baseURL + "/schedule", data, this.getAuthoHeader());
   }
 
-  notPassedAppointments(donorUsername: any){
+  public getNotPassedDonorAppointments(donorUsername: any){
     return this.http.get(this.baseURL + "/notPassed/" + donorUsername, this.getAuthoHeader());
   }
 
-  cancel(id: any){
+  public cancel(id: any){
     return this.http.delete(this.baseURL + "/" + id, this.getAuthoHeader());
   }
 
-  getDonorAppointments(donorUsername: any){
+  public getDonorAppointments(donorUsername: any){
     return this.http.get(this.baseURL + "/donor/" + donorUsername, this.getAuthoHeader());
   }
 
-  getBloodCenterApppointments(managerUsername: any){
+  public getBloodHistoryForManager(managerUsername: any){
     return this.http.get(this.baseURL + "/manager/" + managerUsername, this.getAuthoHeader());
   }
 
-  
 }

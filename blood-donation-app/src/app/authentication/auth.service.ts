@@ -17,7 +17,7 @@ export class AuthService {
   public getRole() {
     let token = localStorage.getItem('token');
     if (token) {
-      var obj = JSON.parse(window.atob(token.split('.')[1]))
+      var obj = JSON.parse(window.atob(token.split('.')[1]));
       return obj.role;
     }
     return '';
@@ -26,7 +26,7 @@ export class AuthService {
   public getUser(){
     let token = localStorage.getItem('token');
     if(token){
-      var obj = JSON.parse(window.atob(token.split('.')[1]))
+      var obj = JSON.parse(window.atob(token.split('.')[1]));
       return obj.sub;
     }
     return null;

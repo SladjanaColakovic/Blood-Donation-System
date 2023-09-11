@@ -22,7 +22,6 @@ export class AuthInterceptor implements HttpInterceptor {
       localStorage.removeItem("token")
       this.authService.logout()
     }
-      
 
     if(this.authService.getToken() == null)
         skipAuth = ""

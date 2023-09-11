@@ -1,3 +1,7 @@
+.main-div {
+    overflow: hidden;
+}
+
 h2 {
     text-align: center;
     margin-top: 20px;
@@ -11,7 +15,6 @@ h2 {
     border-color: #d6b8b8;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin-bottom: 20px;
-
 }
 
 p {
@@ -27,7 +30,7 @@ ul {
     list-style-type: none;
 }
 
-.reason{
+.reason {
     text-align: center;
     margin-top: 10px;
 }
@@ -40,7 +43,6 @@ ul {
     background-image: url("/assets/list.png");
     background-size: contain;
     background-repeat: no-repeat;
-    
 }
 
 .reason::after {
@@ -52,10 +54,9 @@ ul {
     background-image: url("/assets/list.png");
     background-size: contain;
     background-repeat: no-repeat;
-    
 }
 
-ul li::before{
+ul li::before {
     content: '';
     display: inline-block;
     height: 25px;
@@ -64,29 +65,23 @@ ul li::before{
     background-size: contain;
     background-repeat: no-repeat;
     list-style: none;
-
 }
 
-.container-fluid{
+.container-fluid {
     padding-left: 50px;
     padding-right: 50px;
 }
 
-
-.col-1-sm{
+.col-1-sm {
     width: 10%;
 }
 
-.col-10{
+.col-10 {
     width: 80%;
 }
 
 @media screen and (max-width: 850px) {
     .col-6 {
-       width: 100%;
+        width: 100%;
     }
-
-    
-    
-
 }
