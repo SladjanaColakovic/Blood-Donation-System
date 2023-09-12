@@ -47,6 +47,8 @@ export class BloodDonationHistoryManagerComponent {
         title: appointment.donor.name + " " + appointment.donor.surname,
         color: (addMinutes(this.parseDateString(appointment.startDateTime), 30) > new Date()) ? { ...colors['red'] } : { ...colors['yellow'] },
         meta: {
+          centerName: appointment.center.name,
+          centerAddress: appointment.center.address + ", " + appointment.center.city + ", " + appointment.center.country
         }
       }
       this.events.push(event)

@@ -12,6 +12,7 @@ export class CenterSearchSortComponent {
   @Input() searchDate = ""
   @Output() emitCenters = new EventEmitter<any>();
   @Output() emitEmptyResult = new EventEmitter<boolean>();
+  @Output() emitDateTime = new EventEmitter<any>();
   centers: any[]
 
   message = ""
@@ -30,6 +31,7 @@ export class CenterSearchSortComponent {
         this.emitEmptyResult.emit(true)
       }
       this.emitEmptyResult.emit(false)
+      this.emitDateTime.emit(this.searchDate)
     }, error => {
       this.message = "Neuspješno pretraživanje slobodnih centara za odabrani datum"
       this.alertClosed = false

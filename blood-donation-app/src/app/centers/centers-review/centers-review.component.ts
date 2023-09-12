@@ -71,4 +71,9 @@ export class CentersReviewComponent {
   emptyResultChanged(event: any){
     this.emptyResult = event;
   }
+
+  changeDateTime(newDateTime: any){
+    this.searchDate = newDateTime
+    console.log(newDateTime)
+  }
 }

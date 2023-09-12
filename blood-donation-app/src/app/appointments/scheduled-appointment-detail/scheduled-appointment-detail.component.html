@@ -5,7 +5,7 @@
     <p>Adresa: {{event.meta.centerAddress}}</p>
 </div>
 <div class="modal-footer">
-    <button (click)="cancel()" class="cancel">Otkaži</button>
+    <button *ngIf = "isDonor" (click)="cancel()" class="cancel">Otkaži</button>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Zatvori</button>
 </div>
 <app-error-alert (emitAlertClosed)="closeAlert($event)" [message]="message"

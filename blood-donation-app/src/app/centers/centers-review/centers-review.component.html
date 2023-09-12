@@ -1,7 +1,7 @@
 <div>
     <div class="row" style="margin: 40px;">
         <div class="col-3">
-            <app-center-search-sort [searchDate]="searchDate" (emitCenters) ="searchedCenters($event)" (emitEmptyResult) = "emptyResultChanged($event)"></app-center-search-sort>
+            <app-center-search-sort (emitDateTime)="changeDateTime($event)"  [searchDate]="searchDate" (emitCenters) ="searchedCenters($event)" (emitEmptyResult) = "emptyResultChanged($event)"></app-center-search-sort>
         </div>
         <div class="col-9">
             <h2>Centri</h2>

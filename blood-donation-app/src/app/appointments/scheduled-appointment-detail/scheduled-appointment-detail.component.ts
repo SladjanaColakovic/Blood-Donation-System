@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentService } from '../../services/appointment.service';
 import { Router } from '@angular/router';
 import { ErrorAlertComponent } from '../../error-alert/error-alert.component';
+import { AuthService } from 'src/app/authentication/auth.service';
 
 @Component({
   selector: 'app-scheduled-appointment-detail',
@@ -14,11 +15,19 @@ export class ScheduledAppointmentDetailComponent {
   @Input() public event: any;
   
   message = ""
+  isDonor = false;
+
 
   @ViewChild(ErrorAlertComponent) alert: ErrorAlertComponent;
   alertClosed = true;
 
-  constructor(public activeModal: NgbActiveModal, private appointmentService: AppointmentService, private router: Router) { }
+  constructor(public activeModal: NgbActiveModal, private authService: AuthService, private appointmentService: AppointmentService, private router: Router) { }
+
+  ngOnInit(){
+    if(this.authService.getRole() === 'USER'){
+      this.isDonor = true;
+    }
+  }
 
   cancel() {
     this.appointmentService.cancel(this.event.id).subscribe((response: any) => {
@@ -34,5 +43,6 @@ export class ScheduledAppointmentDetailComponent {
   closeAlert(event: any) {
     this.alertClosed = event
   }
+
 
 }
