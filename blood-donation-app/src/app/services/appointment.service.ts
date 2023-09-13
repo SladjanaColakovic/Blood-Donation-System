@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -38,6 +38,17 @@ export class AppointmentService {
 
   public getBloodHistoryForManager(managerUsername: any){
     return this.http.get(this.baseURL + "/manager/" + managerUsername, this.getAuthoHeader());
+  }
+
+  public sortDonorAppointments(data: any){
+    let params = new HttpParams();
+    params = params.append("sortBy", data.sortBy).append("sortDirection", data.sortDirection)
+    .append("donorUsername", data.donorUsername)
+    .append("searchText", data.searchText)
+    .append("searchDate", data.searchDate);
+    const headers = new HttpHeaders().set('Authorization' , 'Bearer ' + localStorage.getItem("token"));
+    const options = { params: params, headers: headers };
+    return this.http.get(this.baseURL + "/sort", options);
   }
 
 }

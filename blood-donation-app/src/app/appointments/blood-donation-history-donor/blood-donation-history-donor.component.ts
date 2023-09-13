@@ -12,6 +12,11 @@ export class BloodDonationHistoryDonorComponent {
   appointments: any[]
   emptyResult = true;
 
+  searchDate = "";
+  text = ""
+  sortBy = "center"
+  sortDirection = "ascending"
+
   constructor(private appointmentService: AppointmentService, private authService: AuthService) { }
 
   ngOnInit() {
@@ -21,6 +26,35 @@ export class BloodDonationHistoryDonorComponent {
         this.emptyResult = true;
       }
       this.emptyResult = false;
+    })
+  }
+
+  sort(sortBy: any, sortDirection: any){
+    this.sortBy = sortBy;
+    this.sortDirection = sortDirection;
+    let data = {
+      sortBy: sortBy,
+      sortDirection: sortDirection,
+      donorUsername: this.authService.getUser(),
+      searchText: this.text,
+      searchDate: this.searchDate
+    }
+    this.appointmentService.sortDonorAppointments(data).subscribe((response: any) => {
+      this.appointments = response;
+    })
+  }
+
+  searchByCenterOrAddress(){
+    let data = {
+      sortBy: this.sortBy,
+      sortDirection: this.sortDirection,
+      donorUsername: this.authService.getUser(),
+      searchText: this.text,
+      searchDate: this.searchDate
+
+    }
+    this.appointmentService.sortDonorAppointments(data).subscribe((response: any) => {
+      this.appointments = response;
     })
   }
 }
