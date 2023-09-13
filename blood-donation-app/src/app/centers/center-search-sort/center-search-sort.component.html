@@ -1,24 +1,24 @@
 <div class="bg">
     <h5>Pretraga</h5>
-    <div class="row space">
-        <input [(ngModel)]="searchDate" type="datetime-local">
+    <div *ngIf="role == 'USER'" class="row space">
+        <input (input)="searchFreeCenters()" [(ngModel)]="searchDate" type="datetime-local">
     </div>
     <div class="row space">
-        <input class="center" type="text" placeholder="Ime centra..">
+        <input (input)="searchFreeCenters()"  class="center" [(ngModel)]="center" type="text" placeholder="Ime centra..">
     </div>
     <div class="row space">
-        <input class="address" type="text" placeholder="Adresa..">
+        <input (input)="searchFreeCenters()" class="address" [(ngModel)]="address" type="text" placeholder="Adresa..">
     </div>
-    <div class="row space">
-        <button (click)="searchFreeCenters()" class="button">Pretraga</button>
-    </div>
-    <h5>Sortiranje</h5>
+    <!-- <div class="row space">
+        <button class="button">Pretraga</button>
+    </div> -->
+    <h5 style="margin-top: 30px;">Sortiranje</h5>
     <div class="row space">
         <div class="col-6">
             <label>Naziv centra</label>
         </div>
         <div class="col-6">
-            <button class="sortBtn">
+            <button (click)="sort('center', 'descending')" class="sortBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-sort-down" viewBox="0 0 16 16">
                     <path
@@ -26,7 +26,7 @@
                 </svg>
             </button>
             <span class="spanBtn"></span>
-            <button class="sortBtn">
+            <button (click)="sort('center', 'ascending')" class="sortBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-up"
                     viewBox="0 0 16 16">
                     <path
@@ -40,7 +40,7 @@
             <label>Adresa</label>
         </div>
         <div class="col-6">
-            <button class="sortBtn">
+            <button (click)="sort('address', 'descending')" class="sortBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-sort-down" viewBox="0 0 16 16">
                     <path
@@ -48,7 +48,7 @@
                 </svg>
             </button>
             <span class="spanBtn"></span>
-            <button class="sortBtn">
+            <button (click)="sort('address', 'ascending')" class="sortBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-up"
                     viewBox="0 0 16 16">
                     <path

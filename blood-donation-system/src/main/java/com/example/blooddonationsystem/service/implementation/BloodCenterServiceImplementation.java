@@ -12,6 +12,7 @@ import com.example.blooddonationsystem.service.BloodCenterService;
 import com.example.blooddonationsystem.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -73,16 +74,37 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
     }
 
     @Override
-    public List<BloodCenter> getFreeBloodCenters(LocalDateTime dateTime) {
-        List<BloodCenter> centers = bloodCenterRepository.findAll();
-        List<BloodCenter> freeBloodCenters = new ArrayList<>();
-        for (BloodCenter center: centers){
-            int overlappingAppointments = countOverlappingAppointments(center.getAppointments(), dateTime);
-            if(!isCapacityExceed(center.getCapacity(), overlappingAppointments)){
-                freeBloodCenters.add(center);
+    public List<BloodCenter> getFreeBloodCenters(String sortBy, String sortDirection, LocalDateTime dateTime, String center, String address) {
+        List<BloodCenter> centers = new ArrayList<>();
+        if(sortBy.equals("center")){
+            if(sortDirection.equals("ascending")) {
+                centers = bloodCenterRepository.searchBloodCenters(center, address, Sort.by(Sort.Direction.ASC, "name"));
+            }else{
+                centers = bloodCenterRepository.searchBloodCenters(center, address, Sort.by(Sort.Direction.DESC, "name"));
             }
         }
-        return  freeBloodCenters;
+        if(sortBy.equals("address")){
+            if(sortDirection.equals("ascending")){
+                centers = bloodCenterRepository.searchBloodCenters(center, address, Sort.by(Sort.Direction.ASC, "address")
+                        .and(Sort.by(Sort.Direction.ASC, "city")
+                                .and(Sort.by(Sort.Direction.ASC, "country"))));
+            }else{
+                centers = bloodCenterRepository.searchBloodCenters(center, address, Sort.by(Sort.Direction.DESC, "address")
+                        .and(Sort.by(Sort.Direction.DESC, "city")
+                                .and(Sort.by(Sort.Direction.DESC, "country"))));
+            }
+        }
+        if(dateTime != null){
+            List<BloodCenter> freeBloodCenters = new ArrayList<>();
+            for (BloodCenter bloodCenter: centers){
+                int overlappingAppointments = countOverlappingAppointments(bloodCenter.getAppointments(), dateTime);
+                if(!isCapacityExceed(bloodCenter.getCapacity(), overlappingAppointments)){
+                    freeBloodCenters.add(bloodCenter);
+                }
+            }
+            return  freeBloodCenters;
+        }
+        return centers;
     }
 
     private Boolean isCapacityExceed(int allowedCapacity, int overlappingAppointments){

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -39,8 +39,17 @@ export class CenterService {
     return this.http.put(this.baseURL + "/edit", data, this.getAuthoHeader());
   }
 
-  public getFreeCenters(dateTime: any){
-    return this.http.get(this.baseURL + "/free/" + dateTime, this.getAuthoHeader());
+  public getFreeCenters(dateTime: any, center: any, address: any, sortBy: any, sortDirection: any){
+    let params = new HttpParams();
+    params = params
+    .append("dateTime", dateTime)
+    .append("center", center)
+    .append("address", address)
+    .append("sortBy", sortBy)
+    .append("sortDirection", sortDirection);
+    //const headers = new HttpHeaders().set('Authorization' , 'Bearer ' + localStorage.getItem("token"));
+    const options = { params: params, /*headers: headers*/ };
+    return this.http.get(this.baseURL + "/free", options);
   }
  
 }

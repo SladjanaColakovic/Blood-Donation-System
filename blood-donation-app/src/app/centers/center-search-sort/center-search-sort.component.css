@@ -104,6 +104,10 @@ svg {
         position: relative;
         margin-top: 0px;
     }
+
+    label{
+        margin-top: 20px;
+    }
 }
 
 @media screen and (min-width: 800px) and (max-width:1100px) {
@@ -113,6 +117,10 @@ svg {
     }
     .col-6 {
         width: 20%;
+    }
+
+    label{
+        margin-top: 20px;
     }
 
 }
@@ -129,6 +137,10 @@ svg {
 
     .spanBtn {
         margin-left: 20px;
+    }
+
+    label{
+        margin-top: 0px;
     }
 
 }

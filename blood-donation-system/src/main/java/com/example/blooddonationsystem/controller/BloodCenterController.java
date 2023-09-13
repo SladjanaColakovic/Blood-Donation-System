@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @RestController
@@ -48,9 +49,12 @@ public class BloodCenterController {
         return new ResponseEntity<>(bloodCenterService.getById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/free/{dateTime}")
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> getFreeBloodCenters(@PathVariable LocalDateTime dateTime){
-        return new ResponseEntity<>(bloodCenterService.getFreeBloodCenters(dateTime), HttpStatus.OK);
+    @GetMapping("/free")
+    public ResponseEntity<?> getFreeBloodCenters(@RequestParam("sortBy") String sortBy,
+                                                 @RequestParam("sortDirection") String sortDirection,
+                                                 @RequestParam(value = "dateTime", required = false) LocalDateTime dateTime,
+                                                 @RequestParam(value = "center", required = false) String center,
+                                                 @RequestParam(value = "address", required = false) String address){
+        return new ResponseEntity<>(bloodCenterService.getFreeBloodCenters(sortBy, sortDirection, dateTime, center, address), HttpStatus.OK);
     }
 }
