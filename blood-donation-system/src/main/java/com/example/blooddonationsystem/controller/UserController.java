@@ -18,15 +18,11 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserDTO userDTO) throws Exception {
-
-        User existUser = this.userService.findByUsername(userDTO.getUsername());
-
-        if (existUser != null) {
-            throw new Exception("Nesto");
-        }
-
+    public ResponseEntity<?> register(@RequestBody UserDTO userDTO){
         User user = this.userService.register(userDTO);
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
@@ -48,7 +44,7 @@ public class UserController {
         return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
     }
 
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MANAGER')")
     public ResponseEntity<?> edit(@RequestBody EditUserDTO editUserDTO){
         User user = userService.edit(editUserDTO);

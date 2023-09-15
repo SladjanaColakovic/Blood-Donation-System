@@ -8,6 +8,7 @@ public class UserDTO {
 
     private String username;
     private String password;
+    private String confirmPassword;
     private String name;
     private String surname;
     private String address;
@@ -24,6 +25,10 @@ public class UserDTO {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
     public String getName() {
@@ -68,6 +73,10 @@ public class UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public void setName(String name) {

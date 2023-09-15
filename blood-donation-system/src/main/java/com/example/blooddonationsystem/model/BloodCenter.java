@@ -34,6 +34,9 @@ public class BloodCenter {
     @OneToOne
     private User manager;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Image image;
+
     @OneToMany(mappedBy = "center", fetch = FetchType.EAGER)
     private Set<Appointment> appointments;
 
@@ -83,6 +86,10 @@ public class BloodCenter {
 
     public User getManager() {
         return manager;
+    }
+
+    public Image getImage() {
+        return image;
     }
 
     public Set<Appointment> getAppointments() {
@@ -135,6 +142,10 @@ public class BloodCenter {
 
     public void setManager(User manager) {
         this.manager = manager;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public void setAppointments(Set<Appointment> appointments) {

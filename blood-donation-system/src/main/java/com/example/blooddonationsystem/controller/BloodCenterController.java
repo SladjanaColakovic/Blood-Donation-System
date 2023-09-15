@@ -5,10 +5,13 @@ import com.example.blooddonationsystem.dto.EditBloodCenterDTO;
 import com.example.blooddonationsystem.service.BloodCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @RestController
@@ -18,10 +21,11 @@ public class BloodCenterController {
     @Autowired
     private BloodCenterService bloodCenterService;
 
-    @PostMapping("/add")
+    @PostMapping(value = "/add")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> addNewCenter(@RequestBody BloodCenterDTO newCenter){
-        return new ResponseEntity<>(bloodCenterService.addNewCenter(newCenter), HttpStatus.OK);
+    public ResponseEntity<?> addNewCenter(@RequestPart("center") BloodCenterDTO newCenter,
+                                          @RequestPart("image") MultipartFile image){
+        return new ResponseEntity<>(bloodCenterService.addNewCenter(newCenter, image), HttpStatus.OK);
     }
 
     @GetMapping("/{managerUsername}")
@@ -40,9 +44,17 @@ public class BloodCenterController {
         return new ResponseEntity<>(bloodCenterService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/free/{dateTime}")
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> getFreeBloodCenters(@PathVariable LocalDateTime dateTime){
-        return new ResponseEntity<>(bloodCenterService.getFreeBloodCenters(dateTime), HttpStatus.OK);
+    @GetMapping("/info/{id}")
+    public ResponseEntity<?> getById(@PathVariable Long id){
+        return new ResponseEntity<>(bloodCenterService.getById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/free")
+    public ResponseEntity<?> getFreeBloodCenters(@RequestParam("sortBy") String sortBy,
+                                                 @RequestParam("sortDirection") String sortDirection,
+                                                 @RequestParam(value = "dateTime", required = false) LocalDateTime dateTime,
+                                                 @RequestParam(value = "center", required = false) String center,
+                                                 @RequestParam(value = "address", required = false) String address){
+        return new ResponseEntity<>(bloodCenterService.getFreeBloodCenters(sortBy, sortDirection, dateTime, center, address), HttpStatus.OK);
     }
 }

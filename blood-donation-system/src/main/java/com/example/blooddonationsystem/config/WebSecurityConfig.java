@@ -90,7 +90,9 @@ public class WebSecurityConfig {
         return (web) -> web.ignoring()
                 .requestMatchers(HttpMethod.POST, "/auth/login")
                 .requestMatchers(HttpMethod.POST, "api/user/register")
-                .requestMatchers(HttpMethod.GET, "api/center/all");
+                .requestMatchers(HttpMethod.GET, "api/center/all")
+                .requestMatchers(HttpMethod.GET, "api/center/free")
+                .requestMatchers(HttpMethod.GET, "api/center/info/{id}");
     }
 
 

@@ -3,6 +3,7 @@ package com.example.blooddonationsystem.dto;
 import com.example.blooddonationsystem.model.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.OneToOne;
+import org.springframework.web.multipart.MultipartFile;
 
 public class BloodCenterDTO {
     private String name;
@@ -104,4 +105,5 @@ public class BloodCenterDTO {
     public void setManager(UserDTO manager) {
         this.manager = manager;
     }
+
 }

@@ -28,6 +28,14 @@ public class UserServiceImplementation implements UserService {
     @Override
     public User register(UserDTO userDTO) {
 
+        User existUser = userRepository.findByUsername(userDTO.getUsername());
+        if(existUser != null){
+            return  null;
+        }
+        if(!userDTO.getPassword().equals(userDTO.getConfirmPassword())){
+            return null;
+        }
+
         User user = modelMapper.map(userDTO, User.class);
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         return userRepository.save(user);
@@ -41,9 +49,9 @@ public class UserServiceImplementation implements UserService {
             return null;
         }
 
-        if(!editUserDTO.getPassword().equals(editUserDTO.getConfirmPassword())){
+        /*if(!editUserDTO.getPassword().equals(editUserDTO.getConfirmPassword())){
             return null;
-        }
+        }*/
 
         User editedUser = editChangedUserInfo(user, editUserDTO);
         return userRepository.save(editedUser);
@@ -60,11 +68,11 @@ public class UserServiceImplementation implements UserService {
         }
 
         if(source.getCountry() != null && !source.getCountry().isBlank()){
-            destination.setCity(source.getCountry());
+            destination.setCountry(source.getCountry());
         }
 
         if(source.getPhoneNumber() != null && !source.getPhoneNumber().isBlank()){
-            destination.setCity(source.getPhoneNumber());
+            destination.setPhoneNumber(source.getPhoneNumber());
         }
 
         if(source.getPassword() != null && !source.getPassword().isBlank()){

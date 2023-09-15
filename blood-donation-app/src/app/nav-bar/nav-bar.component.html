@@ -1,0 +1,49 @@
+<div class="hero-image">
+    <div class="hero-text">
+        <h1 class="hero-cite">Um je poput padobrana - </h1>
+        <h1 class="hero-cite">funkcioniše jedino ako je otvoren</h1>
+        <p class="hero-author"> - Albert Einstein</p>
+    </div>
+    <div class="top-left">
+        <svg id="logo" xmlns="http://www.w3.org/2000/svg" height="1em"
+            viewBox="0 0 512 512">
+            <path
+                d="M228.3 469.1L47.6 300.4c-4.2-3.9-8.2-8.1-11.9-12.4h87c22.6 0 43-13.6 51.7-34.5l10.5-25.2 49.3 109.5c3.8 8.5 12.1 14 21.4 14.1s17.8-5 22-13.3L320 253.7l1.7 3.4c9.5 19 28.9 31 50.1 31H476.3c-3.7 4.3-7.7 8.5-11.9 12.4L283.7 469.1c-7.5 7-17.4 10.9-27.7 10.9s-20.2-3.9-27.7-10.9zM503.7 240h-132c-3 0-5.8-1.7-7.2-4.4l-23.2-46.3c-4.1-8.1-12.4-13.3-21.5-13.3s-17.4 5.1-21.5 13.3l-41.4 82.8L205.9 158.2c-3.9-8.7-12.7-14.3-22.2-14.1s-18.1 5.9-21.8 14.8l-31.8 76.3c-1.2 3-4.2 4.9-7.4 4.9H16c-2.6 0-5 .4-7.3 1.1C3 225.2 0 208.2 0 190.9v-5.8c0-69.9 50.5-129.5 119.4-141C165 36.5 211.4 51.4 244 84l12 12 12-12c32.6-32.6 79-47.5 124.6-39.9C461.5 55.6 512 115.2 512 185.1v5.8c0 16.9-2.8 33.5-8.3 49.1z" />
+        </svg>
+        Krv na dar
+    </div>
+    <ul class="menu-ul">
+        <div class="dropdown">
+            <li style="padding: 15px;" class="menu-li-nav">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path
+                        d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
+                </svg>
+            </li>
+            <div class="dropdown-content">
+                <a href="/">Početna</a>
+                <a href="/centers">Centri</a>
+                <a *ngIf = "!isLoggedIn()" href="/login">Uloguj se</a>
+                <a *ngIf = "!isLoggedIn()" href="/registration">Registruj se</a>
+                <a *ngIf = "isLoggedIn() && getRole() == 'ADMIN'" href="/centerRegistration">Registracija centra</a>
+                <a *ngIf = "isLoggedIn() && getRole() == 'MANAGER'" href="/editCenter">Moj centar</a>
+                <a *ngIf = "isLoggedIn() && getRole() == 'USER'" href="/scheduledAppointments">Zakazani termini</a>
+                <a *ngIf = "isLoggedIn() && getRole() == 'USER'" href="/history">Istorija posjeta</a>
+                <a *ngIf = "isLoggedIn() && getRole() == 'MANAGER'" href="/appointmentsHistory">Pregled posjeta</a>
+                <a *ngIf = "isLoggedIn()" href="/profile">Profil</a>
+                <a href="#" (click) = "logout()" *ngIf="isLoggedIn()">Odjava</a>
+            </div>
+        </div>
+        <li *ngIf="isLoggedIn()" class="menu-li"><a href="#" (click) = "logout()">Odjava</a></li>
+        <li *ngIf = "isLoggedIn()" class="menu-li"><a href="/profile">Profil</a></li>
+        <li *ngIf = "!isLoggedIn()" class="menu-li"><a href="/login">Uloguj se</a></li>
+        <li *ngIf = "!isLoggedIn()" class="menu-li"><a href="/registration">Registruj se</a></li>
+        <li *ngIf = "isLoggedIn() && getRole() == 'ADMIN'" class="menu-li"><a href="/centerRegistration">Registracija centra</a></li>
+        <li *ngIf = "isLoggedIn() && getRole() == 'MANAGER'" class="menu-li"><a href="/editCenter">Moj centar</a></li>
+        <li *ngIf = "isLoggedIn() && getRole() == 'MANAGER'" class="menu-li"><a href="/appointmentsHistory">Pregled posjeta</a></li>
+        <li *ngIf = "isLoggedIn() && getRole() == 'USER'" class="menu-li"><a href="/scheduledAppointments">Zakazani termini</a></li>
+        <li *ngIf = "isLoggedIn() && getRole() == 'USER'" class="menu-li"><a href="/history">Istorija posjeta</a></li>
+        <li class="menu-li"><a href="/centers">Centri</a></li>
+        <li class="menu-li"><a href="/">Početna</a></li>
+    </ul>
+</div>

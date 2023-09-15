@@ -1,0 +1,36 @@
+<div class="row space">
+    <div class="col-6">
+        <label>Adresa stanovanja:</label>
+    </div>
+    <div class="col-6">
+        <input class="editable-info" type="text" [(ngModel)]="user.address">
+    </div>
+</div>
+<div class="row space">
+    <div class="col-6">
+        <label>Grad:</label>
+    </div>
+    <div class="col-6">
+        <input class="editable-info" type="text" [(ngModel)]="user.city">
+    </div>
+</div>
+<div class="row space">
+    <div class="col-6">
+        <label>Država:</label>
+    </div>
+    <div class="col-6">
+        <input class="editable-info" type="text" [(ngModel)]="user.country">
+    </div>
+</div>
+<div class="row space">
+    <div class="col-6">
+        <label>Broj telefona:</label>
+    </div>
+    <div class="col-6">
+        <input class="editable-info" type="text" [(ngModel)]="user.phoneNumber">
+    </div>
+</div>
+<div class="row space">
+    <button (click)="editUserInfo()">Ažuriraj</button>
+</div>
+<app-error-alert (emitAlertClosed)="closeAlert($event)" [message]="message" [alertClosed]="alertClosed"></app-error-alert>
