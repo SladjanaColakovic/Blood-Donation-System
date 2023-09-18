@@ -31,7 +31,6 @@ export class CentersReviewComponent {
     this.role = this.authService.getRole();
     this.centerService.getAll().subscribe((response: any) => {
       this.centers = response;
-      console.log(this.centers)
       if (this.centers.length == 0) {
         this.emptyResult = true;
       }
@@ -50,14 +49,13 @@ export class CentersReviewComponent {
       startDateTime: this.searchDate
     }
     this.appointmentService.schedule(data).subscribe((response: any) => {
-      console.log(response)
       this.message = "Uspješno ste zakazali termin"
       this.alertClosed = false
-      this.alert.setAlertTime();
+      this.alert.setAlertTime('/centers');
     }, error => {
       this.message = "Neuspješno zakazivanje termina"
       this.alertClosed = false
-      this.alert.setAlertTime();
+      this.alert.setAlertTimeError();
     })
   }
 
@@ -75,6 +73,5 @@ export class CentersReviewComponent {
 
   changeDateTime(newDateTime: any){
     this.searchDate = newDateTime
-    console.log(newDateTime)
   }
 }

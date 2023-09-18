@@ -19,7 +19,6 @@ export class CenterDetailComponent {
       this.id = params['id'];
       this.centerService.getById(this.id).subscribe((response: any) => {
         this.center = response;
-        console.log(this.center)
       })
     })
   }

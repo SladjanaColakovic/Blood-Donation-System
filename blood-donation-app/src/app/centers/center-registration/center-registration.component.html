@@ -543,5 +543,6 @@
             </div>
         </form>
     </div>
-
 </div>
+<app-error-alert (emitAlertClosed)="closeAlert($event)" [message]="message"
+        [alertClosed]="alertClosed"></app-error-alert>

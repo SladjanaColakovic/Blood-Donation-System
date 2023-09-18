@@ -11,6 +11,7 @@ export class BloodDonationHistoryDonorComponent {
 
   appointments: any[]
   emptyResult = true;
+  noSearchResults = false;
 
   searchDate = "";
   text = ""
@@ -24,12 +25,13 @@ export class BloodDonationHistoryDonorComponent {
       this.appointments = response;
       if (this.appointments.length == 0) {
         this.emptyResult = true;
+      } else {
+        this.emptyResult = false;
       }
-      this.emptyResult = false;
     })
   }
 
-  sort(sortBy: any, sortDirection: any){
+  sort(sortBy: any, sortDirection: any) {
     this.sortBy = sortBy;
     this.sortDirection = sortDirection;
     let data = {
@@ -44,7 +46,7 @@ export class BloodDonationHistoryDonorComponent {
     })
   }
 
-  searchByCenterOrAddress(){
+  searchByCenterOrAddress() {
     let data = {
       sortBy: this.sortBy,
       sortDirection: this.sortDirection,
@@ -55,6 +57,11 @@ export class BloodDonationHistoryDonorComponent {
     }
     this.appointmentService.sortDonorAppointments(data).subscribe((response: any) => {
       this.appointments = response;
+      if(this.appointments.length == 0){
+        this.noSearchResults = true;
+      }else{
+        this.noSearchResults = false;
+      }
     })
   }
 }

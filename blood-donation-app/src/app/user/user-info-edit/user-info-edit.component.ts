@@ -51,11 +51,11 @@ export class UserInfoEditComponent {
         this.emitUserChanged.emit(this.user);
         this.message = "Uspješno ažuriranje podataka"
         this.alertClosed = false
-        this.alert.setAlertTime();
+        this.alert.setAlertTime('/profile');
       }, error => {
         this.message = "Neuspješno ažuriranje podataka"
         this.alertClosed = false
-        this.alert.setAlertTime();
+        this.alert.setAlertTimeError();
       })
     }
   }

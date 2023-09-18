@@ -13,35 +13,47 @@ import { AuthService } from 'src/app/authentication/auth.service';
 export class ScheduledAppointmentDetailComponent {
 
   @Input() public event: any;
-  
+
   message = ""
   isDonor = false;
-
+  canceled = false;
 
   @ViewChild(ErrorAlertComponent) alert: ErrorAlertComponent;
   alertClosed = true;
 
   constructor(public activeModal: NgbActiveModal, private authService: AuthService, private appointmentService: AppointmentService, private router: Router) { }
 
-  ngOnInit(){
-    if(this.authService.getRole() === 'USER'){
+  ngOnInit() {
+    if (this.authService.getRole() === 'USER') {
       this.isDonor = true;
     }
   }
 
   cancel() {
     this.appointmentService.cancel(this.event.id).subscribe((response: any) => {
-      this.activeModal.close()
-      location.replace("/scheduledAppointments")
+      //this.activeModal.close()
+      this.canceled = true;
+      // this.message = "Uspješno otkazivanje termina"
+      // this.alertClosed = false
+      // this.alert.setAlertTimeError()
+      //location.replace("/scheduledAppointments")
     }, error => {
       this.message = "Neuspješno otkazivanje termina"
       this.alertClosed = false
-      this.alert.setAlertTime();
+      this.alert.setAlertTimeError();
     })
   }
 
   closeAlert(event: any) {
     this.alertClosed = event
+    location.replace("/scheduledAppointments")
+  }
+
+  closeDialog() {
+    this.activeModal.close()
+    if (this.canceled) {
+      location.replace("/scheduledAppointments")
+    }
   }
 
 

@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { ErrorAlertComponent } from '../../error-alert/error-alert.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -44,7 +45,7 @@ export class RegistrationComponent {
     confirmPassword: new FormControl('', Validators.required),
   })
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.submitted = false;
@@ -74,11 +75,11 @@ export class RegistrationComponent {
       this.userService.register(data).subscribe((response: any) => {
         this.message = "Uspješna registracija"
         this.alertClosed = false
-        this.alert.setAlertTime();
+        this.alert.setAlertTime('/login');
       }, error => {
         this.message = "Neuspješna registracija"
         this.alertClosed = false
-        this.alert.setAlertTime();
+        this.alert.setAlertTimeError();
       })
 
     }

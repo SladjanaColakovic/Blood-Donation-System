@@ -61,11 +61,11 @@ export class CenterInfoEditComponent {
         this.emitCenterChanged.emit(this.center);
         this.message = "Uspješno ažuriranje podataka"
         this.alertClosed = false
-        this.alert.setAlertTime();
+        this.alert.setAlertTime('/editCenter');
       }, error => {
         this.message = "Neuspješno ažuriranje podataka"
         this.alertClosed = false
-        this.alert.setAlertTime();
+        this.alert.setAlertTimeError();
       })
     }
   }

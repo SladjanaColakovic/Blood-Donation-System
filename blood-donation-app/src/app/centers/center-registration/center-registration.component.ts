@@ -10,9 +10,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class CenterRegistrationComponent {
 
-  url: any;
-  public selectedFile
-
   centerName: string
   centerEmail: string
   centerAddress: string
@@ -71,27 +68,6 @@ export class CenterRegistrationComponent {
     this.submitted = false;
   }
 
-  selectFile(event: any) {
-    this.selectedFile = event.target.files[0];
-    if (!event.target.files[0] || event.target.files[0].length == 0) {
-      return;
-    }
-
-    var mimeType = event.target.files[0].type;
-
-    if (mimeType.match(/image\/*/) == null) {
-      return;
-    }
-
-    var reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]);
-
-    reader.onload = (_event) => {
-
-      this.url = reader.result;
-    }
-  }
-
   register() {
     this.submitted = true;
     if (this.centerRegistrationForm.valid) {
@@ -121,16 +97,14 @@ export class CenterRegistrationComponent {
         }
       }
 
-      /*const formData = new FormData();
-      formData.append("center", new Blob([JSON.stringify(data)], { type: "application/json" }))
-      formData.append("image", this.selectedFile, this.selectedFile.name);*/
-
       this.centerService.register(data).subscribe((response: any) => {
-        console.log(response)
+        this.message = "Uspješna registracija centra"
+        this.alertClosed = false
+        this.alert.setAlertTime('/centers');
       }, error => {
         this.message = "Neuspješna registracija centra"
         this.alertClosed = false
-        this.alert.setAlertTime();
+        this.alert.setAlertTimeError();
       })
 
     }

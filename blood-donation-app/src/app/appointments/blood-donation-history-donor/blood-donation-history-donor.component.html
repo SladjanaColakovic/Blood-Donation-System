@@ -10,9 +10,14 @@
             Istorija posjeta centrima je prazna...
         </p>
     </div>
+    <div *ngIf="noSearchResults">
+        <p class="emptyResult">
+            Nema rezultata pretrage...
+        </p>
+    </div>
     <div class="margin-div">
         <div class="table-div">
-            <table id="history" *ngIf="!emptyResult">
+            <table id="history" *ngIf="!emptyResult && !noSearchResults">
                 <tr>
                     <th>Centar
                         <svg (click)="sort('center', 'ascending')" xmlns="http://www.w3.org/2000/svg" height="1em"
