@@ -26,3 +26,9 @@
     cursor: pointer;
     border-radius: 5px;
 }
+
+.canceledAppointment {
+    text-align: center;
+    color: #9d4d4d;
+    font-size: 20px;
+}

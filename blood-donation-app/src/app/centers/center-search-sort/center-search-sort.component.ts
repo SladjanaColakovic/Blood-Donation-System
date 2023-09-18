@@ -27,42 +27,43 @@ export class CenterSearchSortComponent {
   @ViewChild(ErrorAlertComponent) alert: ErrorAlertComponent;
   alertClosed = true;
 
-  constructor(private centerService: CenterService, private authService: AuthService){
+  constructor(private centerService: CenterService, private authService: AuthService) {
     this.role = authService.getRole();
   }
 
   searchFreeCenters() {
     this.centerService.getFreeCenters(this.searchDate, this.center, this.address, this.sortBy, this.sortDirection).subscribe((response: any) => {
       this.centers = response;
-      console.log(this.centers)
       this.emitCenters.emit(this.centers)
-      if(this.centers.length == 0){
+      if (this.centers.length == 0) {
         this.emitEmptyResult.emit(true)
+      } else {
+        this.emitEmptyResult.emit(false)
       }
-      this.emitEmptyResult.emit(false)
       this.emitDateTime.emit(this.searchDate)
     }, error => {
       this.message = "Neuspješno pretraživanje slobodnih centara za odabrani datum"
       this.alertClosed = false
-      this.alert.setAlertTime();
+      this.alert.setAlertTimeError();
     })
   }
 
-  sort(sortBy: any, sortDirection: any){
+  sort(sortBy: any, sortDirection: any) {
     this.sortBy = sortBy;
     this.sortDirection = sortDirection;
     this.centerService.getFreeCenters(this.searchDate, this.center, this.address, this.sortBy, this.sortDirection).subscribe((response: any) => {
       this.centers = response;
       this.emitCenters.emit(this.centers)
-      if(this.centers.length == 0){
+      if (this.centers.length == 0) {
         this.emitEmptyResult.emit(true)
+      } else {
+        this.emitEmptyResult.emit(false)
       }
-      this.emitEmptyResult.emit(false)
       this.emitDateTime.emit(this.searchDate)
     }, error => {
       this.message = "Neuspješno pretraživanje slobodnih centara za odabrani datum"
       this.alertClosed = false
-      this.alert.setAlertTime();
+      this.alert.setAlertTimeError();
     })
 
   }

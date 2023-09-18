@@ -6,6 +6,7 @@ import com.example.blooddonationsystem.model.User;
 import com.example.blooddonationsystem.security.util.TokenUtils;
 import com.example.blooddonationsystem.service.AuthenticationService;
 import com.example.blooddonationsystem.service.UserService;
+import com.example.blooddonationsystem.validation.AuthenticationValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,14 +27,12 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
     private UserService userService;
     @Override
     public LoginResponse login(LoginRequest loginRequest) {
+        if(AuthenticationValidation.isLoginInvalid(loginRequest)){
+            return null;
+        }
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.getUsername(), loginRequest.getPassword()));
 
-        // Ukoliko je autentifikacija uspesna, ubaci korisnika u trenutni security
-        // kontekst
-
-
-        // Kreiraj token za tog korisnika
         User user = userService.findByUsername(loginRequest.getUsername());
         String jwt = tokenUtils.generateToken(user);
         int expiresIn = tokenUtils.getExpiredIn();

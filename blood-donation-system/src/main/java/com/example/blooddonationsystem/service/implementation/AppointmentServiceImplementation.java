@@ -10,6 +10,7 @@ import com.example.blooddonationsystem.repository.AppointmentRepository;
 import com.example.blooddonationsystem.service.AppointmentService;
 import com.example.blooddonationsystem.service.BloodCenterService;
 import com.example.blooddonationsystem.service.UserService;
+import com.example.blooddonationsystem.validation.AppointmentValidation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -38,9 +39,17 @@ public class AppointmentServiceImplementation implements AppointmentService {
 
     @Override
     public Appointment schedule(AppointmentDTO newAppointment) {
-
+        if(AppointmentValidation.isNewAppointmnetInvalid(newAppointment)){
+            return null;
+        }
         BloodCenter center = bloodCenterService.getById(newAppointment.getCenterId());
+        if(center == null){
+            return null;
+        }
         User donor = userService.findByUsername(newAppointment.getDonorUsername());
+        if(donor == null){
+            return null;
+        }
         Set<Appointment> existingAppointments = center.getAppointments();
         int overlappingAppointments = countOverlappingAppointments(existingAppointments, newAppointment);
         if (overlappingAppointments >= center.getCapacity()) {
@@ -56,7 +65,13 @@ public class AppointmentServiceImplementation implements AppointmentService {
 
     @Override
     public List<DonorAppointmentResponseDTO> getDonorAppointments(String donorUsername) {
+        if(AppointmentValidation.isGetAppointmentsInvalid(donorUsername)){
+            return null;
+        }
         User donor = userService.findByUsername(donorUsername);
+        if(donor == null){
+            return null;
+        }
         List<DonorAppointmentResponseDTO> appointments = appointmentRepository
                 .getPassedAppointments(donor, LocalDateTime.now()).stream()
                 .map(appointment -> modelMapper.map(appointment, DonorAppointmentResponseDTO.class))
@@ -66,7 +81,13 @@ public class AppointmentServiceImplementation implements AppointmentService {
 
     @Override
     public List<ManagerAppointmentResponseDTO> getBloodCenterAppointments(String managerUsername) {
+        if(AppointmentValidation.isGetAppointmentsInvalid(managerUsername)){
+            return null;
+        }
         BloodCenter center = bloodCenterService.getManagerBloodCenter(managerUsername);
+        if(center == null){
+            return null;
+        }
         List<ManagerAppointmentResponseDTO> appointments = appointmentRepository
                 .findByCenter(center)
                 .stream()
@@ -77,7 +98,13 @@ public class AppointmentServiceImplementation implements AppointmentService {
 
     @Override
     public List<DonorAppointmentResponseDTO> getNotPassedAppointments(String donorUsername) {
+        if(AppointmentValidation.isGetAppointmentsInvalid(donorUsername)){
+            return null;
+        }
         User donor = userService.findByUsername(donorUsername);
+        if(donor == null){
+            return null;
+        }
         return appointmentRepository
                 .getNotPassedAppointments(donor, LocalDateTime.now())
                 .stream()
@@ -87,7 +114,13 @@ public class AppointmentServiceImplementation implements AppointmentService {
 
     @Override
     public Boolean cancel(Long id) {
+        if(AppointmentValidation.isCancelInvalid(id)){
+            return false;
+        }
         Appointment appointment = appointmentRepository.findById(id).get();
+        if(appointment == null){
+            return false;
+        }
         if (appointment.getStartDateTime().minusHours(24).compareTo(LocalDateTime.now()) >= 0) {
             appointmentRepository.deleteById(id);
             return true;
@@ -98,10 +131,14 @@ public class AppointmentServiceImplementation implements AppointmentService {
 
     @Override
     public List<DonorAppointmentResponseDTO> sortDonorAppointments(String donorUsername, String sortBy, String sortDirection, String searchText, LocalDate searchDate) {
+        if(AppointmentValidation.isSortDonorAppointmentsInvalid(sortBy, sortDirection, donorUsername)){
+            return null;
+        }
         User donor = userService.findByUsername(donorUsername);
+        if(donor == null){
+            return null;
+        }
         List<Appointment> passedAppointments = new ArrayList<>();
-
-
         if (sortBy.equals("center")) {
             if (sortDirection.equals("ascending")) {
                 passedAppointments = appointmentRepository.getDonorAppointments(Sort.by(Sort.Direction.ASC, "center.name"), donor, LocalDateTime.now(), searchText, (searchDate != null)? searchDate.atStartOfDay(): null, (searchDate != null)? searchDate.plusDays(1).atStartOfDay(): null);

@@ -32,7 +32,7 @@ export class LoginComponent {
       error => {
         this.message = "Neispravno korisničko ime i lozinka"
         this.alertClosed = false
-        this.alert.setAlertTime();
+        this.alert.setAlertTimeError();
       });
 
   }

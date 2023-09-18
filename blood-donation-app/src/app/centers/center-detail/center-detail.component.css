@@ -23,10 +23,6 @@ h2 {
     height: auto;
 }
 
-h5 {
-    margin-top: 20px;
-}
-
 .image:hover {
     opacity: 0.8;
 }

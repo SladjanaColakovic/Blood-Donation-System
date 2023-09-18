@@ -2,6 +2,8 @@ package com.example.blooddonationsystem.controller;
 
 import ch.qos.logback.core.boolex.EvaluationException;
 import com.example.blooddonationsystem.dto.AppointmentDTO;
+import com.example.blooddonationsystem.dto.DonorAppointmentResponseDTO;
+import com.example.blooddonationsystem.dto.ManagerAppointmentResponseDTO;
 import com.example.blooddonationsystem.model.Appointment;
 import com.example.blooddonationsystem.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/appointment")
@@ -32,19 +35,31 @@ public class AppointmentController {
     @GetMapping("/donor/{donorUsername}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getDonorAppointments(@PathVariable String donorUsername){
-        return new ResponseEntity<>(appointmentService.getDonorAppointments(donorUsername), HttpStatus.OK);
+        List<DonorAppointmentResponseDTO> donorAppointments = appointmentService.getDonorAppointments(donorUsername);
+        if(donorAppointments == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(donorAppointments, HttpStatus.OK);
     }
 
     @GetMapping("/manager/{managerUsername}")
     @PreAuthorize("hasRole('MANAGER')")
     public ResponseEntity<?> getBloodCenterAppointments(@PathVariable  String managerUsername){
-        return  new ResponseEntity<>(appointmentService.getBloodCenterAppointments(managerUsername), HttpStatus.OK);
+        List<ManagerAppointmentResponseDTO> appointments = appointmentService.getBloodCenterAppointments(managerUsername);
+        if(appointments == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return  new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
     @GetMapping("/notPassed/{donorUsername}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getNotPassedAppointments(@PathVariable String donorUsername){
-        return  new ResponseEntity<>(appointmentService.getNotPassedAppointments(donorUsername), HttpStatus.OK);
+        List<DonorAppointmentResponseDTO> appointments = appointmentService.getNotPassedAppointments(donorUsername);
+        if(appointments == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return  new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -63,6 +78,10 @@ public class AppointmentController {
                                                    @RequestParam("donorUsername") String donorUsername,
                                                    @RequestParam(value = "searchText", required = false) String searchText,
                                                    @RequestParam(value = "searchDate", required = false) LocalDate searchDate){
-        return new ResponseEntity<>(appointmentService.sortDonorAppointments(donorUsername, sortBy, sortDirection, searchText, searchDate), HttpStatus.OK);
+        List<DonorAppointmentResponseDTO> donorAppointments = appointmentService.sortDonorAppointments(donorUsername, sortBy, sortDirection, searchText, searchDate);
+        if(donorAppointments == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(donorAppointments, HttpStatus.OK);
     }
 }

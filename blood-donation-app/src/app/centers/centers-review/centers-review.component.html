@@ -14,7 +14,7 @@
                 <div class="box">
                     <div class="row">
                         <div class="col-5">
-                            <img class="image" [src]="'data:image/jpeg;base64,' + center.image.data">
+                            <img class="image" [src]="(center.image != null)? 'data:image/jpeg;base64,' + center.image.data : 'assets/no_image.jpg'">
                         </div>
                         <div class="col-7">
                             <h4>{{center.name}}</h4>

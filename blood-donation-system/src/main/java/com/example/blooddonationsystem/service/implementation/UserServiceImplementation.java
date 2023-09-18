@@ -5,6 +5,7 @@ import com.example.blooddonationsystem.dto.UserDTO;
 import com.example.blooddonationsystem.model.User;
 import com.example.blooddonationsystem.repository.UserRepository;
 import com.example.blooddonationsystem.service.UserService;
+import com.example.blooddonationsystem.validation.UserValidation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,14 +29,13 @@ public class UserServiceImplementation implements UserService {
     @Override
     public User register(UserDTO userDTO) {
 
-        User existUser = userRepository.findByUsername(userDTO.getUsername());
-        if(existUser != null){
-            return  null;
-        }
-        if(!userDTO.getPassword().equals(userDTO.getConfirmPassword())){
+        if(UserValidation.isNewUserInvalid(userDTO)){
             return null;
         }
-
+        User existUser = userRepository.findByUsername(userDTO.getUsername());
+        if(existUser != null) {
+            return null;
+        }
         User user = modelMapper.map(userDTO, User.class);
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         return userRepository.save(user);
@@ -43,42 +43,18 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User edit(EditUserDTO editUserDTO) {
+        if(UserValidation.isEditUserInvalid(editUserDTO)){
+            return null;
+        }
         User user = userRepository.findByUsername(editUserDTO.getUsername());
-
         if(user == null){
             return null;
         }
-
-        /*if(!editUserDTO.getPassword().equals(editUserDTO.getConfirmPassword())){
-            return null;
-        }*/
-
-        User editedUser = editChangedUserInfo(user, editUserDTO);
-        return userRepository.save(editedUser);
+        user.setAddress(editUserDTO.getAddress());
+        user.setCity(editUserDTO.getCity());
+        user.setCountry(editUserDTO.getCountry());
+        user.setPhoneNumber(editUserDTO.getPhoneNumber());
+        return userRepository.save(user);
     }
 
-    private User editChangedUserInfo(User destination, EditUserDTO source){
-
-        if(source.getAddress() != null && !source.getAddress().isBlank()){
-            destination.setAddress(source.getAddress());
-        }
-
-        if(source.getCity() != null && !source.getCity().isBlank()){
-            destination.setCity(source.getCity());
-        }
-
-        if(source.getCountry() != null && !source.getCountry().isBlank()){
-            destination.setCountry(source.getCountry());
-        }
-
-        if(source.getPhoneNumber() != null && !source.getPhoneNumber().isBlank()){
-            destination.setPhoneNumber(source.getPhoneNumber());
-        }
-
-        if(source.getPassword() != null && !source.getPassword().isBlank()){
-            destination.setPassword(passwordEncoder.encode(source.getPassword()));
-        }
-
-        return destination;
-    }
 }
