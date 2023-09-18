@@ -1,6 +1,7 @@
 package com.example.blooddonationsystem.controller;
 
 import com.example.blooddonationsystem.dto.LoginRequest;
+import com.example.blooddonationsystem.dto.LoginResponse;
 import com.example.blooddonationsystem.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,10 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
-        System.out.println(loginRequest.getPassword());
-        return new ResponseEntity<>(authenticationService.login(loginRequest), HttpStatus.OK);
+        LoginResponse loginResponse = authenticationService.login(loginRequest);
+        if(loginResponse == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(loginResponse, HttpStatus.OK);
     }
 }

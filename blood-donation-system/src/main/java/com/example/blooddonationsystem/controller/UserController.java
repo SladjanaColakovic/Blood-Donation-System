@@ -4,6 +4,7 @@ import com.example.blooddonationsystem.dto.EditUserDTO;
 import com.example.blooddonationsystem.dto.UserDTO;
 import com.example.blooddonationsystem.model.User;
 import com.example.blooddonationsystem.service.UserService;
+import com.example.blooddonationsystem.validation.UserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,21 +27,12 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    @GetMapping("/user")
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> userFunc(){
-        return new ResponseEntity<>("User func", HttpStatus.OK);
-    }
-
-    @GetMapping("/admin")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> adminFunc(){
-        return new ResponseEntity<>("Admin func", HttpStatus.OK);
-    }
-
     @GetMapping("/current/{username}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MANAGER')")
     public ResponseEntity<?> current(@PathVariable String username){
+        if(UserValidation.isCurrentUserInvalid(username)){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
     }
 
