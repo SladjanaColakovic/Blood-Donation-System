@@ -11,17 +11,53 @@ export class CenterProfileComponent {
 
   center: any = {} as any;
 
-  constructor(private centerService: CenterService, private authService: AuthService){}
+  url: any;
+  public selectedFile
 
-  ngOnInit(){
+  constructor(private centerService: CenterService, private authService: AuthService) { }
+
+  ngOnInit() {
     let username = this.authService.getUser();
     this.centerService.getManagerCenter(username).subscribe((response: any) => {
       this.center = response;
     })
   }
 
-  centerChanged(newCenter: any){
+  centerChanged(newCenter: any) {
     this.center = newCenter
   }
+
+
+  changeImage(event: any) {
+    this.selectedFile = event.target.files[0];
+    if (!event.target.files[0] || event.target.files[0].length == 0) {
+      return;
+    }
+
+    var mimeType = event.target.files[0].type;
+
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+
+    reader.onload = (_event) => {
+
+      this.url = reader.result;
+    }
+
+    const formData = new FormData();
+
+    formData.append("centerId", new Blob([JSON.stringify(this.center.id)], { type: "application/json" }));
+    formData.append("image", this.selectedFile, this.selectedFile.name);
+
+    this.centerService.changeImage(formData).subscribe((response: any) => {
+      this.center = response;
+    })
+
+  }
+
 
 }

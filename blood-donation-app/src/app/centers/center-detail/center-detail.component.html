@@ -3,7 +3,7 @@
     <div style="margin: 40px;" class="row">
         <div class="col-6">
             <div class="box">
-                <img class="image" [src]="'data:image/jpeg;base64,' + center.image.data" alt="Centar">
+                <img class="image" [src]="(center.image != null)? 'data:image/jpeg;base64,' + center.image.data : 'assets/no_image.jpg'" alt="Centar">
             </div>
         </div>
         <div class="col-6">

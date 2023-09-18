@@ -13,7 +13,7 @@ import { HomePageComponent } from './homepage/home-page/home-page.component';
 import { BloodDonationInformationComponent } from './homepage/blood-donation-information/blood-donation-information.component';
 import { BloodDonationGaleryComponent } from './homepage/blood-donation-galery/blood-donation-galery.component';
 import { LoginComponent } from './user/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { ErrorAlertComponent } from './error-alert/error-alert.component';
 import { CenterRegistrationComponent } from './centers/center-registration/center-registration.component';
@@ -62,6 +62,7 @@ import { CenterSearchSortComponent } from './centers/center-search-sort/center-s
     AppRoutingModule,
     NgbModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],

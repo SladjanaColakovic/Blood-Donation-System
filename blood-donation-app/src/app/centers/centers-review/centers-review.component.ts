@@ -31,6 +31,7 @@ export class CentersReviewComponent {
     this.role = this.authService.getRole();
     this.centerService.getAll().subscribe((response: any) => {
       this.centers = response;
+      console.log(this.centers)
       if (this.centers.length == 0) {
         this.emptyResult = true;
       }

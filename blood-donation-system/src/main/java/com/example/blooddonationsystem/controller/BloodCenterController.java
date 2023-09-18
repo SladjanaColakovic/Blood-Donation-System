@@ -23,9 +23,19 @@ public class BloodCenterController {
 
     @PostMapping(value = "/add")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> addNewCenter(@RequestPart("center") BloodCenterDTO newCenter,
+    /*public ResponseEntity<?> addNewCenter(@RequestPart("center") BloodCenterDTO newCenter,
                                           @RequestPart("image") MultipartFile image){
         return new ResponseEntity<>(bloodCenterService.addNewCenter(newCenter, image), HttpStatus.OK);
+    }*/
+    public ResponseEntity<?> addNewCenter(@RequestBody BloodCenterDTO newCenter){
+        return new ResponseEntity<>(bloodCenterService.addNewCenter(newCenter), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/image")
+    @PreAuthorize("hasRole('MANAGER')")
+    public ResponseEntity<?> changeImage(@RequestPart("centerId") Long centerId,
+                                          @RequestPart("image") MultipartFile image){
+        return new ResponseEntity<>(bloodCenterService.changeImage(centerId, image), HttpStatus.OK);
     }
 
     @GetMapping("/{managerUsername}")

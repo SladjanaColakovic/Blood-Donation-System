@@ -1,4 +1,4 @@
-input[type=text] {
+input{
     width: 100%;
     padding: 9px;
     border: 1px solid #ccc;
@@ -52,4 +52,13 @@ button:hover {
     .col-6 {
         width: 100%;
     }
+}
+
+.is-invalid {
+    border: 1px solid #ee4f4f;
+}
+
+span {
+    font-size: 14px;
+    color: #ee4f4f;
 }

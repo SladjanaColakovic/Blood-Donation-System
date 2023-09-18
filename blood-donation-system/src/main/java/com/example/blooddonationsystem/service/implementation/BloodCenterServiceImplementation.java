@@ -33,7 +33,7 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
 
     @Autowired
     private UserService userService;
-    @Override
+   /* @Override
     public BloodCenter addNewCenter(BloodCenterDTO newCenter, MultipartFile image)  {
         BloodCenter center = modelMapper.map(newCenter, BloodCenter.class);
         User manager = userService.register(newCenter.getManager());
@@ -46,6 +46,28 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
         }
         center.setImage(centerImage);
         center.setManager(manager);
+        return bloodCenterRepository.save(center);
+    }*/
+
+    @Override
+    public BloodCenter addNewCenter(BloodCenterDTO newCenter) {
+        BloodCenter center = modelMapper.map(newCenter, BloodCenter.class);
+        User manager = userService.register(newCenter.getManager());
+        center.setManager(manager);
+        return bloodCenterRepository.save(center);
+    }
+
+    @Override
+    public BloodCenter changeImage(Long centerId, MultipartFile image) {
+        BloodCenter center = bloodCenterRepository.findById(centerId).get();
+        Image centerImage = new Image();
+        try {
+            centerImage = new Image(image.getOriginalFilename(), image.getContentType(), image.getBytes());
+        }
+        catch (IOException ex){
+            ex.printStackTrace();
+        }
+        center.setImage(centerImage);
         return bloodCenterRepository.save(center);
     }
 

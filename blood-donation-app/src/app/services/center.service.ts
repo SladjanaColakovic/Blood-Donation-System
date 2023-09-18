@@ -19,8 +19,16 @@ export class CenterService {
 
   constructor(private http: HttpClient) { }
 
-  public register(data: FormData){
+  /*public register(data: FormData){
     return this.http.post(this.baseURL + "/add", data,  this.getAuthoHeader())
+  }*/
+
+  public register(data: any){
+    return this.http.post(this.baseURL + "/add", data, this.getAuthoHeader());
+  }
+
+  public changeImage(data: FormData){
+    return this.http.put(this.baseURL + "/image", data, this.getAuthoHeader());
   }
 
   public getAll(){

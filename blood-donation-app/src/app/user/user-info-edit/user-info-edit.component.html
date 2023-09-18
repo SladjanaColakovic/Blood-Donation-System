@@ -1,36 +1,55 @@
-<div class="row space">
-    <div class="col-6">
-        <label>Adresa stanovanja:</label>
+<form [formGroup]="editForm">
+    <div class="row space">
+        <div class="col-6">
+            <label>Adresa stanovanja:</label>
+        </div>
+        <div class="col-6">
+            <input class="editable-info" name="address" required="required" formControlName="address"
+                [(ngModel)]="user.address" [ngClass]="{'is-invalid': submitted && editForm.controls.address.errors}">
+            <span *ngIf="submitted && editForm.controls.address.errors">
+                Invalid input
+            </span>
+        </div>
     </div>
-    <div class="col-6">
-        <input class="editable-info" type="text" [(ngModel)]="user.address">
+    <div class="row space">
+        <div class="col-6">
+            <label>Grad:</label>
+        </div>
+        <div class="col-6">
+            <input class="editable-info" name="city" required="required" formControlName="city" [(ngModel)]="user.city"
+                [ngClass]="{'is-invalid': submitted && editForm.controls.city.errors}">
+            <span *ngIf="submitted && editForm.controls.city.errors">
+                Invalid input
+            </span>
+        </div>
     </div>
-</div>
-<div class="row space">
-    <div class="col-6">
-        <label>Grad:</label>
+    <div class="row space">
+        <div class="col-6">
+            <label>Država:</label>
+        </div>
+        <div class="col-6">
+            <input class="editable-info" name="country" required="required" formControlName="country"
+                [(ngModel)]="user.country" [ngClass]="{'is-invalid': submitted && editForm.controls.country.errors}">
+            <span *ngIf="submitted && editForm.controls.country.errors">
+                Invalid input
+            </span>
+        </div>
     </div>
-    <div class="col-6">
-        <input class="editable-info" type="text" [(ngModel)]="user.city">
+    <div class="row space">
+        <div class="col-6">
+            <label>Broj telefona:</label>
+        </div>
+        <div class="col-6">
+            <input class="editable-info" name="phone" required="required" formControlName="phone"
+                [(ngModel)]="user.phoneNumber" [ngClass]="{'is-invalid': submitted && editForm.controls.phone.errors}">
+            <span *ngIf="submitted && editForm.controls.phone.errors">
+                Invalid input
+            </span>
+        </div>
     </div>
-</div>
-<div class="row space">
-    <div class="col-6">
-        <label>Država:</label>
+    <div class="row space">
+        <button (click)="editUserInfo()">Ažuriraj</button>
     </div>
-    <div class="col-6">
-        <input class="editable-info" type="text" [(ngModel)]="user.country">
-    </div>
-</div>
-<div class="row space">
-    <div class="col-6">
-        <label>Broj telefona:</label>
-    </div>
-    <div class="col-6">
-        <input class="editable-info" type="text" [(ngModel)]="user.phoneNumber">
-    </div>
-</div>
-<div class="row space">
-    <button (click)="editUserInfo()">Ažuriraj</button>
-</div>
-<app-error-alert (emitAlertClosed)="closeAlert($event)" [message]="message" [alertClosed]="alertClosed"></app-error-alert>
+</form>
+<app-error-alert (emitAlertClosed)="closeAlert($event)" [message]="message"
+    [alertClosed]="alertClosed"></app-error-alert>
