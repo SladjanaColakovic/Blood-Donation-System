@@ -17,14 +17,14 @@ const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
-  { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard], data: { role: 'USER' } },
+  { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard], data: { role: 'DONOR' } },
   { path: 'centers', component: CentersReviewComponent },
   { path: 'center/:id', component: CenterDetailComponent },
   { path: 'centerRegistration', component: CenterRegistrationComponent, canActivate: [AuthGuard], data: { role: 'ADMIN' } },
   { path: 'editCenter', component: CenterProfileComponent, canActivate: [AuthGuard], data: { role: 'MANAGER' } },
-  { path: 'scheduledAppointments', component: ScheduledAppointmentsDonorComponent, canActivate: [AuthGuard], data: { role: 'USER' } },
-  { path: 'history', component: BloodDonationHistoryDonorComponent, canActivate: [AuthGuard], data: { role: 'USER' } },
-  { path: 'appointmentsHistory', component: BloodDonationHistoryManagerComponent }
+  { path: 'scheduledAppointments', component: ScheduledAppointmentsDonorComponent, canActivate: [AuthGuard], data: { role: 'DONOR' } },
+  { path: 'history', component: BloodDonationHistoryDonorComponent, canActivate: [AuthGuard], data: { role: 'DONOR' } },
+  { path: 'appointmentsHistory', component: BloodDonationHistoryManagerComponent, canActivate: [AuthGuard], data: { role: 'MANAGER' } }
 
 ];
 

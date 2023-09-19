@@ -5,16 +5,13 @@ import com.example.blooddonationsystem.security.auth.TokenAuthenticationFilter;
 import com.example.blooddonationsystem.security.helper.CustomAccessDeniedHandler;
 import com.example.blooddonationsystem.security.util.TokenUtils;
 import com.example.blooddonationsystem.service.implementation.CustomUserDetailsService;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -39,7 +36,6 @@ public class WebSecurityConfig {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -78,9 +74,9 @@ public class WebSecurityConfig {
                 .authenticationProvider(authenticationProvider())
 
                 .exceptionHandling(ex -> ex
-                    .authenticationEntryPoint(restAuthenticationEntryPoint)
-                    .accessDeniedHandler(customAccessDeniedHandler))
-                .addFilterBefore(new TokenAuthenticationFilter(tokenUtils,  userDetailsService()), UsernamePasswordAuthenticationFilter.class);
+                        .authenticationEntryPoint(restAuthenticationEntryPoint)
+                        .accessDeniedHandler(customAccessDeniedHandler))
+                .addFilterBefore(new TokenAuthenticationFilter(tokenUtils, userDetailsService()), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -91,7 +87,7 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/auth/login")
                 .requestMatchers(HttpMethod.POST, "api/user/register")
                 .requestMatchers(HttpMethod.GET, "api/center/all")
-                .requestMatchers(HttpMethod.GET, "api/center/free")
+                .requestMatchers(HttpMethod.GET, "api/center/searchSort")
                 .requestMatchers(HttpMethod.GET, "api/center/info/{id}");
     }
 

@@ -70,7 +70,7 @@ export class RegistrationComponent {
         phoneNumber: this.phone,
         password: this.password,
         confirmPassword: this.confirmPassword,
-        role: "USER"
+        role: "DONOR"
       }
       this.userService.register(data).subscribe((response: any) => {
         this.message = "Uspješna registracija"

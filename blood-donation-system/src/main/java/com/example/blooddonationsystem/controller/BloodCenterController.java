@@ -4,16 +4,13 @@ import com.example.blooddonationsystem.dto.BloodCenterDTO;
 import com.example.blooddonationsystem.dto.EditBloodCenterDTO;
 import com.example.blooddonationsystem.model.BloodCenter;
 import com.example.blooddonationsystem.service.BloodCenterService;
-import com.example.blooddonationsystem.validation.BloodCenterValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,20 +23,20 @@ public class BloodCenterController {
 
     @PostMapping(value = "/add")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> addNewCenter(@RequestBody BloodCenterDTO newCenter){
-        BloodCenter bloodCenter = bloodCenterService.addNewCenter(newCenter);
-        if(bloodCenter == null){
+    public ResponseEntity<?> add(@RequestBody BloodCenterDTO newCenter) {
+        BloodCenter registeredCenter = bloodCenterService.add(newCenter);
+        if (registeredCenter == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(bloodCenter, HttpStatus.OK);
+        return new ResponseEntity<>(registeredCenter, HttpStatus.OK);
     }
 
     @PutMapping(value = "/image")
     @PreAuthorize("hasRole('MANAGER')")
     public ResponseEntity<?> changeImage(@RequestPart("centerId") Long centerId,
-                                          @RequestPart("image") MultipartFile image){
+                                         @RequestPart("image") MultipartFile image) {
         BloodCenter center = bloodCenterService.changeImage(centerId, image);
-        if(center == null){
+        if (center == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(center, HttpStatus.OK);
@@ -47,43 +44,48 @@ public class BloodCenterController {
 
     @GetMapping("/{managerUsername}")
     @PreAuthorize("hasRole('MANAGER')")
-    public ResponseEntity<?> getManagerBloodCenter(@PathVariable String managerUsername){
+    public ResponseEntity<?> getManagerBloodCenter(@PathVariable String managerUsername) {
         BloodCenter managerBloodCenter = bloodCenterService.getManagerBloodCenter(managerUsername);
-        if(managerBloodCenter == null){
+        if (managerBloodCenter == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(managerBloodCenter, HttpStatus.OK);
     }
+
     @PutMapping("/edit")
     @PreAuthorize("hasRole('MANAGER')")
-    public ResponseEntity<?> editCenter(@RequestBody EditBloodCenterDTO editBloodCenterDTO){
-        return new ResponseEntity<>(bloodCenterService.edit(editBloodCenterDTO), HttpStatus.OK);
+    public ResponseEntity<?> edit(@RequestBody EditBloodCenterDTO centerEdit) {
+        BloodCenter editingCenter = bloodCenterService.edit(centerEdit);
+        if (editingCenter == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(editingCenter, HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<?> getAll(){
+    public ResponseEntity<?> getAll() {
         return new ResponseEntity<>(bloodCenterService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/info/{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id){
+    public ResponseEntity<?> getById(@PathVariable Long id) {
         BloodCenter center = bloodCenterService.getById(id);
-        if(center == null){
+        if (center == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(center, HttpStatus.OK);
     }
 
-    @GetMapping("/free")
+    @GetMapping("/searchSort")
     public ResponseEntity<?> getFreeBloodCenters(@RequestParam("sortBy") String sortBy,
                                                  @RequestParam("sortDirection") String sortDirection,
                                                  @RequestParam(value = "dateTime", required = false) LocalDateTime dateTime,
                                                  @RequestParam(value = "center", required = false) String center,
-                                                 @RequestParam(value = "address", required = false) String address){
-        List<BloodCenter> freeCenters = bloodCenterService.getFreeBloodCenters(sortBy, sortDirection, dateTime, center, address);
-        if(freeCenters == null){
+                                                 @RequestParam(value = "address", required = false) String address) {
+        List<BloodCenter> bloodCenters = bloodCenterService.searchAndSortCenters(sortBy, sortDirection, dateTime, center, address);
+        if (bloodCenters == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(freeCenters, HttpStatus.OK);
+        return new ResponseEntity<>(bloodCenters, HttpStatus.OK);
     }
 }

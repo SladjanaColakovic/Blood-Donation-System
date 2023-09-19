@@ -1,8 +1,9 @@
 <div *ngIf="!canceled" class="modal-body">
     <p> Datum: {{event.start | date: 'short'}}</p>
     <p>Trajanje: 30 min</p>
-    <p>Centar: {{event.meta.centerName}}</p>
-    <p>Adresa: {{event.meta.centerAddress}}</p>
+    <p *ngIf="isDonor">Centar: {{event.meta.centerName}}</p>
+    <p *ngIf="isDonor">Adresa: {{event.meta.centerAddress}}</p>
+    <p *ngIf="!isDonor">Donor: {{event.meta.donor}}</p>
 </div>
 <div class="modal-body">
     <p *ngIf="canceled" class="canceledAppointment">Termin je otkazan</p>

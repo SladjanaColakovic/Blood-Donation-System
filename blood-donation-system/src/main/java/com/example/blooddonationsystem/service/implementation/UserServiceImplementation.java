@@ -8,6 +8,8 @@ import com.example.blooddonationsystem.service.UserService;
 import com.example.blooddonationsystem.validation.UserValidation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,14 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        if(UserValidation.isCurrentUserInvalid(username)){
+            return null;
+        }
+        User user = userRepository.findByUsername(username);
+        if(user == null){
+            return null;
+        }
+        return user;
     }
 
     @Override

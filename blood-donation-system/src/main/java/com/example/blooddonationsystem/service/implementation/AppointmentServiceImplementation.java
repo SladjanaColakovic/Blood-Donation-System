@@ -39,7 +39,7 @@ public class AppointmentServiceImplementation implements AppointmentService {
 
     @Override
     public Appointment schedule(AppointmentDTO newAppointment) {
-        if(AppointmentValidation.isNewAppointmnetInvalid(newAppointment)){
+        if(AppointmentValidation.isNewAppointmentInvalid(newAppointment)){
             return null;
         }
         BloodCenter center = bloodCenterService.getById(newAppointment.getCenterId());
@@ -64,7 +64,7 @@ public class AppointmentServiceImplementation implements AppointmentService {
     }
 
     @Override
-    public List<DonorAppointmentResponseDTO> getDonorAppointments(String donorUsername) {
+    public List<DonorAppointmentResponseDTO> getPassedDonorAppointments(String donorUsername) {
         if(AppointmentValidation.isGetAppointmentsInvalid(donorUsername)){
             return null;
         }
@@ -130,8 +130,8 @@ public class AppointmentServiceImplementation implements AppointmentService {
     }
 
     @Override
-    public List<DonorAppointmentResponseDTO> sortDonorAppointments(String donorUsername, String sortBy, String sortDirection, String searchText, LocalDate searchDate) {
-        if(AppointmentValidation.isSortDonorAppointmentsInvalid(sortBy, sortDirection, donorUsername)){
+    public List<DonorAppointmentResponseDTO> searchAndSortDonorAppointments(String donorUsername, String sortBy, String sortDirection, String searchText, LocalDate searchDate) {
+        if(AppointmentValidation.isSearchAndSortDonorAppointmentsInvalid(sortBy, sortDirection, donorUsername)){
             return null;
         }
         User donor = userService.findByUsername(donorUsername);

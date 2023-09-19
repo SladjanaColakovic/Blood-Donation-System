@@ -27,8 +27,8 @@
                 <a *ngIf = "!isLoggedIn()" href="/registration">Registruj se</a>
                 <a *ngIf = "isLoggedIn() && getRole() == 'ADMIN'" href="/centerRegistration">Registracija centra</a>
                 <a *ngIf = "isLoggedIn() && getRole() == 'MANAGER'" href="/editCenter">Moj centar</a>
-                <a *ngIf = "isLoggedIn() && getRole() == 'USER'" href="/scheduledAppointments">Zakazani termini</a>
-                <a *ngIf = "isLoggedIn() && getRole() == 'USER'" href="/history">Istorija posjeta</a>
+                <a *ngIf = "isLoggedIn() && getRole() == 'DONOR'" href="/scheduledAppointments">Zakazani termini</a>
+                <a *ngIf = "isLoggedIn() && getRole() == 'DONOR'" href="/history">Istorija posjeta</a>
                 <a *ngIf = "isLoggedIn() && getRole() == 'MANAGER'" href="/appointmentsHistory">Pregled posjeta</a>
                 <a *ngIf = "isLoggedIn()" href="/profile">Profil</a>
                 <a href="#" (click) = "logout()" *ngIf="isLoggedIn()">Odjava</a>
@@ -41,8 +41,8 @@
         <li *ngIf = "isLoggedIn() && getRole() == 'ADMIN'" class="menu-li"><a href="/centerRegistration">Registracija centra</a></li>
         <li *ngIf = "isLoggedIn() && getRole() == 'MANAGER'" class="menu-li"><a href="/editCenter">Moj centar</a></li>
         <li *ngIf = "isLoggedIn() && getRole() == 'MANAGER'" class="menu-li"><a href="/appointmentsHistory">Pregled posjeta</a></li>
-        <li *ngIf = "isLoggedIn() && getRole() == 'USER'" class="menu-li"><a href="/scheduledAppointments">Zakazani termini</a></li>
-        <li *ngIf = "isLoggedIn() && getRole() == 'USER'" class="menu-li"><a href="/history">Istorija posjeta</a></li>
+        <li *ngIf = "isLoggedIn() && getRole() == 'DONOR'" class="menu-li"><a href="/scheduledAppointments">Zakazani termini</a></li>
+        <li *ngIf = "isLoggedIn() && getRole() == 'DONOR'" class="menu-li"><a href="/history">Istorija posjeta</a></li>
         <li class="menu-li"><a href="/centers">Centri</a></li>
         <li class="menu-li"><a href="/">Početna</a></li>
     </ul>

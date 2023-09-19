@@ -24,7 +24,7 @@ export class ScheduledAppointmentDetailComponent {
   constructor(public activeModal: NgbActiveModal, private authService: AuthService, private appointmentService: AppointmentService, private router: Router) { }
 
   ngOnInit() {
-    if (this.authService.getRole() === 'USER') {
+    if (this.authService.getRole() === 'DONOR') {
       this.isDonor = true;
     }
   }

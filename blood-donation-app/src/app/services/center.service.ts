@@ -19,10 +19,6 @@ export class CenterService {
 
   constructor(private http: HttpClient) { }
 
-  /*public register(data: FormData){
-    return this.http.post(this.baseURL + "/add", data,  this.getAuthoHeader())
-  }*/
-
   public register(data: any){
     return this.http.post(this.baseURL + "/add", data, this.getAuthoHeader());
   }
@@ -55,9 +51,8 @@ export class CenterService {
     .append("address", address)
     .append("sortBy", sortBy)
     .append("sortDirection", sortDirection);
-    //const headers = new HttpHeaders().set('Authorization' , 'Bearer ' + localStorage.getItem("token"));
-    const options = { params: params, /*headers: headers*/ };
-    return this.http.get(this.baseURL + "/free", options);
+    const options = { params: params};
+    return this.http.get(this.baseURL + "/searchSort", options);
   }
  
 }

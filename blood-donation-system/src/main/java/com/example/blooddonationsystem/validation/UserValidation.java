@@ -2,14 +2,13 @@ package com.example.blooddonationsystem.validation;
 
 import com.example.blooddonationsystem.dto.EditUserDTO;
 import com.example.blooddonationsystem.dto.UserDTO;
-import com.example.blooddonationsystem.enumeration.Gender;
 import com.example.blooddonationsystem.enumeration.Role;
 
 import java.util.regex.Pattern;
 
 public class UserValidation {
 
-    public static boolean isNewUserInvalid(UserDTO newUser){
+    public static boolean isNewUserInvalid(UserDTO newUser) {
 
         return (newUser.getUsername() == null || newUser.getUsername().equals("") ||
                 !Pattern.compile("^(.+)@(\\S+)$").matcher(newUser.getUsername()).matches() ||
@@ -25,18 +24,19 @@ public class UserValidation {
                 newUser.getCountry() == null || newUser.getCountry().equals("") ||
                 newUser.getPhoneNumber() == null || newUser.getPhoneNumber().equals("") ||
                 !Pattern.compile("^[0-9]+$").matcher(newUser.getPhoneNumber()).matches() ||
-                ((newUser.getRole().equals(Role.USER))? (newUser.getJmbg() == null || newUser.getJmbg().equals("")): false) ||
-                ((newUser.getRole().equals(Role.USER))? !Pattern.compile("^[0-9]{13,13}$").matcher(newUser.getJmbg()).matches(): false )||
+                ((newUser.getRole().equals(Role.DONOR)) ? (newUser.getJmbg() == null || newUser.getJmbg().equals("")) : false) ||
+                ((newUser.getRole().equals(Role.DONOR)) ? !Pattern.compile("^[0-9]{13,13}$").matcher(newUser.getJmbg()).matches() : false) ||
                 newUser.getGender() == null || newUser.getRole() == null ||
                 !newUser.getPassword().equals(newUser.getConfirmPassword())
 
         );
     }
-    public static boolean isCurrentUserInvalid(String username){
+
+    public static boolean isCurrentUserInvalid(String username) {
         return (username == null || username.equals(""));
     }
 
-    public static boolean isEditUserInvalid(EditUserDTO editUser){
+    public static boolean isEditUserInvalid(EditUserDTO editUser) {
 
         return (editUser.getUsername() == null || editUser.getUsername().equals("") ||
                 editUser.getAddress() == null || editUser.getAddress().equals("") ||

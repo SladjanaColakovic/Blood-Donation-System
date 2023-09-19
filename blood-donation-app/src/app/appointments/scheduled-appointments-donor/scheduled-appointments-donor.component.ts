@@ -46,7 +46,7 @@ export class ScheduledAppointmentsDonorComponent {
         color: { ...colors['red'] },
         meta: {
           centerName: appointment.center.name,
-          centerAddress: appointment.center.address + ", " + appointment.center.city + ", " + appointment.center.country
+          centerAddress: appointment.center.address + ", " + appointment.center.city + ", " + appointment.center.country,
         }
       }
       this.events.push(event)

@@ -1,6 +1,5 @@
 package com.example.blooddonationsystem.service.implementation;
 
-import com.example.blooddonationsystem.dto.AppointmentDTO;
 import com.example.blooddonationsystem.dto.BloodCenterDTO;
 import com.example.blooddonationsystem.dto.EditBloodCenterDTO;
 import com.example.blooddonationsystem.model.Appointment;
@@ -36,7 +35,7 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
     private UserService userService;
 
     @Override
-    public BloodCenter addNewCenter(BloodCenterDTO newCenter) {
+    public BloodCenter add(BloodCenterDTO newCenter) {
         if (BloodCenterValidation.isNewCenterInvalid(newCenter)) {
             return null;
         }
@@ -123,8 +122,8 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
     }
 
     @Override
-    public List<BloodCenter> getFreeBloodCenters(String sortBy, String sortDirection, LocalDateTime dateTime, String center, String address) {
-        if(BloodCenterValidation.isGetFreeBloodCentersInvalid(sortBy, sortDirection)){
+    public List<BloodCenter> searchAndSortCenters(String sortBy, String sortDirection, LocalDateTime dateTime, String center, String address) {
+        if(BloodCenterValidation.isSearchAndSortBloodCentersInvalid(sortBy, sortDirection)){
             return null;
         }
         List<BloodCenter> centers = new ArrayList<>();
