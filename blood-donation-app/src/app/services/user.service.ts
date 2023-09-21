@@ -31,5 +31,9 @@ export class UserService {
   public edit(data: any){
     return this.http.put(this.baseURL + "/edit", data, this.getAuthoHeader());
   }
+
+  public changePassword(data: any){
+    return this.http.put(this.baseURL + "/changePassword", data, this.getAuthoHeader());
+  }
   
 }

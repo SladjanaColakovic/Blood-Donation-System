@@ -1,5 +1,6 @@
 package com.example.blooddonationsystem.controller;
 
+import com.example.blooddonationsystem.dto.ChangePasswordDTO;
 import com.example.blooddonationsystem.dto.EditUserDTO;
 import com.example.blooddonationsystem.dto.UserDTO;
 import com.example.blooddonationsystem.model.User;
@@ -44,6 +45,16 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(editingUser, HttpStatus.OK);
+    }
+
+    @PutMapping("/changePassword")
+    @PreAuthorize("hasAnyRole('DONOR', 'ADMIN', 'MANAGER')")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDTO changePassword){
+        User user = userService.changePassword(changePassword);
+        if(user == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 

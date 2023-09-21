@@ -82,7 +82,7 @@ public class BloodCenterController {
                                                  @RequestParam(value = "dateTime", required = false) LocalDateTime dateTime,
                                                  @RequestParam(value = "center", required = false) String center,
                                                  @RequestParam(value = "address", required = false) String address) {
-        List<BloodCenter> bloodCenters = bloodCenterService.searchAndSortCenters(sortBy, sortDirection, dateTime, center, address);
+        List<BloodCenter> bloodCenters = bloodCenterService.searchAndSortFreeCenters(sortBy, sortDirection, dateTime, center, address);
         if (bloodCenters == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

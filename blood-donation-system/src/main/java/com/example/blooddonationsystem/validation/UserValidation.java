@@ -1,5 +1,6 @@
 package com.example.blooddonationsystem.validation;
 
+import com.example.blooddonationsystem.dto.ChangePasswordDTO;
 import com.example.blooddonationsystem.dto.EditUserDTO;
 import com.example.blooddonationsystem.dto.UserDTO;
 import com.example.blooddonationsystem.enumeration.Role;
@@ -44,6 +45,14 @@ public class UserValidation {
                 editUser.getCountry() == null || editUser.getCountry().equals("") ||
                 editUser.getPhoneNumber() == null || editUser.getPhoneNumber().equals("") ||
                 !Pattern.compile("^[0-9]+$").matcher(editUser.getPhoneNumber()).matches()
+        );
+    }
+
+    public static boolean isChangePasswordInvalid(ChangePasswordDTO changePassword) {
+        return (changePassword.getPassword() == null || changePassword.getPassword().equals("") ||
+                changePassword.getConfirmPassword() == null || changePassword.getConfirmPassword().equals("") ||
+                changePassword.getUsername() == null || changePassword.getUsername().equals("") ||
+                !changePassword.getPassword().equals(changePassword.getConfirmPassword())
         );
     }
 }

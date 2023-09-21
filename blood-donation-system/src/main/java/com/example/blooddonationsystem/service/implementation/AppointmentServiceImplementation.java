@@ -39,15 +39,15 @@ public class AppointmentServiceImplementation implements AppointmentService {
 
     @Override
     public Appointment schedule(AppointmentDTO newAppointment) {
-        if(AppointmentValidation.isNewAppointmentInvalid(newAppointment)){
+        if (AppointmentValidation.isNewAppointmentInvalid(newAppointment)) {
             return null;
         }
         BloodCenter center = bloodCenterService.getById(newAppointment.getCenterId());
-        if(center == null){
+        if (center == null) {
             return null;
         }
         User donor = userService.findByUsername(newAppointment.getDonorUsername());
-        if(donor == null){
+        if (donor == null) {
             return null;
         }
         Set<Appointment> existingAppointments = center.getAppointments();
@@ -65,44 +65,42 @@ public class AppointmentServiceImplementation implements AppointmentService {
 
     @Override
     public List<DonorAppointmentResponseDTO> getPassedDonorAppointments(String donorUsername) {
-        if(AppointmentValidation.isGetAppointmentsInvalid(donorUsername)){
+        if (AppointmentValidation.isGetAppointmentsInvalid(donorUsername)) {
             return null;
         }
         User donor = userService.findByUsername(donorUsername);
-        if(donor == null){
+        if (donor == null) {
             return null;
         }
-        List<DonorAppointmentResponseDTO> appointments = appointmentRepository
+        return appointmentRepository
                 .getPassedAppointments(donor, LocalDateTime.now()).stream()
                 .map(appointment -> modelMapper.map(appointment, DonorAppointmentResponseDTO.class))
                 .toList();
-        return appointments;
     }
 
     @Override
     public List<ManagerAppointmentResponseDTO> getBloodCenterAppointments(String managerUsername) {
-        if(AppointmentValidation.isGetAppointmentsInvalid(managerUsername)){
+        if (AppointmentValidation.isGetAppointmentsInvalid(managerUsername)) {
             return null;
         }
         BloodCenter center = bloodCenterService.getManagerBloodCenter(managerUsername);
-        if(center == null){
+        if (center == null) {
             return null;
         }
-        List<ManagerAppointmentResponseDTO> appointments = appointmentRepository
+        return appointmentRepository
                 .findByCenter(center)
                 .stream()
                 .map(appointment -> modelMapper.map(appointment, ManagerAppointmentResponseDTO.class))
                 .toList();
-        return appointments;
     }
 
     @Override
     public List<DonorAppointmentResponseDTO> getNotPassedAppointments(String donorUsername) {
-        if(AppointmentValidation.isGetAppointmentsInvalid(donorUsername)){
+        if (AppointmentValidation.isGetAppointmentsInvalid(donorUsername)) {
             return null;
         }
         User donor = userService.findByUsername(donorUsername);
-        if(donor == null){
+        if (donor == null) {
             return null;
         }
         return appointmentRepository
@@ -114,11 +112,11 @@ public class AppointmentServiceImplementation implements AppointmentService {
 
     @Override
     public Boolean cancel(Long id) {
-        if(AppointmentValidation.isCancelInvalid(id)){
+        if (AppointmentValidation.isCancelInvalid(id)) {
             return false;
         }
-        Appointment appointment = appointmentRepository.findById(id).get();
-        if(appointment == null){
+        Appointment appointment = appointmentRepository.findById(id).orElse(null);
+        if (appointment == null) {
             return false;
         }
         if (appointment.getStartDateTime().minusHours(24).compareTo(LocalDateTime.now()) >= 0) {
@@ -131,45 +129,38 @@ public class AppointmentServiceImplementation implements AppointmentService {
 
     @Override
     public List<DonorAppointmentResponseDTO> searchAndSortDonorAppointments(String donorUsername, String sortBy, String sortDirection, String searchText, LocalDate searchDate) {
-        if(AppointmentValidation.isSearchAndSortDonorAppointmentsInvalid(sortBy, sortDirection, donorUsername)){
+        if (AppointmentValidation.isSearchAndSortDonorAppointmentsInvalid(sortBy, sortDirection, donorUsername)) {
             return null;
         }
         User donor = userService.findByUsername(donorUsername);
-        if(donor == null){
+        if (donor == null) {
             return null;
         }
         List<Appointment> passedAppointments = new ArrayList<>();
-        if (sortBy.equals("center")) {
-            if (sortDirection.equals("ascending")) {
-                passedAppointments = appointmentRepository.getDonorAppointments(Sort.by(Sort.Direction.ASC, "center.name"), donor, LocalDateTime.now(), searchText, (searchDate != null)? searchDate.atStartOfDay(): null, (searchDate != null)? searchDate.plusDays(1).atStartOfDay(): null);
-            }
-            if (sortDirection.equals("descending")) {
-                passedAppointments = appointmentRepository.getDonorAppointments(Sort.by(Sort.Direction.DESC, "center.name"), donor, LocalDateTime.now(), searchText,  (searchDate != null)? searchDate.atStartOfDay(): null, (searchDate != null)? searchDate.plusDays(1).atStartOfDay(): null);
-            }
+        if (sortBy.equals("center") && sortDirection.equals("ascending")) {
+            passedAppointments = appointmentRepository.getDonorAppointments(Sort.by(Sort.Direction.ASC, "center.name"), donor, LocalDateTime.now(), searchText, (searchDate != null) ? searchDate.atStartOfDay() : null, (searchDate != null) ? searchDate.plusDays(1).atStartOfDay() : null);
         }
-        if (sortBy.equals("address")) {
-            if (sortDirection.equals("ascending")) {
-                passedAppointments = appointmentRepository
-                        .getDonorAppointments(Sort.by(Sort.Direction.ASC, "center.address")
-                                .and(Sort.by(Sort.Direction.ASC, "center.city")
-                                        .and(Sort.by(Sort.Direction.ASC, "center.country"))), donor, LocalDateTime.now(), searchText,  (searchDate != null)? searchDate.atStartOfDay(): null, (searchDate != null)? searchDate.plusDays(1).atStartOfDay(): null);
-            }
-            if (sortDirection.equals("descending")) {
-                passedAppointments = appointmentRepository
-                        .getDonorAppointments(Sort.by(Sort.Direction.DESC, "center.address")
-                                .and(Sort.by(Sort.Direction.DESC, "center.city")
-                                        .and(Sort.by(Sort.Direction.DESC, "center.country"))), donor, LocalDateTime.now(), searchText,  (searchDate != null)? searchDate.atStartOfDay(): null, (searchDate != null)? searchDate.plusDays(1).atStartOfDay(): null);
-            }
+        if (sortBy.equals("center") && sortDirection.equals("descending")) {
+            passedAppointments = appointmentRepository.getDonorAppointments(Sort.by(Sort.Direction.DESC, "center.name"), donor, LocalDateTime.now(), searchText, (searchDate != null) ? searchDate.atStartOfDay() : null, (searchDate != null) ? searchDate.plusDays(1).atStartOfDay() : null);
         }
-        if (sortBy.equals("date")) {
-            if (sortDirection.equals("ascending")) {
-                passedAppointments = appointmentRepository.getDonorAppointments(Sort.by(Sort.Direction.ASC, "startDateTime"), donor, LocalDateTime.now(), searchText, (searchDate != null)? searchDate.atStartOfDay(): null, (searchDate != null)? searchDate.plusDays(1).atStartOfDay(): null);
-            }
-            if (sortDirection.equals("descending")) {
-                passedAppointments = appointmentRepository.getDonorAppointments(Sort.by(Sort.Direction.DESC, "startDateTime"), donor, LocalDateTime.now(), searchText, (searchDate != null)? searchDate.atStartOfDay(): null, (searchDate != null)? searchDate.plusDays(1).atStartOfDay(): null);
-            }
+        if (sortBy.equals("address") && sortDirection.equals("ascending")) {
+            passedAppointments = appointmentRepository
+                    .getDonorAppointments(Sort.by(Sort.Direction.ASC, "center.address")
+                            .and(Sort.by(Sort.Direction.ASC, "center.city")
+                                    .and(Sort.by(Sort.Direction.ASC, "center.country"))), donor, LocalDateTime.now(), searchText, (searchDate != null) ? searchDate.atStartOfDay() : null, (searchDate != null) ? searchDate.plusDays(1).atStartOfDay() : null);
         }
-
+        if (sortBy.equals("address") && sortDirection.equals("descending")) {
+            passedAppointments = appointmentRepository
+                    .getDonorAppointments(Sort.by(Sort.Direction.DESC, "center.address")
+                            .and(Sort.by(Sort.Direction.DESC, "center.city")
+                                    .and(Sort.by(Sort.Direction.DESC, "center.country"))), donor, LocalDateTime.now(), searchText, (searchDate != null) ? searchDate.atStartOfDay() : null, (searchDate != null) ? searchDate.plusDays(1).atStartOfDay() : null);
+        }
+        if (sortBy.equals("date") && sortDirection.equals("ascending")) {
+            passedAppointments = appointmentRepository.getDonorAppointments(Sort.by(Sort.Direction.ASC, "startDateTime"), donor, LocalDateTime.now(), searchText, (searchDate != null) ? searchDate.atStartOfDay() : null, (searchDate != null) ? searchDate.plusDays(1).atStartOfDay() : null);
+        }
+        if (sortBy.equals("date") && sortDirection.equals("descending")) {
+            passedAppointments = appointmentRepository.getDonorAppointments(Sort.by(Sort.Direction.DESC, "startDateTime"), donor, LocalDateTime.now(), searchText, (searchDate != null) ? searchDate.atStartOfDay() : null, (searchDate != null) ? searchDate.plusDays(1).atStartOfDay() : null);
+        }
 
         return passedAppointments
                 .stream()
@@ -187,15 +178,8 @@ public class AppointmentServiceImplementation implements AppointmentService {
         return overlappingAppointments;
     }
 
-    private Boolean isOverlapping(LocalDateTime existingAppointment, LocalDateTime newAppointmnet) {
-        if ((newAppointmnet.isBefore(existingAppointment.plusMinutes(30))
-                || newAppointmnet.isEqual(existingAppointment.plusMinutes(30))
-        ) &&
-                (existingAppointment.isBefore(newAppointmnet.plusMinutes(30))
-                        || existingAppointment.isEqual(newAppointmnet.plusMinutes(30))
-                )) {
-            return true;
-        }
-        return false;
+    private Boolean isOverlapping(LocalDateTime existingAppointment, LocalDateTime newAppointment) {
+        return (newAppointment.isBefore(existingAppointment.plusMinutes(30)) &&
+                existingAppointment.isBefore(newAppointment.plusMinutes(30)));
     }
 }

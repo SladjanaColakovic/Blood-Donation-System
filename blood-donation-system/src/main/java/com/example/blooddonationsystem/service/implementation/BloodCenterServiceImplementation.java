@@ -116,7 +116,7 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
     }
 
     @Override
-    public List<BloodCenter> searchAndSortCenters(String sortBy, String sortDirection, LocalDateTime dateTime, String center, String address) {
+    public List<BloodCenter> searchAndSortFreeCenters(String sortBy, String sortDirection, LocalDateTime dateTime, String center, String address) {
         if (BloodCenterValidation.isSearchAndSortBloodCentersInvalid(sortBy, sortDirection)) {
             return null;
         }

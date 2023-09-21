@@ -1,5 +1,6 @@
 package com.example.blooddonationsystem.service.implementation;
 
+import com.example.blooddonationsystem.dto.ChangePasswordDTO;
 import com.example.blooddonationsystem.dto.EditUserDTO;
 import com.example.blooddonationsystem.dto.UserDTO;
 import com.example.blooddonationsystem.model.User;
@@ -61,6 +62,19 @@ public class UserServiceImplementation implements UserService {
         user.setCity(editUserDTO.getCity());
         user.setCountry(editUserDTO.getCountry());
         user.setPhoneNumber(editUserDTO.getPhoneNumber());
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User changePassword(ChangePasswordDTO changePassword) {
+        if (UserValidation.isChangePasswordInvalid(changePassword)) {
+            return null;
+        }
+        User user = userRepository.findByUsername(changePassword.getUsername());
+        if (user == null) {
+            return null;
+        }
+        user.setPassword(passwordEncoder.encode(changePassword.getPassword()));
         return userRepository.save(user);
     }
 
