@@ -8,8 +8,6 @@ import com.example.blooddonationsystem.service.UserService;
 import com.example.blooddonationsystem.validation.UserValidation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +23,11 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        if(UserValidation.isCurrentUserInvalid(username)){
+        if (UserValidation.isCurrentUserInvalid(username)) {
             return null;
         }
         User user = userRepository.findByUsername(username);
-        if(user == null){
+        if (user == null) {
             return null;
         }
         return user;
@@ -38,11 +36,11 @@ public class UserServiceImplementation implements UserService {
     @Override
     public User register(UserDTO userDTO) {
 
-        if(UserValidation.isNewUserInvalid(userDTO)){
+        if (UserValidation.isNewUserInvalid(userDTO)) {
             return null;
         }
         User existUser = userRepository.findByUsername(userDTO.getUsername());
-        if(existUser != null) {
+        if (existUser != null) {
             return null;
         }
         User user = modelMapper.map(userDTO, User.class);
@@ -52,11 +50,11 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User edit(EditUserDTO editUserDTO) {
-        if(UserValidation.isEditUserInvalid(editUserDTO)){
+        if (UserValidation.isEditUserInvalid(editUserDTO)) {
             return null;
         }
         User user = userRepository.findByUsername(editUserDTO.getUsername());
-        if(user == null){
+        if (user == null) {
             return null;
         }
         user.setAddress(editUserDTO.getAddress());

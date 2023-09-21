@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,6 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
         BloodCenter center = modelMapper.map(newCenter, BloodCenter.class);
         User manager = userService.register(newCenter.getManager());
         if (manager == null) {
-            System.out.println("Ok");
             return null;
         }
         center.setManager(manager);
@@ -54,15 +54,15 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
         if (BloodCenterValidation.isChangeImageInvalid(centerId, image)) {
             return null;
         }
-        BloodCenter center = bloodCenterRepository.findById(centerId).get();
+        BloodCenter center = bloodCenterRepository.findById(centerId).orElse(null);
         if (center == null) {
             return null;
         }
-        Image centerImage = new Image();
+        Image centerImage;
         try {
             centerImage = new Image(image.getOriginalFilename(), image.getContentType(), image.getBytes());
         } catch (IOException ex) {
-            ex.printStackTrace();
+            return null;
         }
         center.setImage(centerImage);
         return bloodCenterRepository.save(center);
@@ -85,11 +85,10 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
         if (BloodCenterValidation.isEditCenterInvalid(editBloodCenterDTO)) {
             return null;
         }
-        BloodCenter center = bloodCenterRepository.findById(editBloodCenterDTO.getId()).get();
+        BloodCenter center = bloodCenterRepository.findById(editBloodCenterDTO.getId()).orElse(null);
         if (center == null) {
             return null;
         }
-
         center.setName(editBloodCenterDTO.getName());
         center.setEmail(editBloodCenterDTO.getEmail());
         center.setAddress(editBloodCenterDTO.getAddress());
@@ -100,7 +99,6 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
         center.setWorkingTimeFrom(editBloodCenterDTO.getWorkingTimeFrom());
         center.setWorkingTimeTo(editBloodCenterDTO.getWorkingTimeTo());
         center.setCapacity(editBloodCenterDTO.getCapacity());
-
         return bloodCenterRepository.save(center);
     }
 
@@ -114,55 +112,65 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
         if (BloodCenterValidation.isGetByIdInvalid(id)) {
             return null;
         }
-        BloodCenter center = bloodCenterRepository.findById(id).get();
-        if (center == null) {
-            return null;
-        }
-        return center;
+        return bloodCenterRepository.findById(id).orElse(null);
     }
 
     @Override
     public List<BloodCenter> searchAndSortCenters(String sortBy, String sortDirection, LocalDateTime dateTime, String center, String address) {
-        if(BloodCenterValidation.isSearchAndSortBloodCentersInvalid(sortBy, sortDirection)){
+        if (BloodCenterValidation.isSearchAndSortBloodCentersInvalid(sortBy, sortDirection)) {
             return null;
         }
-        List<BloodCenter> centers = new ArrayList<>();
-        if (sortBy.equals("center")) {
-            if (sortDirection.equals("ascending")) {
-                centers = bloodCenterRepository.searchBloodCenters(center, address, Sort.by(Sort.Direction.ASC, "name"));
-            } else {
-                centers = bloodCenterRepository.searchBloodCenters(center, address, Sort.by(Sort.Direction.DESC, "name"));
-            }
+        List<BloodCenter> centers = searchAndSort(center, address, sortBy, sortDirection);
+        if (centers == null) {
+            return null;
         }
-        if (sortBy.equals("address")) {
-            if (sortDirection.equals("ascending")) {
-                centers = bloodCenterRepository.searchBloodCenters(center, address, Sort.by(Sort.Direction.ASC, "address")
-                        .and(Sort.by(Sort.Direction.ASC, "city")
-                                .and(Sort.by(Sort.Direction.ASC, "country"))));
-            } else {
-                centers = bloodCenterRepository.searchBloodCenters(center, address, Sort.by(Sort.Direction.DESC, "address")
-                        .and(Sort.by(Sort.Direction.DESC, "city")
-                                .and(Sort.by(Sort.Direction.DESC, "country"))));
-            }
+        if (dateTime == null) {
+            return centers;
         }
-        if (dateTime != null) {
-            List<BloodCenter> freeBloodCenters = new ArrayList<>();
-            for (BloodCenter bloodCenter : centers) {
+        if (dateTime.getDayOfWeek().equals(DayOfWeek.SATURDAY) || dateTime.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+            return new ArrayList<>();
+        }
+        List<BloodCenter> freeBloodCenters = new ArrayList<>();
+        for (BloodCenter bloodCenter : centers) {
+            if (isDuringWorkingHours(dateTime, bloodCenter)) {
+
                 int overlappingAppointments = countOverlappingAppointments(bloodCenter.getAppointments(), dateTime);
-                if (!isCapacityExceed(bloodCenter.getCapacity(), overlappingAppointments)) {
+                if (!isCapacityExceeded(bloodCenter.getCapacity(), overlappingAppointments)) {
                     freeBloodCenters.add(bloodCenter);
                 }
             }
-            return freeBloodCenters;
+
         }
-        return centers;
+        return freeBloodCenters;
     }
 
-    private Boolean isCapacityExceed(int allowedCapacity, int overlappingAppointments) {
-        if (overlappingAppointments >= allowedCapacity) {
-            return true;
+    private boolean isDuringWorkingHours(LocalDateTime checking, BloodCenter center) {
+        return (checking.getHour() >= center.getWorkingTimeFrom() && checking.plusMinutes(30).getHour() <= center.getWorkingTimeTo());
+    }
+
+    private List<BloodCenter> searchAndSort(String center, String address, String sortBy, String sortDirection) {
+
+        if (sortBy.equals("center") && sortDirection.equals("ascending")) {
+            return bloodCenterRepository.searchBloodCenters(center, address, Sort.by(Sort.Direction.ASC, "name"));
         }
-        return false;
+        if (sortBy.equals("center") && sortDirection.equals("descending")) {
+            return bloodCenterRepository.searchBloodCenters(center, address, Sort.by(Sort.Direction.DESC, "name"));
+        }
+        if (sortBy.equals("address") && sortDirection.equals("ascending")) {
+            return bloodCenterRepository.searchBloodCenters(center, address, Sort.by(Sort.Direction.ASC, "address")
+                    .and(Sort.by(Sort.Direction.ASC, "city")
+                            .and(Sort.by(Sort.Direction.ASC, "country"))));
+        }
+        if (sortBy.equals("address") && sortDirection.equals("descending")) {
+            return bloodCenterRepository.searchBloodCenters(center, address, Sort.by(Sort.Direction.DESC, "address")
+                    .and(Sort.by(Sort.Direction.DESC, "city")
+                            .and(Sort.by(Sort.Direction.DESC, "country"))));
+        }
+        return null;
+    }
+
+    private Boolean isCapacityExceeded(int allowedCapacity, int overlappingAppointments) {
+        return overlappingAppointments >= allowedCapacity;
     }
 
     private int countOverlappingAppointments(Set<Appointment> existingAppointments, LocalDateTime newAppointmentTime) {
@@ -175,49 +183,9 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
         return overlappingAppointments;
     }
 
-    private Boolean isOverlapping(LocalDateTime existingAppointment, LocalDateTime newAppointmnet) {
-        if ((newAppointmnet.isBefore(existingAppointment.plusMinutes(30))
-                || newAppointmnet.isEqual(existingAppointment.plusMinutes(30))
-        ) &&
-                (existingAppointment.isBefore(newAppointmnet.plusMinutes(30))
-                        || existingAppointment.isEqual(newAppointmnet.plusMinutes(30))
-                )) {
-            return true;
-        }
-        return false;
+    private Boolean isOverlapping(LocalDateTime existingAppointment, LocalDateTime newAppointment) {
+        return (newAppointment.isBefore(existingAppointment.plusMinutes(30)) &&
+                existingAppointment.isBefore(newAppointment.plusMinutes(30)));
     }
 
-    /*private BloodCenter editChangedCenterInfo(BloodCenter center, EditBloodCenterDTO editBloodCenterDTO){
-        if(editBloodCenterDTO.getName() != null && !editBloodCenterDTO.getName().isBlank()){
-            center.setName(editBloodCenterDTO.getName());
-        }
-        if(editBloodCenterDTO.getEmail() != null && !editBloodCenterDTO.getEmail().isBlank()){
-            center.setEmail(editBloodCenterDTO.getEmail());
-        }
-        if(editBloodCenterDTO.getAddress() != null && !editBloodCenterDTO.getAddress().isBlank()){
-            center.setAddress(editBloodCenterDTO.getAddress());
-        }
-        if(editBloodCenterDTO.getCity() != null && !editBloodCenterDTO.getCity().isBlank()){
-            center.setCity(editBloodCenterDTO.getCity());
-        }
-        if(editBloodCenterDTO.getCountry() != null && !editBloodCenterDTO.getCountry().isBlank()){
-            center.setCountry(editBloodCenterDTO.getCountry());
-        }
-        if(editBloodCenterDTO.getPhoneNumber() != null && !editBloodCenterDTO.getPhoneNumber().isBlank()){
-            center.setPhoneNumber(editBloodCenterDTO.getPhoneNumber());
-        }
-        if(editBloodCenterDTO.getDescription() != null && !editBloodCenterDTO.getDescription().isBlank()){
-            center.setDescription(editBloodCenterDTO.getDescription());
-        }
-        if(editBloodCenterDTO.getWorkingTimeFrom() != 0){
-            center.setWorkingTimeFrom(editBloodCenterDTO.getWorkingTimeFrom());
-        }
-        if(editBloodCenterDTO.getWorkingTimeTo() != 0){
-            center.setWorkingTimeTo(editBloodCenterDTO.getWorkingTimeTo());
-        }
-        if(editBloodCenterDTO.getCapacity() != 0){
-            center.setCapacity(editBloodCenterDTO.getCapacity());
-        }
-        return center;
-    }*/
 }

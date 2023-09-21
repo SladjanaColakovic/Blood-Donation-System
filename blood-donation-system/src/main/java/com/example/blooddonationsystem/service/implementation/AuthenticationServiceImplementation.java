@@ -10,8 +10,6 @@ import com.example.blooddonationsystem.validation.AuthenticationValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,12 +23,13 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
 
     @Autowired
     private UserService userService;
+
     @Override
     public LoginResponse login(LoginRequest loginRequest) {
-        if(AuthenticationValidation.isLoginInvalid(loginRequest)){
+        if (AuthenticationValidation.isLoginInvalid(loginRequest)) {
             return null;
         }
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.getUsername(), loginRequest.getPassword()));
 
         User user = userService.findByUsername(loginRequest.getUsername());
