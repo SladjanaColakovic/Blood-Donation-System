@@ -56,5 +56,11 @@ export class ScheduledAppointmentDetailComponent {
     }
   }
 
+  isNot24HoursLater() {
+    if (this.event.start > new Date(new Date().getTime() + 1 * 86400 * 1000)) {
+      return true;
+    }
+    return false;
+  }
 
 }

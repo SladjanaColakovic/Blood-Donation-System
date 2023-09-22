@@ -2,12 +2,15 @@ package com.example.blooddonationsystem.validation;
 
 import com.example.blooddonationsystem.dto.AppointmentDTO;
 
+import java.time.LocalDateTime;
+
 public class AppointmentValidation {
-    public static boolean isNewAppointmentInvalid(AppointmentDTO newAppointment) {
+    public static boolean isScheduleAppointmentInvalid(AppointmentDTO newAppointment) {
         return (newAppointment.getCenterId() == null ||
                 newAppointment.getDonorUsername() == null ||
                 newAppointment.getDonorUsername().equals("") ||
-                newAppointment.getStartDateTime() == null
+                newAppointment.getStartDateTime() == null ||
+                newAppointment.getStartDateTime().compareTo(LocalDateTime.now()) < 0
         );
     }
 

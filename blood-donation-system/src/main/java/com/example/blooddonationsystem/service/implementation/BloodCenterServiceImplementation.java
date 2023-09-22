@@ -117,7 +117,7 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
 
     @Override
     public List<BloodCenter> searchAndSortFreeCenters(String sortBy, String sortDirection, LocalDateTime dateTime, String center, String address) {
-        if (BloodCenterValidation.isSearchAndSortBloodCentersInvalid(sortBy, sortDirection)) {
+        if (BloodCenterValidation.isSearchAndSortFreeBloodCentersInvalid(sortBy, sortDirection, dateTime)) {
             return null;
         }
         List<BloodCenter> centers = searchAndSort(center, address, sortBy, sortDirection);
@@ -126,6 +126,9 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
         }
         if (dateTime == null) {
             return centers;
+        }
+        if(dateTime != null && dateTime.compareTo(LocalDateTime.now()) < 0){
+            return new ArrayList<>();
         }
         if (dateTime.getDayOfWeek().equals(DayOfWeek.SATURDAY) || dateTime.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
             return new ArrayList<>();

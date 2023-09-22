@@ -15,7 +15,7 @@ import java.util.List;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
     public List<Appointment> findByCenter(BloodCenter centre);
-
+    public List<Appointment> findByDonor(User donor);
     @Query("select a from Appointment a where a.donor = :donor AND a.startDateTime > :now")
     public List<Appointment> getNotPassedAppointments(User donor, LocalDateTime now);
 

@@ -9,6 +9,6 @@
     <p *ngIf="canceled" class="canceledAppointment">Termin je otkazan</p>
 </div>
 <div class="modal-footer">
-    <button *ngIf="isDonor && !canceled" (click)="cancel()" class="cancel">Otkaži</button>
+    <button *ngIf="isDonor && !canceled && isNot24HoursLater()" (click)="cancel()" class="cancel">Otkaži</button>
     <button type="button" class="btn btn-outline-dark" (click)="closeDialog()">Zatvori</button>
 </div>

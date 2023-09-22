@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
-  { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard], data: { role: 'DONOR' } },
+  { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard], data: { role: 'DONOR|ADMIN|MANAGER' } },
   { path: 'centers', component: CentersReviewComponent },
   { path: 'center/:id', component: CenterDetailComponent },
   { path: 'centerRegistration', component: CenterRegistrationComponent, canActivate: [AuthGuard], data: { role: 'ADMIN' } },

@@ -14,8 +14,7 @@ h2 {
 
 }
 
-input[type=text],
-[type=password] {
+input {
     width: 100%;
     padding: 9px;
     border: 1px solid #ccc;
@@ -54,4 +53,13 @@ button {
 
 button:hover {
     background-color: #9d4d4d;
+}
+
+.is-invalid {
+    border: 1px solid #ee4f4f;
+}
+
+span {
+    font-size: 14px;
+    color: #ee4f4f;
 }

@@ -3,6 +3,7 @@ package com.example.blooddonationsystem.service.implementation;
 import com.example.blooddonationsystem.dto.AppointmentDTO;
 import com.example.blooddonationsystem.dto.DonorAppointmentResponseDTO;
 import com.example.blooddonationsystem.dto.ManagerAppointmentResponseDTO;
+import com.example.blooddonationsystem.enumeration.Gender;
 import com.example.blooddonationsystem.model.Appointment;
 import com.example.blooddonationsystem.model.BloodCenter;
 import com.example.blooddonationsystem.model.User;
@@ -39,15 +40,18 @@ public class AppointmentServiceImplementation implements AppointmentService {
 
     @Override
     public Appointment schedule(AppointmentDTO newAppointment) {
-        if (AppointmentValidation.isNewAppointmentInvalid(newAppointment)) {
+        if (AppointmentValidation.isScheduleAppointmentInvalid(newAppointment)) {
+            return null;
+        }
+        User donor = userService.findByUsername(newAppointment.getDonorUsername());
+        if (donor == null) {
             return null;
         }
         BloodCenter center = bloodCenterService.getById(newAppointment.getCenterId());
         if (center == null) {
             return null;
         }
-        User donor = userService.findByUsername(newAppointment.getDonorUsername());
-        if (donor == null) {
+        if(!isEligibleToDonateBlood(donor, newAppointment.getStartDateTime())){
             return null;
         }
         Set<Appointment> existingAppointments = center.getAppointments();
@@ -61,6 +65,30 @@ public class AppointmentServiceImplementation implements AppointmentService {
         appointment.setStartDateTime(newAppointment.getStartDateTime());
         appointment.setCanceled(false);
         return appointmentRepository.save(appointment);
+    }
+
+    private Boolean isEligibleToDonateBlood(User donor, LocalDateTime dateTime) {
+        List<Appointment> donorAppointments = appointmentRepository.findByDonor(donor);
+        for (Appointment appointment : donorAppointments) {
+            if (dateTime.toLocalDate().compareTo(appointment.getStartDateTime().toLocalDate()) > 0 && donor.getGender().equals(Gender.Female) &&
+                    dateTime.toLocalDate().minusMonths(4).compareTo(appointment.getStartDateTime().toLocalDate()) >= 0) {
+                continue;
+            }
+            if (dateTime.toLocalDate().compareTo(appointment.getStartDateTime().toLocalDate()) < 0 && donor.getGender().equals(Gender.Female) &&
+                    dateTime.toLocalDate().plusMonths(4).compareTo(appointment.getStartDateTime().toLocalDate()) <= 0) {
+                continue;
+            }
+            if (dateTime.toLocalDate().compareTo(appointment.getStartDateTime().toLocalDate()) > 0 && donor.getGender().equals(Gender.Male) &&
+                    dateTime.toLocalDate().minusMonths(3).compareTo(appointment.getStartDateTime().toLocalDate()) >= 0) {
+                continue;
+            }
+            if (dateTime.toLocalDate().compareTo(appointment.getStartDateTime().toLocalDate()) < 0 && donor.getGender().equals(Gender.Male) &&
+                    dateTime.toLocalDate().plusMonths(3).compareTo(appointment.getStartDateTime().toLocalDate()) <= 0) {
+                continue;
+            }
+            return false;
+        }
+        return true;
     }
 
     @Override

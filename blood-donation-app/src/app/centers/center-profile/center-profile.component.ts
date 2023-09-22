@@ -27,7 +27,6 @@ export class CenterProfileComponent {
     this.center = newCenter
   }
 
-
   changeImage(event: any) {
     this.selectedFile = event.target.files[0];
     if (!event.target.files[0] || event.target.files[0].length == 0) {

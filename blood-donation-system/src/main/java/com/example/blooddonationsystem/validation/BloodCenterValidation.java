@@ -4,6 +4,7 @@ import com.example.blooddonationsystem.dto.BloodCenterDTO;
 import com.example.blooddonationsystem.dto.EditBloodCenterDTO;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.regex.Pattern;
 
 public class BloodCenterValidation {
@@ -52,11 +53,12 @@ public class BloodCenterValidation {
         return centerId == null;
     }
 
-    public static boolean isSearchAndSortBloodCentersInvalid(String sortBy, String sortDirection) {
+    public static boolean isSearchAndSortFreeBloodCentersInvalid(String sortBy, String sortDirection, LocalDateTime dateTime) {
         return (sortBy == null || sortBy.equals("") ||
                 sortDirection == null || sortDirection.equals("") ||
                 !(sortBy.equals("center") || sortBy.equals("address")) ||
                 !(sortDirection.equals("ascending") || sortDirection.equals("descending"))
+
         );
     }
 }
