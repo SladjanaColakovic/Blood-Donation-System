@@ -77,7 +77,8 @@ export class RegistrationComponent {
         this.alertClosed = false
         this.alert.setAlertTime('/login');
       }, error => {
-        this.message = "Neuspješna registracija"
+        
+        this.message = error.error
         this.alertClosed = false
         this.alert.setAlertTimeError();
       })

@@ -3,6 +3,9 @@ package com.example.blooddonationsystem.service.implementation;
 import com.example.blooddonationsystem.dto.ChangePasswordDTO;
 import com.example.blooddonationsystem.dto.EditUserDTO;
 import com.example.blooddonationsystem.dto.UserDTO;
+import com.example.blooddonationsystem.exception.InvalidDataException;
+import com.example.blooddonationsystem.exception.UserEmailExistsException;
+import com.example.blooddonationsystem.exception.UserNotFoundException;
 import com.example.blooddonationsystem.model.User;
 import com.example.blooddonationsystem.repository.UserRepository;
 import com.example.blooddonationsystem.service.UserService;
@@ -25,11 +28,11 @@ public class UserServiceImplementation implements UserService {
     @Override
     public User findByUsername(String username) {
         if (UserValidation.isCurrentUserInvalid(username)) {
-            return null;
+            throw new InvalidDataException();
         }
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            return null;
+            throw new UserNotFoundException();
         }
         return user;
     }
@@ -38,11 +41,11 @@ public class UserServiceImplementation implements UserService {
     public User register(UserDTO userDTO) {
 
         if (UserValidation.isNewUserInvalid(userDTO)) {
-            return null;
+            throw new InvalidDataException();
         }
         User existUser = userRepository.findByUsername(userDTO.getUsername());
         if (existUser != null) {
-            return null;
+            throw new UserEmailExistsException();
         }
         User user = modelMapper.map(userDTO, User.class);
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
@@ -52,11 +55,11 @@ public class UserServiceImplementation implements UserService {
     @Override
     public User edit(EditUserDTO editUserDTO) {
         if (UserValidation.isEditUserInvalid(editUserDTO)) {
-            return null;
+            throw new InvalidDataException();
         }
         User user = userRepository.findByUsername(editUserDTO.getUsername());
         if (user == null) {
-            return null;
+            throw new UserNotFoundException();
         }
         user.setAddress(editUserDTO.getAddress());
         user.setCity(editUserDTO.getCity());
@@ -68,11 +71,11 @@ public class UserServiceImplementation implements UserService {
     @Override
     public User changePassword(ChangePasswordDTO changePassword) {
         if (UserValidation.isChangePasswordInvalid(changePassword)) {
-            return null;
+            throw new InvalidDataException();
         }
         User user = userRepository.findByUsername(changePassword.getUsername());
         if (user == null) {
-            return null;
+           throw new UserNotFoundException();
         }
         user.setPassword(passwordEncoder.encode(changePassword.getPassword()));
         return userRepository.save(user);

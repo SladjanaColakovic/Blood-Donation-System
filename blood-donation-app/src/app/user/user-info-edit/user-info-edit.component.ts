@@ -53,7 +53,7 @@ export class UserInfoEditComponent {
         this.alertClosed = false
         this.alert.setAlertTime('/profile');
       }, error => {
-        this.message = "Neuspješno ažuriranje podataka"
+        this.message = error.error
         this.alertClosed = false
         this.alert.setAlertTimeError();
       })

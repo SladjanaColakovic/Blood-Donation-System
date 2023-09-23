@@ -45,7 +45,7 @@ export class UserPasswordEditComponent {
       this.userService.changePassword(data).subscribe((response: any) => {
         this.authService.logout();
       }, error => {
-        this.message = "Neuspješna izmjena lozinke";
+        this.message = error.error;
         this.alertClosed = false;
         this.alert.setAlertTimeError();
       })

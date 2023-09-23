@@ -3,6 +3,7 @@ package com.example.blooddonationsystem.controller;
 import com.example.blooddonationsystem.dto.ChangePasswordDTO;
 import com.example.blooddonationsystem.dto.EditUserDTO;
 import com.example.blooddonationsystem.dto.UserDTO;
+import com.example.blooddonationsystem.exception.UserEmailExistsException;
 import com.example.blooddonationsystem.model.User;
 import com.example.blooddonationsystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,41 +21,25 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserDTO newUser){
-        User registeredUser = this.userService.register(newUser);
-        if (registeredUser == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
+        return new ResponseEntity<>(this.userService.register(newUser), HttpStatus.CREATED);
     }
 
     @GetMapping("/current/{username}")
     @PreAuthorize("hasAnyRole('DONOR', 'ADMIN', 'MANAGER')")
     public ResponseEntity<?> current(@PathVariable String username){
-        User current = userService.findByUsername(username);
-        if(current == null){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(current, HttpStatus.OK);
+        return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
     }
 
     @PutMapping("/edit")
     @PreAuthorize("hasAnyRole('DONOR', 'ADMIN', 'MANAGER')")
     public ResponseEntity<?> edit(@RequestBody EditUserDTO editUser){
-        User editingUser = userService.edit(editUser);
-        if(editingUser == null){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(editingUser, HttpStatus.OK);
+        return new ResponseEntity<>(userService.edit(editUser), HttpStatus.OK);
     }
 
     @PutMapping("/changePassword")
     @PreAuthorize("hasAnyRole('DONOR', 'ADMIN', 'MANAGER')")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDTO changePassword){
-        User user = userService.changePassword(changePassword);
-        if(user == null){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(userService.changePassword(changePassword), HttpStatus.OK);
     }
 
 
