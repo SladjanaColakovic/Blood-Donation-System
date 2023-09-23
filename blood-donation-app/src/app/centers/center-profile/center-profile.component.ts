@@ -54,6 +54,8 @@ export class CenterProfileComponent {
 
     this.centerService.changeImage(formData).subscribe((response: any) => {
       this.center = response;
+    }, error => {
+      console.log("Prekoračena je maksimalna veličina slike od 1048576 bajta")
     })
 
   }

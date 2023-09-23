@@ -2,6 +2,7 @@ package com.example.blooddonationsystem.service.implementation;
 
 import com.example.blooddonationsystem.dto.BloodCenterDTO;
 import com.example.blooddonationsystem.dto.EditBloodCenterDTO;
+import com.example.blooddonationsystem.exception.*;
 import com.example.blooddonationsystem.model.Appointment;
 import com.example.blooddonationsystem.model.BloodCenter;
 import com.example.blooddonationsystem.model.Image;
@@ -10,6 +11,7 @@ import com.example.blooddonationsystem.repository.BloodCenterRepository;
 import com.example.blooddonationsystem.service.BloodCenterService;
 import com.example.blooddonationsystem.service.UserService;
 import com.example.blooddonationsystem.validation.BloodCenterValidation;
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -38,12 +40,12 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
     @Override
     public BloodCenter add(BloodCenterDTO newCenter) {
         if (BloodCenterValidation.isNewCenterInvalid(newCenter)) {
-            return null;
+            throw new InvalidDataException();
         }
         BloodCenter center = modelMapper.map(newCenter, BloodCenter.class);
         User manager = userService.register(newCenter.getManager());
         if (manager == null) {
-            return null;
+            throw new UserNotFoundException();
         }
         center.setManager(manager);
         return bloodCenterRepository.save(center);
@@ -52,17 +54,17 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
     @Override
     public BloodCenter changeImage(Long centerId, MultipartFile image) {
         if (BloodCenterValidation.isChangeImageInvalid(centerId, image)) {
-            return null;
+            throw new InvalidDataException();
         }
         BloodCenter center = bloodCenterRepository.findById(centerId).orElse(null);
         if (center == null) {
-            return null;
+            throw new BloodCenterNotFoundException();
         }
         Image centerImage;
         try {
             centerImage = new Image(image.getOriginalFilename(), image.getContentType(), image.getBytes());
-        } catch (IOException ex) {
-            return null;
+        } catch (IOException e) {
+            throw new ChangeImageException();
         }
         center.setImage(centerImage);
         return bloodCenterRepository.save(center);
@@ -71,11 +73,11 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
     @Override
     public BloodCenter getManagerBloodCenter(String managerUsername) {
         if (BloodCenterValidation.isManagerBloodCenterInvalid(managerUsername)) {
-            return null;
+            throw new InvalidDataException();
         }
         User manager = userService.findByUsername(managerUsername);
         if (manager == null) {
-            return null;
+            throw new UserNotFoundException();
         }
         return bloodCenterRepository.findByManager(manager);
     }
@@ -83,11 +85,11 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
     @Override
     public BloodCenter edit(EditBloodCenterDTO editBloodCenterDTO) {
         if (BloodCenterValidation.isEditCenterInvalid(editBloodCenterDTO)) {
-            return null;
+            throw new InvalidDataException();
         }
         BloodCenter center = bloodCenterRepository.findById(editBloodCenterDTO.getId()).orElse(null);
         if (center == null) {
-            return null;
+            throw new BloodCenterNotFoundException();
         }
         center.setName(editBloodCenterDTO.getName());
         center.setEmail(editBloodCenterDTO.getEmail());
@@ -110,24 +112,28 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
     @Override
     public BloodCenter getById(Long id) {
         if (BloodCenterValidation.isGetByIdInvalid(id)) {
-            return null;
+            throw new InvalidDataException();
         }
-        return bloodCenterRepository.findById(id).orElse(null);
+        BloodCenter center = bloodCenterRepository.findById(id).orElse(null);
+        if (center == null) {
+            throw new BloodCenterNotFoundException();
+        }
+        return center;
     }
 
     @Override
     public List<BloodCenter> searchAndSortFreeCenters(String sortBy, String sortDirection, LocalDateTime dateTime, String center, String address) {
         if (BloodCenterValidation.isSearchAndSortFreeBloodCentersInvalid(sortBy, sortDirection, dateTime)) {
-            return null;
+            throw new InvalidDataException();
         }
         List<BloodCenter> centers = searchAndSort(center, address, sortBy, sortDirection);
         if (centers == null) {
-            return null;
+            throw new InvalidDataException();
         }
         if (dateTime == null) {
             return centers;
         }
-        if(dateTime != null && dateTime.compareTo(LocalDateTime.now()) < 0){
+        if (dateTime != null && dateTime.compareTo(LocalDateTime.now()) < 0) {
             return new ArrayList<>();
         }
         if (dateTime.getDayOfWeek().equals(DayOfWeek.SATURDAY) || dateTime.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {

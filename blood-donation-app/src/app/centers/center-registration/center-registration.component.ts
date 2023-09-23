@@ -102,7 +102,7 @@ export class CenterRegistrationComponent {
         this.alertClosed = false
         this.alert.setAlertTime('/centers');
       }, error => {
-        this.message = "Neuspješna registracija centra"
+        this.message = error.error
         this.alertClosed = false
         this.alert.setAlertTimeError();
       })

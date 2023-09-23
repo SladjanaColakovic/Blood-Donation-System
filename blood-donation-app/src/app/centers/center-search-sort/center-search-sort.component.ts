@@ -61,7 +61,7 @@ export class CenterSearchSortComponent {
       }
       this.emitDateTime.emit(this.searchDate)
     }, error => {
-      this.message = "Neuspješno pretraživanje slobodnih centara za odabrani datum"
+      this.message = error.error
       this.alertClosed = false
       this.alert.setAlertTimeError();
     })

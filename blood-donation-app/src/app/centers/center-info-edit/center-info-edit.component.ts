@@ -63,7 +63,7 @@ export class CenterInfoEditComponent {
         this.alertClosed = false
         this.alert.setAlertTime('/editCenter');
       }, error => {
-        this.message = "Neuspješno ažuriranje podataka"
+        this.message = error.error
         this.alertClosed = false
         this.alert.setAlertTimeError();
       })

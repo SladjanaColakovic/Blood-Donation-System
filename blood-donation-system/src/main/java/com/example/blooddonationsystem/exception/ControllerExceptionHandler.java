@@ -20,7 +20,18 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(value = UserNotFoundException.class)
     public ResponseEntity<?> userNotFoundException(){
-        return new ResponseEntity<>("Korisnik nije pronađen", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Korisnik nije pronađen", HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(value = BloodCenterNotFoundException.class)
+    public ResponseEntity<?> bloodCenterNotFoundException(){
+        return new ResponseEntity<>("Centar nije pronađen", HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = ChangeImageException.class)
+    public ResponseEntity<?> changeImageException() {
+        return new ResponseEntity<>("Neuspješna izmjena slike", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 
 }
