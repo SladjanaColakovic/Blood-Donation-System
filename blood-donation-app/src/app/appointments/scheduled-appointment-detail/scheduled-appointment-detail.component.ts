@@ -38,7 +38,7 @@ export class ScheduledAppointmentDetailComponent {
       // this.alert.setAlertTimeError()
       //location.replace("/scheduledAppointments")
     }, error => {
-      this.message = "Neuspješno otkazivanje termina"
+      this.message = error.error
       this.alertClosed = false
       this.alert.setAlertTimeError();
     })

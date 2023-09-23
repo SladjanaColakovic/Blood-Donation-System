@@ -33,6 +33,8 @@ export class ScheduledAppointmentsDonorComponent {
       .subscribe((response: any) => {
         this.appointments = response;
         this.createEvents();
+      }, error => {
+        console.log(error)
       })
   }
 

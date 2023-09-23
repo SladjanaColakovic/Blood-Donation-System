@@ -33,5 +33,14 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>("Neuspješna izmjena slike", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(value = NotEligibleToDonateBloodException.class)
+    public ResponseEntity<?> notEligibleToDonateBloodException() {
+        return new ResponseEntity<>("Nije prošao odgovarajući vremenski period od prethodnog davanja krvi." +
+                " Interval između davanja krvi je 3 mjeseca za muškarce i 4 mjeseca za žene.", HttpStatus.CONFLICT);
+    }
 
+    @ExceptionHandler(value = NoFreeAppointmentsException.class)
+    public ResponseEntity<?> noFreeAppointmentsException() {
+        return new ResponseEntity<>("Nema slobodnih termina za odabrani datum", HttpStatus.CONFLICT);
+    }
 }

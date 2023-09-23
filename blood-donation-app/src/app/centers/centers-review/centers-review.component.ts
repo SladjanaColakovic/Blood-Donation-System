@@ -53,7 +53,7 @@ export class CentersReviewComponent {
       this.alertClosed = false
       this.alert.setAlertTime('/centers');
     }, error => {
-      this.message = "Neuspješno zakazivanje termina"
+      this.message = error.error;
       this.alertClosed = false
       this.alert.setAlertTimeError();
     })

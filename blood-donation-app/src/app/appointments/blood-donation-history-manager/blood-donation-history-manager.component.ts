@@ -35,6 +35,8 @@ export class BloodDonationHistoryManagerComponent {
       subscribe((response: any) => {
         this.appointments = response;
         this.createEvents();
+      }, error => {
+        console.log(error)
       })
   }
 

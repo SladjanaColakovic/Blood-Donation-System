@@ -24,41 +24,25 @@ public class AppointmentController {
     @PostMapping("/schedule")
     @PreAuthorize("hasRole('DONOR')")
     public ResponseEntity<?> schedule(@RequestBody AppointmentDTO newAppointment) {
-        Appointment scheduledAppointment = appointmentService.schedule(newAppointment);
-        if (scheduledAppointment == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(scheduledAppointment, HttpStatus.OK);
+        return new ResponseEntity<>(appointmentService.schedule(newAppointment), HttpStatus.OK);
     }
 
     @GetMapping("/donor/{donorUsername}")
     @PreAuthorize("hasRole('DONOR')")
     public ResponseEntity<?> getPassedDonorAppointments(@PathVariable String donorUsername) {
-        List<DonorAppointmentResponseDTO> passedDonorAppointments = appointmentService.getPassedDonorAppointments(donorUsername);
-        if (passedDonorAppointments == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(passedDonorAppointments, HttpStatus.OK);
+        return new ResponseEntity<>(appointmentService.getPassedDonorAppointments(donorUsername), HttpStatus.OK);
     }
 
     @GetMapping("/manager/{managerUsername}")
     @PreAuthorize("hasRole('MANAGER')")
     public ResponseEntity<?> getBloodCenterAppointments(@PathVariable String managerUsername) {
-        List<ManagerAppointmentResponseDTO> appointments = appointmentService.getBloodCenterAppointments(managerUsername);
-        if (appointments == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(appointments, HttpStatus.OK);
+        return new ResponseEntity<>(appointmentService.getBloodCenterAppointments(managerUsername), HttpStatus.OK);
     }
 
     @GetMapping("/notPassed/{donorUsername}")
     @PreAuthorize("hasRole('DONOR')")
     public ResponseEntity<?> getNotPassedDonorAppointments(@PathVariable String donorUsername) {
-        List<DonorAppointmentResponseDTO> notPassedAppointments = appointmentService.getNotPassedAppointments(donorUsername);
-        if (notPassedAppointments == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(notPassedAppointments, HttpStatus.OK);
+        return new ResponseEntity<>(appointmentService.getNotPassedAppointments(donorUsername), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -77,10 +61,6 @@ public class AppointmentController {
                                                             @RequestParam("donorUsername") String donorUsername,
                                                             @RequestParam(value = "searchText", required = false) String searchText,
                                                             @RequestParam(value = "searchDate", required = false) LocalDate searchDate) {
-        List<DonorAppointmentResponseDTO> donorAppointments = appointmentService.searchAndSortDonorAppointments(donorUsername, sortBy, sortDirection, searchText, searchDate);
-        if (donorAppointments == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(donorAppointments, HttpStatus.OK);
+        return new ResponseEntity<>(appointmentService.searchAndSortDonorAppointments(donorUsername, sortBy, sortDirection, searchText, searchDate), HttpStatus.OK);
     }
 }

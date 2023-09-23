@@ -154,7 +154,7 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
     }
 
     private boolean isDuringWorkingHours(LocalDateTime checking, BloodCenter center) {
-        return (checking.getHour() >= center.getWorkingTimeFrom() && checking.plusMinutes(30).getHour() <= center.getWorkingTimeTo());
+        return (checking.getHour() >= center.getWorkingTimeFrom() && checking.plusMinutes(30).getHour() < center.getWorkingTimeTo());
     }
 
     private List<BloodCenter> searchAndSort(String center, String address, String sortBy, String sortDirection) {

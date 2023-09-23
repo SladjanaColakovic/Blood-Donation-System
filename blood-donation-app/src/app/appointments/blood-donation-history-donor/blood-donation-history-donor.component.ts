@@ -28,6 +28,8 @@ export class BloodDonationHistoryDonorComponent {
       } else {
         this.emptyResult = false;
       }
+    }, error => {
+      console.log(error)
     })
   }
 
@@ -43,6 +45,8 @@ export class BloodDonationHistoryDonorComponent {
     }
     this.appointmentService.sortDonorAppointments(data).subscribe((response: any) => {
       this.appointments = response;
+    }, error => {
+      console.log(error)
     })
   }
 

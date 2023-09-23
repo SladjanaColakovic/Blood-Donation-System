@@ -4,6 +4,7 @@ import com.example.blooddonationsystem.dto.AppointmentDTO;
 import com.example.blooddonationsystem.dto.DonorAppointmentResponseDTO;
 import com.example.blooddonationsystem.dto.ManagerAppointmentResponseDTO;
 import com.example.blooddonationsystem.enumeration.Gender;
+import com.example.blooddonationsystem.exception.*;
 import com.example.blooddonationsystem.model.Appointment;
 import com.example.blooddonationsystem.model.BloodCenter;
 import com.example.blooddonationsystem.model.User;
@@ -41,23 +42,23 @@ public class AppointmentServiceImplementation implements AppointmentService {
     @Override
     public Appointment schedule(AppointmentDTO newAppointment) {
         if (AppointmentValidation.isScheduleAppointmentInvalid(newAppointment)) {
-            return null;
+            throw new InvalidDataException();
         }
         User donor = userService.findByUsername(newAppointment.getDonorUsername());
         if (donor == null) {
-            return null;
+            throw new UserNotFoundException();
         }
         BloodCenter center = bloodCenterService.getById(newAppointment.getCenterId());
         if (center == null) {
-            return null;
+            throw new BloodCenterNotFoundException();
         }
         if(!isEligibleToDonateBlood(donor, newAppointment.getStartDateTime())){
-            return null;
+            throw new NotEligibleToDonateBloodException();
         }
         Set<Appointment> existingAppointments = center.getAppointments();
         int overlappingAppointments = countOverlappingAppointments(existingAppointments, newAppointment);
         if (overlappingAppointments >= center.getCapacity()) {
-            return null;
+            throw new NoFreeAppointmentsException();
         }
         Appointment appointment = new Appointment();
         appointment.setCenter(center);
@@ -94,11 +95,11 @@ public class AppointmentServiceImplementation implements AppointmentService {
     @Override
     public List<DonorAppointmentResponseDTO> getPassedDonorAppointments(String donorUsername) {
         if (AppointmentValidation.isGetAppointmentsInvalid(donorUsername)) {
-            return null;
+            throw new InvalidDataException();
         }
         User donor = userService.findByUsername(donorUsername);
         if (donor == null) {
-            return null;
+            throw new UserNotFoundException();
         }
         return appointmentRepository
                 .getPassedAppointments(donor, LocalDateTime.now()).stream()
@@ -109,11 +110,11 @@ public class AppointmentServiceImplementation implements AppointmentService {
     @Override
     public List<ManagerAppointmentResponseDTO> getBloodCenterAppointments(String managerUsername) {
         if (AppointmentValidation.isGetAppointmentsInvalid(managerUsername)) {
-            return null;
+            throw new InvalidDataException();
         }
         BloodCenter center = bloodCenterService.getManagerBloodCenter(managerUsername);
         if (center == null) {
-            return null;
+            throw new BloodCenterNotFoundException();
         }
         return appointmentRepository
                 .findByCenter(center)
@@ -125,11 +126,11 @@ public class AppointmentServiceImplementation implements AppointmentService {
     @Override
     public List<DonorAppointmentResponseDTO> getNotPassedAppointments(String donorUsername) {
         if (AppointmentValidation.isGetAppointmentsInvalid(donorUsername)) {
-            return null;
+            throw new InvalidDataException();
         }
         User donor = userService.findByUsername(donorUsername);
         if (donor == null) {
-            return null;
+            throw new UserNotFoundException();
         }
         return appointmentRepository
                 .getNotPassedAppointments(donor, LocalDateTime.now())
@@ -158,11 +159,11 @@ public class AppointmentServiceImplementation implements AppointmentService {
     @Override
     public List<DonorAppointmentResponseDTO> searchAndSortDonorAppointments(String donorUsername, String sortBy, String sortDirection, String searchText, LocalDate searchDate) {
         if (AppointmentValidation.isSearchAndSortDonorAppointmentsInvalid(sortBy, sortDirection, donorUsername)) {
-            return null;
+            throw new InvalidDataException();
         }
         User donor = userService.findByUsername(donorUsername);
         if (donor == null) {
-            return null;
+            throw new UserNotFoundException();
         }
         List<Appointment> passedAppointments = new ArrayList<>();
         if (sortBy.equals("center") && sortDirection.equals("ascending")) {
