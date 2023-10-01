@@ -1,7 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component} from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../authentication/auth.service';
-import * as alertifyjs from 'alertifyjs';
 
 @Component({
   selector: 'app-user-profile',

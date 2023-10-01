@@ -97,7 +97,7 @@ ngb-datepicker {
         width: 100%;
     }
 
-    .col-2{
+    .col-2 {
         display: none;
     }
 
@@ -121,7 +121,7 @@ ngb-datepicker {
         border: none;
     }
 
-    .col-4:not(:first-child){
+    .col-4:not(:first-child) {
         width: 100%;
         text-align: center;
     }
@@ -133,15 +133,15 @@ ngb-datepicker {
         width: 67%;
     }
 
-    .col-2{
+    .col-2 {
         width: 33%;
     }
 
-    h3{
+    h3 {
         font-size: 22px;
     }
 
-    .col-4:not(:first-child){
+    .col-4:not(:first-child) {
         width: 100%;
         text-align: center;
     }
@@ -173,11 +173,11 @@ ngb-datepicker {
         width: 71%;
     }
 
-    .col-2{
+    .col-2 {
         width: 29%;
     }
 
-    h3{
+    h3 {
         font-size: 14px;
     }
 
@@ -188,11 +188,11 @@ ngb-datepicker {
         width: 74%;
     }
 
-    .col-2{
+    .col-2 {
         width: 26%;
     }
 
-    h3{
+    h3 {
         font-size: 16px;
     }
 
@@ -203,10 +203,11 @@ ngb-datepicker {
         width: 77%;
     }
 
-    .col-2{
+    .col-2 {
         width: 23%;
     }
-    h3{
+
+    h3 {
         font-size: 19px;
     }
 
@@ -217,11 +218,11 @@ ngb-datepicker {
         width: 80%;
     }
 
-    .col-2{
+    .col-2 {
         width: 20%;
     }
 
-    h3{
+    h3 {
         font-size: 23px;
     }
 

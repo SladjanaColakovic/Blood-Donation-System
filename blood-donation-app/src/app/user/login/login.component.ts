@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component} from '@angular/core';
 import { AuthService } from '../../authentication/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as alertifyjs from 'alertifyjs';

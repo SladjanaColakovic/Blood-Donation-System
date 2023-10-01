@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component} from '@angular/core';
 import { CenterService } from '../../services/center.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../authentication/auth.service';
