@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ErrorAlertComponent } from 'src/app/error-alert/error-alert.component';
 import { CenterService } from 'src/app/services/center.service';
+import * as alertifyjs from 'alertifyjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-center-info-edit',
@@ -13,12 +14,7 @@ export class CenterInfoEditComponent {
   @Input() center: any = {} as any
   @Output() emitCenterChanged = new EventEmitter<any>();
 
-  message = ""
-
   submitted: boolean;
-
-  @ViewChild(ErrorAlertComponent) alert: ErrorAlertComponent;
-  alertClosed = true;
 
   editCenterForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -33,7 +29,7 @@ export class CenterInfoEditComponent {
     workingTimeTo: new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]),
   })
 
-  constructor(private centerService: CenterService) { }
+  constructor(private centerService: CenterService, private router: Router) { }
 
   ngOnInit() {
     this.submitted = false;
@@ -59,18 +55,14 @@ export class CenterInfoEditComponent {
       this.centerService.editCenterInfo(data).subscribe((response: any) => {
         this.center = response;
         this.emitCenterChanged.emit(this.center);
-        this.message = "Uspješno ažuriranje podataka"
-        this.alertClosed = false
-        this.alert.setAlertTime('/editCenter');
+        alertifyjs.set('notifier', 'position', 'bottom-center');
+        alertifyjs.success('Uspješno ažuriranje podataka', 4);
+        this.router.navigate(['/editCenter'])
       }, error => {
-        this.message = "Neuspješno ažuriranje podataka"
-        this.alertClosed = false
-        this.alert.setAlertTimeError();
+        alertifyjs.set('notifier', 'position', 'bottom-center');
+        alertifyjs.error(error.error, 15);
       })
     }
   }
 
-  closeAlert(event: any) {
-    this.alertClosed = event
-  }
 }

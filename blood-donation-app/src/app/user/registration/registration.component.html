@@ -10,7 +10,7 @@
                     <input name="name" formControlName="name" required="required" [(ngModel)]="name"
                         [ngClass]="{'is-invalid': submitted && registrationForm.controls.name.errors}">
                     <span *ngIf="submitted && registrationForm.controls.name.errors">
-                        Invalid input
+                        Neispravan unos
                     </span>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                     <input formControlName="surname" required="required" [(ngModel)]="surname"
                         [ngClass]="{'is-invalid': submitted && registrationForm.controls.surname.errors}">
                     <span *ngIf="submitted && registrationForm.controls.surname.errors">
-                        Invalid input
+                        Neispravan unos
                     </span>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                     <input type="email" formControlName="email" required="required" [(ngModel)]="email"
                         [ngClass]="{'is-invalid': submitted && registrationForm.controls.email.errors}">
                     <span *ngIf="submitted && registrationForm.controls.email.errors">
-                        Invalid input
+                        Neispravan unos
                     </span>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                     <input formControlName="jmbg" required="required" [(ngModel)]="jmbg"
                         [ngClass]="{'is-invalid': submitted && registrationForm.controls.jmbg.errors}">
                     <span *ngIf="submitted && registrationForm.controls.jmbg.errors">
-                        Invalid input
+                        Neispravan unos
                     </span>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                     <input formControlName="address" required="required" [(ngModel)]="address"
                         [ngClass]="{'is-invalid': submitted && registrationForm.controls.address.errors}">
                     <span *ngIf="submitted && registrationForm.controls.address.errors">
-                        Invalid input
+                        Neispravan unos
                     </span>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                     <input formControlName="city" required="required" [(ngModel)]="city"
                         [ngClass]="{'is-invalid': submitted && registrationForm.controls.city.errors}">
                     <span *ngIf="submitted && registrationForm.controls.city.errors">
-                        Invalid input
+                        Neispravan unos
                     </span>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                     <input formControlName="country" required="required" [(ngModel)]="country"
                         [ngClass]="{'is-invalid': submitted && registrationForm.controls.country.errors}">
                     <span *ngIf="submitted && registrationForm.controls.country.errors">
-                        Invalid input
+                        Neispravan unos
                     </span>
                 </div>
             </div>
@@ -112,7 +112,7 @@
                     <input formControlName="phone" required="required" [(ngModel)]="phone"
                         [ngClass]="{'is-invalid': submitted && registrationForm.controls.phone.errors}">
                     <span *ngIf="submitted && registrationForm.controls.phone.errors">
-                        Invalid input
+                        Neispravan unos
                     </span>
                 </div>
             </div>
@@ -124,9 +124,9 @@
                     <input formControlName="password" required="required" [(ngModel)]="password" type="password"
                         [ngClass]="{'is-invalid': submitted && registrationForm.controls.password.errors}">
                     <span *ngIf="submitted && registrationForm.controls.password.errors">
-                        Password must be a combination of lower-case,
-                        upper-case,
-                        numbers and at least 9 characters long
+                        Lozinka mora da sadrži najmanje 9 znakova
+                        i da predstavlja kombinaciju malih i velikih
+                        slova i brojeva
                     </span>
                 </div>
             </div>
@@ -139,7 +139,7 @@
                         type="password"
                         [ngClass]="{'is-invalid': submitted && registrationForm.controls.confirmPassword.errors}">
                     <span *ngIf="submitted && confirmPassword != password">
-                        Passwords do not match
+                        Lozinke se ne poklapaju
                     </span>
                 </div>
             </div>
@@ -148,6 +148,4 @@
             </div>
         </form>
     </div>
-    <app-error-alert (emitAlertClosed)="closeAlert($event)" [message]="message"
-        [alertClosed]="alertClosed"></app-error-alert>
 </div>

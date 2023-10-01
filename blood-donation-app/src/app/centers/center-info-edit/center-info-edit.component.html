@@ -7,7 +7,7 @@
             <input name="name" formControlName="name" required="required" [(ngModel)]="center.name"
                 [ngClass]="{'is-invalid': submitted && editCenterForm.controls.name.errors}">
             <span *ngIf="submitted && editCenterForm.controls.name.errors">
-                Invalid input
+                Neispravan unos
             </span>
         </div>
     </div>
@@ -19,7 +19,7 @@
             <input type="email" name="email" formControlName="email" required="required" [(ngModel)]="center.email"
                 [ngClass]="{'is-invalid': submitted && editCenterForm.controls.email.errors}">
             <span *ngIf="submitted && editCenterForm.controls.email.errors">
-                Invalid input
+                Neispravan unos
             </span>
         </div>
     </div>
@@ -31,7 +31,7 @@
             <input name="address" formControlName="address" required="required" [(ngModel)]="center.address"
                 [ngClass]="{'is-invalid': submitted && editCenterForm.controls.address.errors}">
             <span *ngIf="submitted && editCenterForm.controls.address.errors">
-                Invalid input
+                Neispravan unos
             </span>
         </div>
     </div>
@@ -43,7 +43,7 @@
             <input name="city" formControlName="city" required="required" [(ngModel)]="center.city"
                 [ngClass]="{'is-invalid': submitted && editCenterForm.controls.city.errors}">
             <span *ngIf="submitted && editCenterForm.controls.city.errors">
-                Invalid input
+                Neispravan unos
             </span>
         </div>
     </div>
@@ -55,7 +55,7 @@
             <input name="country" formControlName="country" required="required" [(ngModel)]="center.country"
                 [ngClass]="{'is-invalid': submitted && editCenterForm.controls.country.errors}">
             <span *ngIf="submitted && editCenterForm.controls.country.errors">
-                Invalid input
+                Neispravan unos
             </span>
         </div>
     </div>
@@ -67,7 +67,7 @@
             <input name="phoneNumber" formControlName="phoneNumber" required="required" [(ngModel)]="center.phoneNumber"
                 [ngClass]="{'is-invalid': submitted && editCenterForm.controls.phoneNumber.errors}">
             <span *ngIf="submitted && editCenterForm.controls.phoneNumber.errors">
-                Invalid input
+                Neispravan unos
             </span>
         </div>
     </div>
@@ -85,7 +85,7 @@
                         [(ngModel)]="center.workingTimeFrom"
                         [ngClass]="{'is-invalid': submitted && editCenterForm.controls.workingTimeFrom.errors}">
                     <span *ngIf="submitted && editCenterForm.controls.workingTimeFrom.errors">
-                        Invalid input
+                        Neispravan unos
                     </span>
                 </div>
                 <div class="col-2">
@@ -96,11 +96,10 @@
                         [(ngModel)]="center.workingTimeTo"
                         [ngClass]="{'is-invalid': submitted && editCenterForm.controls.workingTimeTo.errors}">
                     <span *ngIf="submitted && editCenterForm.controls.workingTimeTo.errors">
-                        Invalid input
+                        Neispravan unos
                     </span>
                 </div>
             </div>
-
         </div>
     </div>
     <div class="row">
@@ -111,7 +110,7 @@
             <input name="capacity" formControlName="capacity" required="required" [(ngModel)]="center.capacity"
                 [ngClass]="{'is-invalid': submitted && editCenterForm.controls.capacity.errors}">
             <span *ngIf="submitted && editCenterForm.controls.capacity.errors">
-                Invalid input
+                Neispravan unos
             </span>
         </div>
     </div>
@@ -128,7 +127,7 @@
                 [(ngModel)]="center.description"
                 [ngClass]="{'is-invalid': submitted && editCenterForm.controls.description.errors}" rows="6"></textarea>
             <span *ngIf="submitted && editCenterForm.controls.description.errors">
-                Invalid input
+                Neispravan unos
             </span>
         </div>
     </div>
@@ -136,5 +135,3 @@
         <button (click)="editCenterInfo()">Izmijeni</button>
     </div>
 </form>
-<app-error-alert (emitAlertClosed)="closeAlert($event)" [message]="message"
-    [alertClosed]="alertClosed"></app-error-alert>

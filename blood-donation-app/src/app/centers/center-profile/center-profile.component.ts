@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CenterService } from '../../services/center.service';
 import { AuthService } from '../../authentication/auth.service';
+import * as alertifyjs from 'alertifyjs';
 
 @Component({
   selector: 'app-center-profile',
@@ -26,7 +27,6 @@ export class CenterProfileComponent {
   centerChanged(newCenter: any) {
     this.center = newCenter
   }
-
 
   changeImage(event: any) {
     this.selectedFile = event.target.files[0];
@@ -55,6 +55,9 @@ export class CenterProfileComponent {
 
     this.centerService.changeImage(formData).subscribe((response: any) => {
       this.center = response;
+    }, error => {
+      alertifyjs.set('notifier', 'position', 'bottom-center');
+      alertifyjs.error('Prekoračena je maksimalna veličina slike od 1048576 bajta', 10);
     })
 
   }

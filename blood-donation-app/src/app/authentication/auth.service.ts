@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class AuthService {
 
   baseURL = "http://localhost:8080/auth"
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   public isLoggedIn() {
     return !!localStorage.getItem('token');
@@ -37,8 +38,8 @@ export class AuthService {
   }
 
   public logout() {
-    window.location.href="http://localhost:4200/login"
-    localStorage.removeItem("token")
+    localStorage.removeItem("token");
+    this.router.navigate(['/login']);
   }
 
   public tokenExpired(token: any) {

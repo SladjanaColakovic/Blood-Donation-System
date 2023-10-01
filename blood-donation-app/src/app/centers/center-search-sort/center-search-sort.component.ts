@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AuthService } from 'src/app/authentication/auth.service';
-import { ErrorAlertComponent } from 'src/app/error-alert/error-alert.component';
 import { CenterService } from 'src/app/services/center.service';
+import * as alertifyjs from 'alertifyjs';
 
 @Component({
   selector: 'app-center-search-sort',
@@ -16,16 +16,11 @@ export class CenterSearchSortComponent {
   @Output() emitDateTime = new EventEmitter<any>();
   centers: any[]
 
-  message = ""
-
   center = "";
   address = "";
   role = ""
   sortBy = "center"
   sortDirection = "ascending"
-
-  @ViewChild(ErrorAlertComponent) alert: ErrorAlertComponent;
-  alertClosed = true;
 
   constructor(private centerService: CenterService, private authService: AuthService) {
     this.role = authService.getRole();
@@ -42,9 +37,8 @@ export class CenterSearchSortComponent {
       }
       this.emitDateTime.emit(this.searchDate)
     }, error => {
-      this.message = "Neuspješno pretraživanje slobodnih centara za odabrani datum"
-      this.alertClosed = false
-      this.alert.setAlertTimeError();
+      alertifyjs.set('notifier', 'position', 'bottom-center');
+      alertifyjs.error('Neuspješno pretraživanje slobodnih centara za odabrani datum', 15);
     })
   }
 
@@ -61,14 +55,10 @@ export class CenterSearchSortComponent {
       }
       this.emitDateTime.emit(this.searchDate)
     }, error => {
-      this.message = "Neuspješno pretraživanje slobodnih centara za odabrani datum"
-      this.alertClosed = false
-      this.alert.setAlertTimeError();
+      alertifyjs.set('notifier', 'position', 'bottom-center');
+      alertifyjs.error(error.error, 15);
     })
 
   }
 
-  closeAlert(event: any) {
-    this.alertClosed = event
-  }
 }

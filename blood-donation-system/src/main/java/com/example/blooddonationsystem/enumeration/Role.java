@@ -1,7 +1,7 @@
 package com.example.blooddonationsystem.enumeration;
 
 public enum Role {
-    USER,
+    DONOR,
     ADMIN,
     MANAGER
 }

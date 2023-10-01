@@ -7,27 +7,37 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService) { }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      if(this.authService.isLoggedIn()){
+    if (this.authService.isLoggedIn()) {
 
-        if(route.data['role'] == this.authService.getRole()) { 
-          if(!this.authService.tokenExpired(this.authService.getToken())){
-            return true;
-          }
-          localStorage.removeItem('token')
-          window.location.href="http://localhost:4200/login"
-          return false;
-          
+      let role = route.data['role'];
+      if (role == this.authService.getRole()) {
+        if (!this.authService.tokenExpired(this.authService.getToken())) {
+          return true;
         }
-        window.location.href="http://localhost:4200/login"
+        localStorage.removeItem('token')
+        window.location.href = "http://localhost:4200/login"
+        return false;
+
+      }
+      if (role.includes("|")) {
+        if (!this.authService.tokenExpired(this.authService.getToken())) {
+          return true;
+        }
+        localStorage.removeItem('token')
+        window.location.href = "http://localhost:4200/login"
         return false;
       }
 
+      // window.location.href="http://localhost:4200/login"
+      // return false;
+    }
+
     return false;
   }
-  
+
 }

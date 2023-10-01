@@ -39,10 +39,12 @@ public class TokenUtils {
                 .signWith(SIGNATURE_ALGORITHM, SECRET).compact();
 
     }
+
     private String generateAudience() {
 
         return AUDIENCE_WEB;
     }
+
     private Date generateExpirationDate() {
         return new Date(new Date().getTime() + EXPIRES_IN);
     }
@@ -71,6 +73,7 @@ public class TokenUtils {
 
         return username;
     }
+
     public Date getIssuedAtDateFromToken(String token) {
         Date issueAt;
         try {
@@ -127,6 +130,7 @@ public class TokenUtils {
 
         return claims;
     }
+
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
         final Date created = getIssuedAtDateFromToken(token);
@@ -137,7 +141,7 @@ public class TokenUtils {
                 /*&& !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate())*/); // nakon kreiranja tokena korisnik nije menjao svoju lozinku
     }
 
-    private Boolean isTokenExpired(String token){
+    private Boolean isTokenExpired(String token) {
         return getExpirationDateFromToken(token).before(new Date());
     }
 

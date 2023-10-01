@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { ErrorAlertComponent } from '../../error-alert/error-alert.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as alertifyjs from 'alertifyjs';
 
 @Component({
   selector: 'app-registration',
@@ -26,10 +26,6 @@ export class RegistrationComponent {
   confirmPassword: string
   submitted: boolean
 
-  message = ""
-
-  @ViewChild(ErrorAlertComponent) alert: ErrorAlertComponent;
-  alertClosed = true;
 
   registrationForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.pattern('[a-zčćžšđA-ZČĆŽŠĐ ]*')]),
@@ -40,7 +36,7 @@ export class RegistrationComponent {
     address: new FormControl('', Validators.required),
     city: new FormControl('', Validators.required),
     country: new FormControl('', Validators.required),
-    phone: new FormControl('',[Validators.required, Validators.pattern('[0-9]*')]),
+    phone: new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]),
     password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$')]),
     confirmPassword: new FormControl('', Validators.required),
   })
@@ -70,23 +66,18 @@ export class RegistrationComponent {
         phoneNumber: this.phone,
         password: this.password,
         confirmPassword: this.confirmPassword,
-        role: "USER"
+        role: "DONOR"
       }
       this.userService.register(data).subscribe((response: any) => {
-        this.message = "Uspješna registracija"
-        this.alertClosed = false
-        this.alert.setAlertTime('/login');
+        alertifyjs.set('notifier', 'position', 'bottom-center');
+        alertifyjs.success('Uspješna registracija', 4);
+        this.router.navigate(['/login'])
       }, error => {
-        this.message = "Neuspješna registracija"
-        this.alertClosed = false
-        this.alert.setAlertTimeError();
+        alertifyjs.set('notifier', 'position', 'bottom-center');
+        alertifyjs.error(error.error, 10);
       })
 
     }
-  }
-
-  closeAlert(event: any) {
-    this.alertClosed = event
   }
 
 }

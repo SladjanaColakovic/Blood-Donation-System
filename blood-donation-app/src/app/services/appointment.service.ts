@@ -48,7 +48,7 @@ export class AppointmentService {
     .append("searchDate", data.searchDate);
     const headers = new HttpHeaders().set('Authorization' , 'Bearer ' + localStorage.getItem("token"));
     const options = { params: params, headers: headers };
-    return this.http.get(this.baseURL + "/sort", options);
+    return this.http.get(this.baseURL + "/searchSort", options);
   }
 
 }

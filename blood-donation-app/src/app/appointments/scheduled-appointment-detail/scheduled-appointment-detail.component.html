@@ -1,13 +1,11 @@
-<div *ngIf="!canceled" class="modal-body">
+<div class="modal-body">
     <p> Datum: {{event.start | date: 'short'}}</p>
     <p>Trajanje: 30 min</p>
-    <p>Centar: {{event.meta.centerName}}</p>
-    <p>Adresa: {{event.meta.centerAddress}}</p>
-</div>
-<div class="modal-body">
-    <p *ngIf="canceled" class="canceledAppointment">Termin je otkazan</p>
+    <p *ngIf="isDonor">Centar: {{event.meta.centerName}}</p>
+    <p *ngIf="isDonor">Adresa: {{event.meta.centerAddress}}</p>
+    <p *ngIf="!isDonor">Donor: {{event.meta.donor}}</p>
 </div>
 <div class="modal-footer">
-    <button *ngIf="isDonor && !canceled" (click)="cancel()" class="cancel">Otkaži</button>
+    <button *ngIf="isDonor && isNot24HoursLater()" (click)="cancel()" class="cancel">Otkaži</button>
     <button type="button" class="btn btn-outline-dark" (click)="closeDialog()">Zatvori</button>
 </div>

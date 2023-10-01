@@ -1,242 +1,3 @@
-<!-- <div class="main-div">
-    <h2>Registracija centra i upravnika centra</h2>
-    <div class="row">
-        <div id="col-2-margin" class="col-2"></div>
-        <div class="col-8">
-
-            <div ngbAccordion>
-                <div ngbAccordionItem [collapsed]="false">
-                    <h3 ngbAccordionHeader>
-                        <button class="accordion-button" ngbAccordionButton>Centar - osnovne informacije</button>
-                    </h3>
-                    <div ngbAccordionCollapse>
-                        <div ngbAccordionBody>
-                            <ng-template>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label>Naziv:</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <input [(ngModel)]="centerName" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label>E-mail adresa:</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <input [(ngModel)]="centerEmail" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label>Adresa:</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <input [(ngModel)]="centerAddress" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label>Grad:</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <input [(ngModel)]="centerCity" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label>Država:</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <input [(ngModel)]="centerCountry" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label>Broj telefona:</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <input [(ngModel)]="centerPhone" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label>Radno vrijeme:</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="row">
-                                                <div class="col-2">
-                                                    <label>Od:</label>
-                                                </div>
-                                                <div class="col-4">
-                                                    <input [(ngModel)]="workingTimeFrom" type="text">
-                                                </div>
-                                                <div class="col-2">
-                                                    <label>Do:</label>
-                                                </div>
-                                                <div class="col-4">
-                                                    <input [(ngModel)]="workingTimeTo" type="text">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label>Kapacitet centra:</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <input [(ngModel)]="centerCapacity" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label style="margin-bottom: -10px;" for="description">Opis centra:</label>
-                                        </div>
-                                        <div class="col-6">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <textarea [(ngModel)]="centerDescription" name="description"
-                                                id="description" rows="3"></textarea>
-                                        </div>
-                                    </div>
-                            </ng-template>
-                        </div>
-                    </div>
-                </div>
-                <div ngbAccordionItem>
-                    <h3 ngbAccordionHeader>
-                        <button ngbAccordionButton>
-                            Centar - slika
-                        </button>
-                    </h3>
-                    <div ngbAccordionCollapse>
-                        <div ngbAccordionBody>
-                            <ng-template>
-                                <div>
-                                    <div id="input-file-button">
-                                        <label class="lbl" for="inputTag">
-                                            Odaberite sliku
-                                            <input id="inputTag" type="file" (change)="selectFile($event)" />
-                                        </label>
-                                    </div>
-                                    <div><img [src]="url" *ngIf="url"></div>
-                                </div>
-                            </ng-template>
-                        </div>
-                    </div>
-                </div>
-                <div ngbAccordionItem [collapsed]="true">
-                    <h3 ngbAccordionHeader>
-                        <button ngbAccordionButton>Centar - upravnik</button>
-                    </h3>
-                    <div ngbAccordionCollapse>
-                        <div ngbAccordionBody>
-                            <ng-template>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label>Ime:</label>
-                                    </div>
-                                    <div class="col-6">
-                                        <input [(ngModel)]="managerName" type="text">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label>Prezime:</label>
-                                    </div>
-                                    <div class="col-6">
-                                        <input [(ngModel)]="managerSurname" type="text">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label>E-mail adresa:</label>
-                                    </div>
-                                    <div class="col-6">
-                                        <input [(ngModel)]="managerEmail" type="text">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label>Pol:</label>
-                                    </div>
-                                    <div class="col-6">
-                                        <label class="radio-inline">
-                                            <input checked (change)="radioButtonChanged('Female')" value="Female"
-                                                type="radio" name="optradio"> Ženski
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input (change)="radioButtonChanged('Male')" value="Male" type="radio"
-                                                name="optradio"> Muški
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label>Adresa stanovanja:</label>
-                                    </div>
-                                    <div class="col-6">
-                                        <input [(ngModel)]="managerAddress" type="text">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label>Grad:</label>
-                                    </div>
-                                    <div class="col-6">
-                                        <input [(ngModel)]="managerCity" type="text">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label>Država:</label>
-                                    </div>
-                                    <div class="col-6">
-                                        <input [(ngModel)]="managerCountry" type="text">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label>Broj telefona:</label>
-                                    </div>
-                                    <div class="col-6">
-                                        <input [(ngModel)]="managerPhone" type="text">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label>Lozinka:</label>
-                                    </div>
-                                    <div class="col-6">
-                                        <input [(ngModel)]="managerPassword" type="password">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label>Potvrda lozinke:</label>
-                                    </div>
-                                    <div class="col-6">
-                                        <input [(ngModel)]="managerConfirmPassword" type="password">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <button (click)="register()" class="button">Potvrdi</button>
-                                </div>
-                            </ng-template>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div id="col-2-margin" class="col-2"></div>
-    </div>
-    <app-error-alert (emitAlertClosed)="closeAlert($event)" [message]="message"
-        [alertClosed]="alertClosed"></app-error-alert>
-</div> -->
 <div class="main-div">
     <h2>Registracija centra i upravnika centra</h2>
     <div class="box">
@@ -248,86 +9,86 @@
                     <div class="row">
 
                         <div class="col-6">
-                            <label>Naziv:</label>
+                            <label>Naziv: *</label>
                         </div>
                         <div class="col-6">
                             <input name="centerName" formControlName="centerName" required="required"
                                 [(ngModel)]="centerName"
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.centerName.errors}">
                             <span *ngIf="submitted && centerRegistrationForm.controls.centerName.errors">
-                                Invalid input
+                                Neispravan unos
                             </span>
                         </div>
 
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>E-mail adresa:</label>
+                            <label>E-mail adresa: *</label>
                         </div>
                         <div class="col-6">
                             <input name="centerEmail" type="email" formControlName="centerEmail" required="required"
                                 [(ngModel)]="centerEmail"
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.centerEmail.errors}">
                             <span *ngIf="submitted && centerRegistrationForm.controls.centerEmail.errors">
-                                Invalid input
+                                Neispravan unos
                             </span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>Adresa:</label>
+                            <label>Adresa: *</label>
                         </div>
                         <div class="col-6">
                             <input name="centerAddress" formControlName="centerAddress" required="required"
                                 [(ngModel)]="centerAddress"
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.centerAddress.errors}">
                             <span *ngIf="submitted && centerRegistrationForm.controls.centerAddress.errors">
-                                Invalid input
+                                Neispravan unos
                             </span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>Grad:</label>
+                            <label>Grad: *</label>
                         </div>
                         <div class="col-6">
                             <input name="centerCity" formControlName="centerCity" required="required"
                                 [(ngModel)]="centerCity"
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.centerCity.errors}">
                             <span *ngIf="submitted && centerRegistrationForm.controls.centerCity.errors">
-                                Invalid input
+                                Neispravan unos
                             </span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>Država:</label>
+                            <label>Država: *</label>
                         </div>
                         <div class="col-6">
                             <input name="centerCountry" formControlName="centerCountry" required="required"
                                 [(ngModel)]="centerCountry"
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.centerCountry.errors}">
                             <span *ngIf="submitted && centerRegistrationForm.controls.centerCountry.errors">
-                                Invalid input
+                                Neispravan unos
                             </span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>Broj telefona:</label>
+                            <label>Broj telefona: *</label>
                         </div>
                         <div class="col-6">
                             <input name="centerPhone" formControlName="centerPhone" required="required"
                                 [(ngModel)]="centerPhone"
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.centerPhone.errors}">
                             <span *ngIf="submitted && centerRegistrationForm.controls.centerPhone.errors">
-                                Invalid input
+                                Neispravan unos
                             </span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>Radno vrijeme:</label>
+                            <label>Radno vrijeme: *</label>
                         </div>
                         <div class="col-6">
                             <div class="row">
@@ -339,7 +100,7 @@
                                         [(ngModel)]="workingTimeFrom"
                                         [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.workingTimeFrom.errors}">
                                     <span *ngIf="submitted && centerRegistrationForm.controls.workingTimeFrom.errors">
-                                        Invalid input
+                                        Neispravan unos
                                     </span>
                                 </div>
                                 <div class="col-2">
@@ -350,7 +111,7 @@
                                         [(ngModel)]="workingTimeTo"
                                         [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.workingTimeTo.errors}">
                                     <span *ngIf="submitted && centerRegistrationForm.controls.workingTimeTo.errors">
-                                        Invalid input
+                                        Neispravan unos
                                     </span>
                                 </div>
                             </div>
@@ -359,20 +120,20 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>Kapacitet centra:</label>
+                            <label>Kapacitet centra: *</label>
                         </div>
                         <div class="col-6">
                             <input name="centerCapacity" formControlName="centerCapacity" required="required"
                                 [(ngModel)]="centerCapacity"
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.centerCapacity.errors}">
                             <span *ngIf="submitted && centerRegistrationForm.controls.centerCapacity.errors">
-                                Invalid input
+                                Neispravan unos
                             </span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label style="margin-bottom: -10px;">Opis centra:</label>
+                            <label style="margin-bottom: -10px;">Opis centra: *</label>
                         </div>
                         <div class="col-6">
 
@@ -385,7 +146,7 @@
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.centerDescription.errors}">
                             </textarea>
                             <span *ngIf="submitted && centerRegistrationForm.controls.centerDescription.errors">
-                                Invalid input
+                                Neispravan unos
                             </span>
                         </div>
                     </div>
@@ -396,47 +157,47 @@
                     <div class="row">
 
                         <div class="col-6">
-                            <label>Ime:</label>
+                            <label>Ime: *</label>
                         </div>
                         <div class="col-6">
                             <input name="managerName" formControlName="managerName" required="required"
                                 [(ngModel)]="managerName"
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerName.errors}">
                             <span *ngIf="submitted && centerRegistrationForm.controls.managerName.errors">
-                                Invalid input
+                                Neispravan unos
                             </span>
                         </div>
 
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>Prezime:</label>
+                            <label>Prezime: *</label>
                         </div>
                         <div class="col-6">
                             <input name="managerSurname" formControlName="managerSurname" required="required"
                                 [(ngModel)]="managerSurname"
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerSurname.errors}">
                             <span *ngIf="submitted && centerRegistrationForm.controls.managerSurname.errors">
-                                Invalid input
+                                Neispravan unos
                             </span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>E-mail adresa:</label>
+                            <label>E-mail adresa: *</label>
                         </div>
                         <div class="col-6">
                             <input type="email" name="managerEmail" formControlName="managerEmail" required="required"
                                 [(ngModel)]="managerEmail"
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerEmail.errors}">
                             <span *ngIf="submitted && centerRegistrationForm.controls.managerEmail.errors">
-                                Invalid input
+                                Neispravan unos
                             </span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>Pol:</label>
+                            <label>Pol: *</label>
                         </div>
                         <div class="col-6">
                             <label class="radio-inline">
@@ -457,74 +218,74 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>Adresa stanovanja:</label>
+                            <label>Adresa stanovanja: *</label>
                         </div>
                         <div class="col-6">
                             <input name="managerAddress" formControlName="managerAddress" required="required"
                                 [(ngModel)]="managerAddress"
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerAddress.errors}">
                             <span *ngIf="submitted && centerRegistrationForm.controls.managerAddress.errors">
-                                Invalid input
+                                Neispravan unos
                             </span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>Grad:</label>
+                            <label>Grad: *</label>
                         </div>
                         <div class="col-6">
                             <input name="managerCity" formControlName="managerCity" required="required"
                                 [(ngModel)]="managerCity"
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerCity.errors}">
                             <span *ngIf="submitted && centerRegistrationForm.controls.managerCity.errors">
-                                Invalid input
+                                Neispravan unos
                             </span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>Država:</label>
+                            <label>Država: *</label>
                         </div>
                         <div class="col-6">
                             <input name="managerCountry" formControlName="managerCountry" required="required"
                                 [(ngModel)]="managerCountry"
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerCountry.errors}">
                             <span *ngIf="submitted && centerRegistrationForm.controls.managerCountry.errors">
-                                Invalid input
+                                Neispravan unos
                             </span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>Broj telefona:</label>
+                            <label>Broj telefona: *</label>
                         </div>
                         <div class="col-6">
                             <input name="managerPhone" formControlName="managerPhone" required="required"
                                 [(ngModel)]="managerPhone"
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerPhone.errors}">
                             <span *ngIf="submitted && centerRegistrationForm.controls.managerPhone.errors">
-                                Invalid input
+                                Neispravan unos
                             </span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>Lozinka:</label>
+                            <label>Lozinka: *</label>
                         </div>
                         <div class="col-6">
                             <input type="password" name="managerPassword" formControlName="managerPassword"
                                 required="required" [(ngModel)]="managerPassword"
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerPassword.errors}">
                             <span *ngIf="submitted && centerRegistrationForm.controls.managerPassword.errors">
-                                Password must be a combination of lower-case,
-                                upper-case,
-                                numbers and at least 9 characters long
+                                Lozinka mora da sadrži najmanje 9 znakova
+                                i da predstavlja kombinaciju malih i velikih
+                                slova i brojeva
                             </span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>Potvrda lozinke:</label>
+                            <label>Potvrda lozinke: *</label>
                         </div>
                         <div class="col-6">
                             <input type="password" name="managerConfirmPassword"
@@ -532,7 +293,7 @@
                                 [(ngModel)]="managerConfirmPassword"
                                 [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerConfirmPassword.errors}">
                             <span *ngIf="submitted && managerConfirmPassword != managerPassword">
-                                Passwords do not match
+                                Lozinke se ne poklapaju
                             </span>
                         </div>
                     </div>
@@ -544,5 +305,3 @@
         </form>
     </div>
 </div>
-<app-error-alert (emitAlertClosed)="closeAlert($event)" [message]="message"
-        [alertClosed]="alertClosed"></app-error-alert>
