@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../authentication/auth.service';
-import { ErrorAlertComponent } from '../../error-alert/error-alert.component';
+import * as alertifyjs from 'alertifyjs';
 
 @Component({
   selector: 'app-user-profile',

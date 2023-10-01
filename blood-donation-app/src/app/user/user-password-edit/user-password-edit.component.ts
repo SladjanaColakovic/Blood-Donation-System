@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/authentication/auth.service';
-import { ErrorAlertComponent } from 'src/app/error-alert/error-alert.component';
 import { UserService } from 'src/app/services/user.service';
+import * as alertifyjs from 'alertifyjs';
 
 @Component({
   selector: 'app-user-password-edit',
@@ -15,11 +15,6 @@ export class UserPasswordEditComponent {
   password: string;
   confirmPassword: string;
   username: string
-
-   message = "";
-
-  @ViewChild(ErrorAlertComponent) alert: ErrorAlertComponent;
-  alertClosed = true;
 
   editPasswordForm = new FormGroup({
     password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$')]),
@@ -43,18 +38,15 @@ export class UserPasswordEditComponent {
         username: this.username
       }
       this.userService.changePassword(data).subscribe((response: any) => {
+        alertifyjs.set('notifier', 'position', 'bottom-center');
+        alertifyjs.success('Uspješno ste ažurirali lozinku', 4);
         this.authService.logout();
       }, error => {
-        this.message = error.error;
-        this.alertClosed = false;
-        this.alert.setAlertTimeError();
+        alertifyjs.set('notifier', 'position', 'bottom-center');
+        alertifyjs.error(error.error, 15);
       })
     }
 
-  }
-
-  closeAlert(event: any) {
-    this.alertClosed = event
   }
 
 }

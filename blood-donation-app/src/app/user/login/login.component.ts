@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { AuthService } from '../../authentication/auth.service';
-import { ErrorAlertComponent } from '../../error-alert/error-alert.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import * as alertifyjs from 'alertifyjs';
 
 @Component({
   selector: 'app-login',
@@ -12,11 +12,7 @@ export class LoginComponent {
 
   email = ""
   password = ""
-  message = ""
   submitted: boolean
-
-  @ViewChild(ErrorAlertComponent) alert: ErrorAlertComponent;
-  alertClosed = true;
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -43,15 +39,11 @@ export class LoginComponent {
         window.location.href = "http://localhost:4200/"
       },
         error => {
-          this.message = "Neispravno korisničko ime i lozinka"
-          this.alertClosed = false
-          this.alert.setAlertTimeError();
+          alertifyjs.set('notifier', 'position', 'bottom-center');
+          alertifyjs.error('Neispravno korisničko ime i lozinka', 15);
+          
         });
     }
-  }
-
-  closeAlert(event: any) {
-    this.alertClosed = event
   }
 
 }

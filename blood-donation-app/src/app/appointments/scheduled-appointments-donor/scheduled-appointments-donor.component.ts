@@ -4,6 +4,7 @@ import { addMinutes } from 'date-fns';
 import { EventColor } from 'calendar-utils';
 import { AppointmentService } from '../../services/appointment.service';
 import { AuthService } from '../../authentication/auth.service';
+import { Router } from '@angular/router';
 
 const colors: Record<string, EventColor> = {
   red: {
@@ -18,14 +19,13 @@ const colors: Record<string, EventColor> = {
   styleUrls: ['./scheduled-appointments-donor.component.css']
 })
 
-
 export class ScheduledAppointmentsDonorComponent {
 
   appointments: any[]
   isLoading = false;
   events: CalendarEvent[];
 
-  constructor(private appointmentService: AppointmentService, private authService: AuthService) {}
+  constructor(private appointmentService: AppointmentService, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.events = []

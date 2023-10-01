@@ -15,7 +15,6 @@ import { BloodDonationGaleryComponent } from './homepage/blood-donation-galery/b
 import { LoginComponent } from './user/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from './user/registration/registration.component';
-import { ErrorAlertComponent } from './error-alert/error-alert.component';
 import { CenterRegistrationComponent } from './centers/center-registration/center-registration.component';
 import { CentersReviewComponent } from './centers/centers-review/centers-review.component';
 import { CenterDetailComponent } from './centers/center-detail/center-detail.component';
@@ -41,7 +40,6 @@ import { CenterSearchSortComponent } from './centers/center-search-sort/center-s
     BloodDonationGaleryComponent,
     LoginComponent,
     RegistrationComponent,
-    ErrorAlertComponent,
     CenterRegistrationComponent,
     CentersReviewComponent,
     CenterDetailComponent,

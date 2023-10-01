@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/authentication/auth.service';
-import { ErrorAlertComponent } from 'src/app/error-alert/error-alert.component';
 import { UserService } from 'src/app/services/user.service';
+import * as alertifyjs from 'alertifyjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-info-edit',
@@ -14,12 +15,8 @@ export class UserInfoEditComponent {
   @Input() user: any = {} as any
   @Output() emitUserChanged = new EventEmitter<any>();
   username = ""
-  message = ""
 
   submitted: boolean;
-
-  @ViewChild(ErrorAlertComponent) alert: ErrorAlertComponent;
-  alertClosed = true;
 
   editForm = new FormGroup({
     address: new FormControl('', Validators.required),
@@ -29,7 +26,7 @@ export class UserInfoEditComponent {
 
   })
 
-  constructor(private authService: AuthService, private userService: UserService) { }
+  constructor(private authService: AuthService, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.submitted = false;
@@ -49,19 +46,14 @@ export class UserInfoEditComponent {
       this.userService.edit(data).subscribe((response: any) => {
         this.user = response;
         this.emitUserChanged.emit(this.user);
-        this.message = "Uspješno ažuriranje podataka"
-        this.alertClosed = false
-        this.alert.setAlertTime('/profile');
+        alertifyjs.set('notifier', 'position', 'bottom-center');
+        alertifyjs.success('Uspješno ažuriranje podataka', 4);
+        this.router.navigate(['/profile'])
       }, error => {
-        this.message = error.error
-        this.alertClosed = false
-        this.alert.setAlertTimeError();
+        alertifyjs.set('notifier', 'position', 'bottom-center');
+        alertifyjs.error(error.error, 15);
       })
     }
-  }
-
-  closeAlert(event: any) {
-    this.alertClosed = event
   }
 
 }

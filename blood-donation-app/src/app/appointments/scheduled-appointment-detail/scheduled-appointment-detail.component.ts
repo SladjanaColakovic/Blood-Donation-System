@@ -1,9 +1,9 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentService } from '../../services/appointment.service';
 import { Router } from '@angular/router';
-import { ErrorAlertComponent } from '../../error-alert/error-alert.component';
 import { AuthService } from 'src/app/authentication/auth.service';
+import * as alertifyjs from 'alertifyjs';
 
 @Component({
   selector: 'app-scheduled-appointment-detail',
@@ -14,12 +14,7 @@ export class ScheduledAppointmentDetailComponent {
 
   @Input() public event: any;
 
-  message = ""
   isDonor = false;
-  canceled = false;
-
-  @ViewChild(ErrorAlertComponent) alert: ErrorAlertComponent;
-  alertClosed = true;
 
   constructor(public activeModal: NgbActiveModal, private authService: AuthService, private appointmentService: AppointmentService, private router: Router) { }
 
@@ -31,29 +26,18 @@ export class ScheduledAppointmentDetailComponent {
 
   cancel() {
     this.appointmentService.cancel(this.event.id).subscribe((response: any) => {
-      //this.activeModal.close()
-      this.canceled = true;
-      // this.message = "Uspješno otkazivanje termina"
-      // this.alertClosed = false
-      // this.alert.setAlertTimeError()
-      //location.replace("/scheduledAppointments")
-    }, error => {
-      this.message = error.error
-      this.alertClosed = false
-      this.alert.setAlertTimeError();
-    })
-  }
+      this.activeModal.close();
+      alertifyjs.set('notifier', 'position', 'bottom-center');
+      alertifyjs.success('Uspješno otkazivanje termina', 1.2, () => {location.reload()});
 
-  closeAlert(event: any) {
-    this.alertClosed = event
-    location.replace("/scheduledAppointments")
+    }, error => {
+      alertifyjs.set('notifier', 'position', 'bottom-center');
+      alertifyjs.error(error.error, 10);
+    })
   }
 
   closeDialog() {
     this.activeModal.close()
-    if (this.canceled) {
-      location.replace("/scheduledAppointments")
-    }
   }
 
   isNot24HoursLater() {

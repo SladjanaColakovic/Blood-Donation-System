@@ -3,7 +3,7 @@ import { CenterService } from '../../services/center.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../authentication/auth.service';
 import { AppointmentService } from '../../services/appointment.service';
-import { ErrorAlertComponent } from '../../error-alert/error-alert.component';
+import * as alertifyjs from 'alertifyjs';
 
 @Component({
   selector: 'app-centers',
@@ -16,11 +16,6 @@ export class CentersReviewComponent {
   searchDate = ""
   role = ""
   emptyResult = true;
-
-  message = ""
-
-  @ViewChild(ErrorAlertComponent) alert: ErrorAlertComponent;
-  alertClosed = true;
 
   constructor(private centerService: CenterService,
     private router: Router,
@@ -49,29 +44,24 @@ export class CentersReviewComponent {
       startDateTime: this.searchDate
     }
     this.appointmentService.schedule(data).subscribe((response: any) => {
-      this.message = "Uspješno ste zakazali termin"
-      this.alertClosed = false
-      this.alert.setAlertTime('/centers');
+      alertifyjs.set('notifier', 'position', 'bottom-center');
+      alertifyjs.success('Uspješno ste zakazali termin', 4);
+      this.router.navigate(['/centers'])
     }, error => {
-      this.message = error.error;
-      this.alertClosed = false
-      this.alert.setAlertTimeError();
+      alertifyjs.set('notifier', 'position', 'bottom-center');
+      alertifyjs.error(error.error, 10);
     })
   }
 
-  closeAlert(event: any) {
-    this.alertClosed = event
-  }
-
-  searchedCenters(event: any){
+  searchedCenters(event: any) {
     this.centers = event;
   }
 
-  emptyResultChanged(event: any){
+  emptyResultChanged(event: any) {
     this.emptyResult = event;
   }
 
-  changeDateTime(newDateTime: any){
+  changeDateTime(newDateTime: any) {
     this.searchDate = newDateTime
   }
 }

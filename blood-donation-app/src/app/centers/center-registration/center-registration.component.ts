@@ -1,7 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component} from '@angular/core';
 import { CenterService } from '../../services/center.service';
-import { ErrorAlertComponent } from '../../error-alert/error-alert.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import * as alertifyjs from 'alertifyjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-center-registration',
@@ -32,12 +33,7 @@ export class CenterRegistrationComponent {
   managerPassword: string
   managerConfirmPassword: string
 
-  message = ""
-
   submitted: boolean;
-
-  @ViewChild(ErrorAlertComponent) alert: ErrorAlertComponent;
-  alertClosed = true;
 
   centerRegistrationForm = new FormGroup({
     centerName: new FormControl('', Validators.required),
@@ -62,7 +58,7 @@ export class CenterRegistrationComponent {
     managerConfirmPassword: new FormControl('', Validators.required),
   })
 
-  constructor(private centerService: CenterService) { }
+  constructor(private centerService: CenterService, private router: Router) { }
 
   ngOnInit() {
     this.submitted = false;
@@ -98,13 +94,12 @@ export class CenterRegistrationComponent {
       }
 
       this.centerService.register(data).subscribe((response: any) => {
-        this.message = "Uspješna registracija centra"
-        this.alertClosed = false
-        this.alert.setAlertTime('/centers');
+        alertifyjs.set('notifier', 'position', 'bottom-center');
+        alertifyjs.success('Uspješna registracija centra', 4);
+        this.router.navigate(['/centers'])
       }, error => {
-        this.message = error.error
-        this.alertClosed = false
-        this.alert.setAlertTimeError();
+        alertifyjs.set('notifier', 'position', 'bottom-center');
+        alertifyjs.error(error.error, 15);
       })
 
     }
@@ -113,10 +108,6 @@ export class CenterRegistrationComponent {
 
   radioButtonChanged(value: any) {
     this.managerGender = value;
-  }
-
-  closeAlert(event: any) {
-    this.alertClosed = event
   }
 
 }
