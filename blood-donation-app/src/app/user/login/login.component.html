@@ -1,0 +1,34 @@
+<div style="margin: 10px;">
+    <h2>Prijava</h2>
+    <div class="box">
+        <form [formGroup]="loginForm">
+            <div class="row">
+                <div class="col-6">
+                    <label>E-mail adresa:</label>
+                </div>
+                <div class="col-6">
+                    <input type="email" formControlName="email" required="required" [(ngModel)]="email"
+                        [ngClass]="{'is-invalid': submitted && loginForm.controls.email.errors}">
+                    <span *ngIf="submitted && loginForm.controls.email.errors">
+                        Neispravan unos
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>Lozinka:</label>
+                </div>
+                <div class="col-6">
+                    <input formControlName="password" required="required" [(ngModel)]="password" type="password"
+                        [ngClass]="{'is-invalid': submitted && loginForm.controls.password.errors}">
+                    <span *ngIf="submitted && loginForm.controls.password.errors">
+                        Neispravan unos
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <button (click)="login()">Uloguj se</button>
+            </div>
+        </form>
+    </div>
+</div>

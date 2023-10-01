@@ -1,0 +1,307 @@
+<div class="main-div">
+    <h2>Registracija centra i upravnika centra</h2>
+    <div class="box">
+        <form [formGroup]="centerRegistrationForm">
+            <div class="row">
+                <div class="col-5">
+
+                    <h5>Centar</h5>
+                    <div class="row">
+
+                        <div class="col-6">
+                            <label>Naziv: *</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="centerName" formControlName="centerName" required="required"
+                                [(ngModel)]="centerName"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.centerName.errors}">
+                            <span *ngIf="submitted && centerRegistrationForm.controls.centerName.errors">
+                                Neispravan unos
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>E-mail adresa: *</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="centerEmail" type="email" formControlName="centerEmail" required="required"
+                                [(ngModel)]="centerEmail"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.centerEmail.errors}">
+                            <span *ngIf="submitted && centerRegistrationForm.controls.centerEmail.errors">
+                                Neispravan unos
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Adresa: *</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="centerAddress" formControlName="centerAddress" required="required"
+                                [(ngModel)]="centerAddress"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.centerAddress.errors}">
+                            <span *ngIf="submitted && centerRegistrationForm.controls.centerAddress.errors">
+                                Neispravan unos
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Grad: *</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="centerCity" formControlName="centerCity" required="required"
+                                [(ngModel)]="centerCity"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.centerCity.errors}">
+                            <span *ngIf="submitted && centerRegistrationForm.controls.centerCity.errors">
+                                Neispravan unos
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Država: *</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="centerCountry" formControlName="centerCountry" required="required"
+                                [(ngModel)]="centerCountry"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.centerCountry.errors}">
+                            <span *ngIf="submitted && centerRegistrationForm.controls.centerCountry.errors">
+                                Neispravan unos
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Broj telefona: *</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="centerPhone" formControlName="centerPhone" required="required"
+                                [(ngModel)]="centerPhone"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.centerPhone.errors}">
+                            <span *ngIf="submitted && centerRegistrationForm.controls.centerPhone.errors">
+                                Neispravan unos
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Radno vrijeme: *</label>
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-2">
+                                    <label>Od:</label>
+                                </div>
+                                <div class="col-4">
+                                    <input name="workingTimeFrom" formControlName="workingTimeFrom" required="required"
+                                        [(ngModel)]="workingTimeFrom"
+                                        [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.workingTimeFrom.errors}">
+                                    <span *ngIf="submitted && centerRegistrationForm.controls.workingTimeFrom.errors">
+                                        Neispravan unos
+                                    </span>
+                                </div>
+                                <div class="col-2">
+                                    <label>Do:</label>
+                                </div>
+                                <div class="col-4">
+                                    <input name="workingTimeTo" formControlName="workingTimeTo" required="required"
+                                        [(ngModel)]="workingTimeTo"
+                                        [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.workingTimeTo.errors}">
+                                    <span *ngIf="submitted && centerRegistrationForm.controls.workingTimeTo.errors">
+                                        Neispravan unos
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Kapacitet centra: *</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="centerCapacity" formControlName="centerCapacity" required="required"
+                                [(ngModel)]="centerCapacity"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.centerCapacity.errors}">
+                            <span *ngIf="submitted && centerRegistrationForm.controls.centerCapacity.errors">
+                                Neispravan unos
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label style="margin-bottom: -10px;">Opis centra: *</label>
+                        </div>
+                        <div class="col-6">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <textarea rows="3" name="centerDescription" formControlName="centerDescription"
+                                required="required" [(ngModel)]="centerDescription"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.centerDescription.errors}">
+                            </textarea>
+                            <span *ngIf="submitted && centerRegistrationForm.controls.centerDescription.errors">
+                                Neispravan unos
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-5">
+                    <h5 class="hManager">Upravnik centra</h5>
+                    <div class="row">
+
+                        <div class="col-6">
+                            <label>Ime: *</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="managerName" formControlName="managerName" required="required"
+                                [(ngModel)]="managerName"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerName.errors}">
+                            <span *ngIf="submitted && centerRegistrationForm.controls.managerName.errors">
+                                Neispravan unos
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Prezime: *</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="managerSurname" formControlName="managerSurname" required="required"
+                                [(ngModel)]="managerSurname"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerSurname.errors}">
+                            <span *ngIf="submitted && centerRegistrationForm.controls.managerSurname.errors">
+                                Neispravan unos
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>E-mail adresa: *</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="email" name="managerEmail" formControlName="managerEmail" required="required"
+                                [(ngModel)]="managerEmail"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerEmail.errors}">
+                            <span *ngIf="submitted && centerRegistrationForm.controls.managerEmail.errors">
+                                Neispravan unos
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Pol: *</label>
+                        </div>
+                        <div class="col-6">
+                            <label class="radio-inline">
+                                <input formControlName="managerGender" required="required" checked value="Female"
+                                    (change)="radioButtonChanged('Female')" type="radio" name="managerGender"
+                                    [(ngModel)]="managerGender"
+                                    [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerGender.errors}">
+                                Ženski
+                            </label>
+                            <label class="radio-inline">
+                                <input formControlName="managerGender" value="Male"
+                                    (change)="radioButtonChanged('Male')" type="radio" name="managerGender"
+                                    [(ngModel)]="managerGender"
+                                    [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerGender.errors}">
+                                Muški
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Adresa stanovanja: *</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="managerAddress" formControlName="managerAddress" required="required"
+                                [(ngModel)]="managerAddress"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerAddress.errors}">
+                            <span *ngIf="submitted && centerRegistrationForm.controls.managerAddress.errors">
+                                Neispravan unos
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Grad: *</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="managerCity" formControlName="managerCity" required="required"
+                                [(ngModel)]="managerCity"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerCity.errors}">
+                            <span *ngIf="submitted && centerRegistrationForm.controls.managerCity.errors">
+                                Neispravan unos
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Država: *</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="managerCountry" formControlName="managerCountry" required="required"
+                                [(ngModel)]="managerCountry"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerCountry.errors}">
+                            <span *ngIf="submitted && centerRegistrationForm.controls.managerCountry.errors">
+                                Neispravan unos
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Broj telefona: *</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="managerPhone" formControlName="managerPhone" required="required"
+                                [(ngModel)]="managerPhone"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerPhone.errors}">
+                            <span *ngIf="submitted && centerRegistrationForm.controls.managerPhone.errors">
+                                Neispravan unos
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Lozinka: *</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="password" name="managerPassword" formControlName="managerPassword"
+                                required="required" [(ngModel)]="managerPassword"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerPassword.errors}">
+                            <span *ngIf="submitted && centerRegistrationForm.controls.managerPassword.errors">
+                                Lozinka mora da sadrži najmanje 9 znakova
+                                i da predstavlja kombinaciju malih i velikih
+                                slova i brojeva
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Potvrda lozinke: *</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="password" name="managerConfirmPassword"
+                                formControlName="managerConfirmPassword" required="required"
+                                [(ngModel)]="managerConfirmPassword"
+                                [ngClass]="{'is-invalid': submitted && centerRegistrationForm.controls.managerConfirmPassword.errors}">
+                            <span *ngIf="submitted && managerConfirmPassword != managerPassword">
+                                Lozinke se ne poklapaju
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <button (click)="register()">Potvrdi</button>
+            </div>
+        </form>
+    </div>
+</div>

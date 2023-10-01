@@ -1,0 +1,53 @@
+<form [formGroup]="editForm">
+    <div class="row space">
+        <div class="col-6">
+            <label>Adresa stanovanja:</label>
+        </div>
+        <div class="col-6">
+            <input class="editable-info" name="address" required="required" formControlName="address"
+                [(ngModel)]="user.address" [ngClass]="{'is-invalid': submitted && editForm.controls.address.errors}">
+            <span *ngIf="submitted && editForm.controls.address.errors">
+                Neispravan unos
+            </span>
+        </div>
+    </div>
+    <div class="row space">
+        <div class="col-6">
+            <label>Grad:</label>
+        </div>
+        <div class="col-6">
+            <input class="editable-info" name="city" required="required" formControlName="city" [(ngModel)]="user.city"
+                [ngClass]="{'is-invalid': submitted && editForm.controls.city.errors}">
+            <span *ngIf="submitted && editForm.controls.city.errors">
+                Neispravan unos
+            </span>
+        </div>
+    </div>
+    <div class="row space">
+        <div class="col-6">
+            <label>Država:</label>
+        </div>
+        <div class="col-6">
+            <input class="editable-info" name="country" required="required" formControlName="country"
+                [(ngModel)]="user.country" [ngClass]="{'is-invalid': submitted && editForm.controls.country.errors}">
+            <span *ngIf="submitted && editForm.controls.country.errors">
+                Neispravan unos
+            </span>
+        </div>
+    </div>
+    <div class="row space">
+        <div class="col-6">
+            <label>Broj telefona:</label>
+        </div>
+        <div class="col-6">
+            <input class="editable-info" name="phone" required="required" formControlName="phone"
+                [(ngModel)]="user.phoneNumber" [ngClass]="{'is-invalid': submitted && editForm.controls.phone.errors}">
+            <span *ngIf="submitted && editForm.controls.phone.errors">
+                Neispravan unos
+            </span>
+        </div>
+    </div>
+    <div class="row space">
+        <button (click)="editUserInfo()">Ažuriraj</button>
+    </div>
+</form>

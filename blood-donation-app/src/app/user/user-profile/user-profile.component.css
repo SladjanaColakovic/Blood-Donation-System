@@ -1,0 +1,64 @@
+#bg-image {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 25px;
+    background: linear-gradient(rgba(243, 240, 240, 0.5), rgba(243, 240, 240, 0.5)), url(/assets/profile-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.box {
+    margin: 10px;
+    padding: 25px;
+    border: 1px solid;
+    border-color: #d6b8b8;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+}
+
+.info {
+    text-align: center;
+    width: 100%;
+    padding: 9px;
+    border-bottom: 1px solid #ccc;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    resize: horizontal;
+    background-color: transparent;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+@media screen and (max-width: 800px) {
+    .col-5{
+        width: 100%;
+    }
+    .col-10{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1000px) and (min-width:800px) {
+    .col-5{
+        width: 50%;
+    }
+
+    .col-1{
+        display: none;
+    }
+
+    .col-10{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1100px) and (min-width:1000px) {
+
+    .col-10{
+        width: 100%;
+    }
+}

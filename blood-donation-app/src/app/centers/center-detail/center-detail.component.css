@@ -1,0 +1,97 @@
+.main-div {
+    overflow: hidden;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.box {
+    margin: 10px;
+    padding: 25px;
+    border: 1px solid;
+    border-color: #d6b8b8;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+}
+
+.image {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 100%;
+    height: auto;
+}
+
+.image:hover {
+    opacity: 0.8;
+}
+
+svg {
+    fill: #d17272;
+}
+
+p {
+    margin-top: 10px;
+    text-align: justify;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 9px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: horizontal;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+
+textarea {
+    width: 100%;
+    padding: 9px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+
+label {
+    font-size: 17px;
+    padding: 9px 9px 9px 0;
+    display: inline-block;
+}
+
+.row:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+button {
+    width: 130px;
+    background-color: #d17272;
+    border: none;
+    color: white;
+    padding: 11px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+    border-radius: 5px;
+    float: right;
+}
+
+button:hover {
+    background-color: #9d4d4d;
+}
+
+.description {
+    font-size: 17px;
+}
+
+@media screen and (max-width: 1000px) {
+    .col-6 {
+        width: 100%;
+    }
+}

@@ -1,0 +1,151 @@
+<div style="margin: 10px;">
+    <h2>Registracija</h2>
+    <div class="box">
+        <form [formGroup]="registrationForm">
+            <div class="row">
+                <div class="col-6">
+                    <label>Ime: *</label>
+                </div>
+                <div class="col-6">
+                    <input name="name" formControlName="name" required="required" [(ngModel)]="name"
+                        [ngClass]="{'is-invalid': submitted && registrationForm.controls.name.errors}">
+                    <span *ngIf="submitted && registrationForm.controls.name.errors">
+                        Neispravan unos
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>Prezime: * </label>
+                </div>
+                <div class="col-6">
+                    <input formControlName="surname" required="required" [(ngModel)]="surname"
+                        [ngClass]="{'is-invalid': submitted && registrationForm.controls.surname.errors}">
+                    <span *ngIf="submitted && registrationForm.controls.surname.errors">
+                        Neispravan unos
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>E-mail adresa: *</label>
+                </div>
+                <div class="col-6">
+                    <input type="email" formControlName="email" required="required" [(ngModel)]="email"
+                        [ngClass]="{'is-invalid': submitted && registrationForm.controls.email.errors}">
+                    <span *ngIf="submitted && registrationForm.controls.email.errors">
+                        Neispravan unos
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>JMBG: *</label>
+                </div>
+                <div class="col-6">
+                    <input formControlName="jmbg" required="required" [(ngModel)]="jmbg"
+                        [ngClass]="{'is-invalid': submitted && registrationForm.controls.jmbg.errors}">
+                    <span *ngIf="submitted && registrationForm.controls.jmbg.errors">
+                        Neispravan unos
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>Pol: *</label>
+                </div>
+                <div class="col-6">
+                    <label class="radio-inline">
+                        <input formControlName="gender" required="required" checked value="Female"
+                            (change)="radioButtonChanged('Female')" type="radio" name="gender" [(ngModel)]="gender"
+                            [ngClass]="{'is-invalid': submitted && registrationForm.controls.gender.errors}">
+                        Ženski
+                    </label>
+                    <label required="required" class="radio-inline">
+                        <input formControlName="gender" value="Male" (change)="radioButtonChanged('Male')" type="radio"
+                            name="gender" [(ngModel)]="gender"
+                            [ngClass]="{'is-invalid': submitted && registrationForm.controls.gender.errors}"> Muški
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>Adresa stanovanja: *</label>
+                </div>
+                <div class="col-6">
+                    <input formControlName="address" required="required" [(ngModel)]="address"
+                        [ngClass]="{'is-invalid': submitted && registrationForm.controls.address.errors}">
+                    <span *ngIf="submitted && registrationForm.controls.address.errors">
+                        Neispravan unos
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>Grad: *</label>
+                </div>
+                <div class="col-6">
+                    <input formControlName="city" required="required" [(ngModel)]="city"
+                        [ngClass]="{'is-invalid': submitted && registrationForm.controls.city.errors}">
+                    <span *ngIf="submitted && registrationForm.controls.city.errors">
+                        Neispravan unos
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>Država: *</label>
+                </div>
+                <div class="col-6">
+                    <input formControlName="country" required="required" [(ngModel)]="country"
+                        [ngClass]="{'is-invalid': submitted && registrationForm.controls.country.errors}">
+                    <span *ngIf="submitted && registrationForm.controls.country.errors">
+                        Neispravan unos
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>Broj telefona: *</label>
+                </div>
+                <div class="col-6">
+                    <input formControlName="phone" required="required" [(ngModel)]="phone"
+                        [ngClass]="{'is-invalid': submitted && registrationForm.controls.phone.errors}">
+                    <span *ngIf="submitted && registrationForm.controls.phone.errors">
+                        Neispravan unos
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>Lozinka: *</label>
+                </div>
+                <div class="col-6">
+                    <input formControlName="password" required="required" [(ngModel)]="password" type="password"
+                        [ngClass]="{'is-invalid': submitted && registrationForm.controls.password.errors}">
+                    <span *ngIf="submitted && registrationForm.controls.password.errors">
+                        Lozinka mora da sadrži najmanje 9 znakova
+                        i da predstavlja kombinaciju malih i velikih
+                        slova i brojeva
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>Potvrda lozinke: *</label>
+                </div>
+                <div class="col-6">
+                    <input formControlName="confirmPassword" required="required" [(ngModel)]="confirmPassword"
+                        type="password"
+                        [ngClass]="{'is-invalid': submitted && registrationForm.controls.confirmPassword.errors}">
+                    <span *ngIf="submitted && confirmPassword != password">
+                        Lozinke se ne poklapaju
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <button (click)="register()">Potvrdi</button>
+            </div>
+        </form>
+    </div>
+</div>
