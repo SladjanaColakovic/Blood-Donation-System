@@ -94,18 +94,22 @@ svg {
     fill: #d17272;
 }
 
+svg:hover {
+    fill: #7e2929;
+}
+
 .spanBtn {
     margin-left: 10px;
 }
 
 @media screen and (max-width: 800px) {
-    
+
     .bg {
         position: relative;
         margin-top: 0px;
     }
 
-    label{
+    label {
         margin-top: 20px;
     }
 }
@@ -115,11 +119,12 @@ svg {
         position: relative;
         margin-top: 0px;
     }
+
     .col-6 {
         width: 20%;
     }
 
-    label{
+    label {
         margin-top: 20px;
     }
 
@@ -139,7 +144,7 @@ svg {
         margin-left: 20px;
     }
 
-    label{
+    label {
         margin-top: 0px;
     }
 

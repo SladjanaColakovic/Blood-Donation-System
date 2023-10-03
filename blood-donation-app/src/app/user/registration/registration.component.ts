@@ -53,7 +53,7 @@ export class RegistrationComponent {
 
   register() {
     this.submitted = true;
-    if (this.registrationForm.valid) {
+    if (this.registrationForm.valid && this.password === this.confirmPassword) {
       let data = {
         name: this.name,
         surname: this.surname,

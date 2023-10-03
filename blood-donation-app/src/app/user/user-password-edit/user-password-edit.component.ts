@@ -31,7 +31,7 @@ export class UserPasswordEditComponent {
 
   editPassword() {
     this.submitted = true;
-    if(this.editPasswordForm.valid){
+    if(this.editPasswordForm.valid && this.password === this.confirmPassword){
       let data = {
         password: this.password,
         confirmPassword: this.confirmPassword,

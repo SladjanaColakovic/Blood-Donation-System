@@ -1,6 +1,7 @@
 package com.example.blooddonationsystem.security.util;
 
 import com.example.blooddonationsystem.model.User;
+import com.example.blooddonationsystem.security.helper.CustomUserDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -134,11 +135,11 @@ public class TokenUtils {
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
         final Date created = getIssuedAtDateFromToken(token);
-
+        CustomUserDetails user = (CustomUserDetails) userDetails;
         return (username != null
                 && username.equals(userDetails.getUsername())
                 && !isTokenExpired(token)
-                /*&& !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate())*/); // nakon kreiranja tokena korisnik nije menjao svoju lozinku
+                && !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));
     }
 
     private Boolean isTokenExpired(String token) {

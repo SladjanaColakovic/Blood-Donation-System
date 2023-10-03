@@ -27,6 +27,8 @@ import java.util.Set;
 @Service
 public class AppointmentServiceImplementation implements AppointmentService {
 
+    private static final int HOURS_BEFORE_APPOINTMENT = 24;
+
     @Autowired
     private AppointmentRepository appointmentRepository;
 
@@ -148,7 +150,7 @@ public class AppointmentServiceImplementation implements AppointmentService {
         if (appointment == null) {
             return false;
         }
-        if (appointment.getStartDateTime().minusHours(24).compareTo(LocalDateTime.now()) >= 0) {
+        if (appointment.getStartDateTime().minusHours(HOURS_BEFORE_APPOINTMENT).compareTo(LocalDateTime.now()) >= 0) {
             appointmentRepository.deleteById(id);
             return true;
         }
@@ -200,15 +202,12 @@ public class AppointmentServiceImplementation implements AppointmentService {
     private int countOverlappingAppointments(Set<Appointment> existingAppointments, AppointmentDTO newAppointment) {
         int overlappingAppointments = 0;
         for (Appointment existingAppointment : existingAppointments) {
-            if (isOverlapping(existingAppointment.getStartDateTime(), newAppointment.getStartDateTime())) {
+            if (existingAppointment.isOverlapping(newAppointment.getStartDateTime())) {
                 overlappingAppointments++;
             }
         }
         return overlappingAppointments;
     }
 
-    private Boolean isOverlapping(LocalDateTime existingAppointment, LocalDateTime newAppointment) {
-        return (newAppointment.isBefore(existingAppointment.plusMinutes(30)) &&
-                existingAppointment.isBefore(newAppointment.plusMinutes(30)));
-    }
+
 }

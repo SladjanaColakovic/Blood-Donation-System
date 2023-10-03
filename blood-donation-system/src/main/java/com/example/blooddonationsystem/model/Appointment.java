@@ -29,6 +29,8 @@ public class Appointment {
 
     private Boolean canceled;
 
+    private static int duration = 30;
+
     public Long getId() {
         return id;
     }
@@ -49,6 +51,9 @@ public class Appointment {
         return canceled;
     }
 
+    public static int getDuration() {
+        return duration;
+    }
     public void setId(Long id) {
         this.id = id;
     }
@@ -67,5 +72,10 @@ public class Appointment {
 
     public void setCanceled(Boolean canceled) {
         this.canceled = canceled;
+    }
+
+    public Boolean isOverlapping(LocalDateTime newAppointment) {
+        return (newAppointment.isBefore(startDateTime.plusMinutes(duration)) &&
+                startDateTime.isBefore(newAppointment.plusMinutes(duration)));
     }
 }

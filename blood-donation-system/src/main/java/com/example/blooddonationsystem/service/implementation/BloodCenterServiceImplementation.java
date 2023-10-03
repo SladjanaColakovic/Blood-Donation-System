@@ -154,7 +154,8 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
     }
 
     private boolean isDuringWorkingHours(LocalDateTime checking, BloodCenter center) {
-        return (checking.getHour() >= center.getWorkingTimeFrom() && checking.plusMinutes(30).getHour() < center.getWorkingTimeTo());
+        return (checking.getHour() >= center.getWorkingTimeFrom() &&
+                ((checking.plusMinutes(Appointment.getDuration()).getHour() == 0)? 24 :  checking.plusMinutes(Appointment.getDuration()).getHour())< center.getWorkingTimeTo());
     }
 
     private List<BloodCenter> searchAndSort(String center, String address, String sortBy, String sortDirection) {
@@ -185,16 +186,12 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
     private int countOverlappingAppointments(Set<Appointment> existingAppointments, LocalDateTime newAppointmentTime) {
         int overlappingAppointments = 0;
         for (Appointment existingAppointment : existingAppointments) {
-            if (isOverlapping(existingAppointment.getStartDateTime(), newAppointmentTime)) {
+            if (existingAppointment.isOverlapping(newAppointmentTime)) {
                 overlappingAppointments++;
             }
         }
         return overlappingAppointments;
     }
 
-    private Boolean isOverlapping(LocalDateTime existingAppointment, LocalDateTime newAppointment) {
-        return (newAppointment.isBefore(existingAppointment.plusMinutes(30)) &&
-                existingAppointment.isBefore(newAppointment.plusMinutes(30)));
-    }
 
 }

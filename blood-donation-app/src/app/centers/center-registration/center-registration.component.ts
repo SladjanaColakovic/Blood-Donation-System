@@ -66,7 +66,7 @@ export class CenterRegistrationComponent {
 
   register() {
     this.submitted = true;
-    if (this.centerRegistrationForm.valid) {
+    if (this.centerRegistrationForm.valid && this.managerPassword === this.managerConfirmPassword) {
       let data = {
         name: this.centerName,
         email: this.centerEmail,
