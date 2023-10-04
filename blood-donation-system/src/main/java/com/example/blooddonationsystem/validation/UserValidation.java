@@ -51,6 +51,7 @@ public class UserValidation {
     public static boolean isChangePasswordInvalid(ChangePasswordDTO changePassword) {
         return (changePassword.getPassword() == null || changePassword.getPassword().equals("") ||
                 changePassword.getConfirmPassword() == null || changePassword.getConfirmPassword().equals("") ||
+                changePassword.getOldPassword() == null || changePassword.getOldPassword().equals("") ||
                 changePassword.getUsername() == null || changePassword.getUsername().equals("") ||
                 !changePassword.getPassword().equals(changePassword.getConfirmPassword())
         );

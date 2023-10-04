@@ -43,4 +43,9 @@ public class ControllerExceptionHandler {
     public ResponseEntity<?> noFreeAppointmentsException() {
         return new ResponseEntity<>("Nema slobodnih termina za odabrani datum", HttpStatus.CONFLICT);
     }
+
+    @ExceptionHandler(value = PasswordIncorrectException.class)
+    public ResponseEntity<?> passwordIncorrectException() {
+        return new ResponseEntity<>("Neispravan unos stare lozinke", HttpStatus.BAD_REQUEST);
+    }
 }

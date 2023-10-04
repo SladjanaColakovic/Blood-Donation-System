@@ -4,6 +4,7 @@ public class ChangePasswordDTO {
 
     private String password;
     private String confirmPassword;
+    private String oldPassword;
 
     private String username;
 
@@ -13,6 +14,10 @@ public class ChangePasswordDTO {
 
     public String getConfirmPassword() {
         return confirmPassword;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
     }
 
     public String getUsername() {
@@ -25,6 +30,10 @@ public class ChangePasswordDTO {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
     }
 
     public void setUsername(String username) {

@@ -4,6 +4,7 @@ import com.example.blooddonationsystem.dto.ChangePasswordDTO;
 import com.example.blooddonationsystem.dto.EditUserDTO;
 import com.example.blooddonationsystem.dto.UserDTO;
 import com.example.blooddonationsystem.exception.InvalidDataException;
+import com.example.blooddonationsystem.exception.PasswordIncorrectException;
 import com.example.blooddonationsystem.exception.UserEmailExistsException;
 import com.example.blooddonationsystem.exception.UserNotFoundException;
 import com.example.blooddonationsystem.model.User;
@@ -76,6 +77,9 @@ public class UserServiceImplementation implements UserService {
         User user = userRepository.findByUsername(changePassword.getUsername());
         if (user == null) {
            throw new UserNotFoundException();
+        }
+        if(!passwordEncoder.matches(changePassword.getOldPassword(), user.getPassword())){
+            throw new PasswordIncorrectException();
         }
         user.setPassword(passwordEncoder.encode(changePassword.getPassword()));
         return userRepository.save(user);

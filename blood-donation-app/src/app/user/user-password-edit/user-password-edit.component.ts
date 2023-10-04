@@ -14,10 +14,12 @@ export class UserPasswordEditComponent {
   submitted: boolean;
   password: string;
   confirmPassword: string;
+  oldPassword: string;
   username: string
 
   editPasswordForm = new FormGroup({
     password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$')]),
+    oldPassword: new FormControl('', Validators.required),
     confirmPassword: new FormControl('', Validators.required),
   })
 
@@ -35,6 +37,7 @@ export class UserPasswordEditComponent {
       let data = {
         password: this.password,
         confirmPassword: this.confirmPassword,
+        oldPassword: this.oldPassword,
         username: this.username
       }
       this.userService.changePassword(data).subscribe((response: any) => {
@@ -43,7 +46,7 @@ export class UserPasswordEditComponent {
         this.authService.logout();
       }, error => {
         alertifyjs.set('notifier', 'position', 'bottom-center');
-        alertifyjs.error(error.error, 15);
+        alertifyjs.error(error.error, 5);
       })
     }
 
