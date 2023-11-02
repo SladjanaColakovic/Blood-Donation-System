@@ -1,6 +1,6 @@
 package com.example.blooddonationsystem.validation;
 
-import com.example.blooddonationsystem.dto.BloodCenterDTO;
+import com.example.blooddonationsystem.dto.NewBloodCenterDTO;
 import com.example.blooddonationsystem.dto.EditBloodCenterDTO;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class BloodCenterValidation {
 
-    public static boolean isNewCenterInvalid(BloodCenterDTO newCenter) {
+    public static boolean isNewCenterInvalid(NewBloodCenterDTO newCenter) {
 
         return (newCenter.getName() == null || newCenter.getName().equals("") ||
                 newCenter.getEmail() == null || newCenter.getEmail().equals("") ||

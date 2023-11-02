@@ -1,11 +1,11 @@
 package com.example.blooddonationsystem.validation;
 
-import com.example.blooddonationsystem.dto.AppointmentDTO;
+import com.example.blooddonationsystem.dto.NewAppointmentDTO;
 
 import java.time.LocalDateTime;
 
 public class AppointmentValidation {
-    public static boolean isScheduleAppointmentInvalid(AppointmentDTO newAppointment) {
+    public static boolean isScheduleAppointmentInvalid(NewAppointmentDTO newAppointment) {
         return (newAppointment.getCenterId() == null ||
                 newAppointment.getDonorUsername() == null ||
                 newAppointment.getDonorUsername().equals("") ||

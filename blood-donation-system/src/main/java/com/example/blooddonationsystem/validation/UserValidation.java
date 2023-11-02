@@ -2,14 +2,14 @@ package com.example.blooddonationsystem.validation;
 
 import com.example.blooddonationsystem.dto.ChangePasswordDTO;
 import com.example.blooddonationsystem.dto.EditUserDTO;
-import com.example.blooddonationsystem.dto.UserDTO;
+import com.example.blooddonationsystem.dto.NewUserDTO;
 import com.example.blooddonationsystem.enumeration.Role;
 
 import java.util.regex.Pattern;
 
 public class UserValidation {
 
-    public static boolean isNewUserInvalid(UserDTO newUser) {
+    public static boolean isNewUserInvalid(NewUserDTO newUser) {
 
         return (newUser.getUsername() == null || newUser.getUsername().equals("") ||
                 !Pattern.compile("^(.+)@(\\S+)$").matcher(newUser.getUsername()).matches() ||

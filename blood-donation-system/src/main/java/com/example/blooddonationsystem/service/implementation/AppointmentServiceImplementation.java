@@ -1,6 +1,6 @@
 package com.example.blooddonationsystem.service.implementation;
 
-import com.example.blooddonationsystem.dto.AppointmentDTO;
+import com.example.blooddonationsystem.dto.NewAppointmentDTO;
 import com.example.blooddonationsystem.dto.DonorAppointmentResponseDTO;
 import com.example.blooddonationsystem.dto.ManagerAppointmentResponseDTO;
 import com.example.blooddonationsystem.enumeration.Gender;
@@ -42,7 +42,7 @@ public class AppointmentServiceImplementation implements AppointmentService {
     private ModelMapper modelMapper;
 
     @Override
-    public Appointment schedule(AppointmentDTO newAppointment) {
+    public Appointment schedule(NewAppointmentDTO newAppointment) {
         if (AppointmentValidation.isScheduleAppointmentInvalid(newAppointment)) {
             throw new InvalidDataException();
         }
@@ -199,7 +199,7 @@ public class AppointmentServiceImplementation implements AppointmentService {
                 .toList();
     }
 
-    private int countOverlappingAppointments(Set<Appointment> existingAppointments, AppointmentDTO newAppointment) {
+    private int countOverlappingAppointments(Set<Appointment> existingAppointments, NewAppointmentDTO newAppointment) {
         int overlappingAppointments = 0;
         for (Appointment existingAppointment : existingAppointments) {
             if (existingAppointment.isOverlapping(newAppointment.getStartDateTime())) {

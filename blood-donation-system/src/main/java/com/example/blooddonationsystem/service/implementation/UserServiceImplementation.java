@@ -2,7 +2,7 @@ package com.example.blooddonationsystem.service.implementation;
 
 import com.example.blooddonationsystem.dto.ChangePasswordDTO;
 import com.example.blooddonationsystem.dto.EditUserDTO;
-import com.example.blooddonationsystem.dto.UserDTO;
+import com.example.blooddonationsystem.dto.NewUserDTO;
 import com.example.blooddonationsystem.exception.InvalidDataException;
 import com.example.blooddonationsystem.exception.PasswordIncorrectException;
 import com.example.blooddonationsystem.exception.UserEmailExistsException;
@@ -39,17 +39,17 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User register(UserDTO userDTO) {
+    public User register(NewUserDTO newUser) {
 
-        if (UserValidation.isNewUserInvalid(userDTO)) {
+        if (UserValidation.isNewUserInvalid(newUser)) {
             throw new InvalidDataException();
         }
-        User existUser = userRepository.findByUsername(userDTO.getUsername());
+        User existUser = userRepository.findByUsername(newUser.getUsername());
         if (existUser != null) {
             throw new UserEmailExistsException();
         }
-        User user = modelMapper.map(userDTO, User.class);
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        User user = modelMapper.map(newUser, User.class);
+        user.setPassword(passwordEncoder.encode(newUser.getPassword()));
         return userRepository.save(user);
     }
 

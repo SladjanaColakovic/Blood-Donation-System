@@ -1,6 +1,6 @@
 package com.example.blooddonationsystem.service.implementation;
 
-import com.example.blooddonationsystem.dto.BloodCenterDTO;
+import com.example.blooddonationsystem.dto.NewBloodCenterDTO;
 import com.example.blooddonationsystem.dto.EditBloodCenterDTO;
 import com.example.blooddonationsystem.exception.*;
 import com.example.blooddonationsystem.model.Appointment;
@@ -11,7 +11,6 @@ import com.example.blooddonationsystem.repository.BloodCenterRepository;
 import com.example.blooddonationsystem.service.BloodCenterService;
 import com.example.blooddonationsystem.service.UserService;
 import com.example.blooddonationsystem.validation.BloodCenterValidation;
-import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -38,7 +37,7 @@ public class BloodCenterServiceImplementation implements BloodCenterService {
     private UserService userService;
 
     @Override
-    public BloodCenter add(BloodCenterDTO newCenter) {
+    public BloodCenter add(NewBloodCenterDTO newCenter) {
         if (BloodCenterValidation.isNewCenterInvalid(newCenter)) {
             throw new InvalidDataException();
         }

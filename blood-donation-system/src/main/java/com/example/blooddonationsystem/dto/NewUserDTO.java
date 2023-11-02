@@ -6,11 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
-public class UserDTO {
-    private Long id;
+public class NewUserDTO {
+
     private String username;
     private String password;
     private String confirmPassword;
@@ -23,4 +23,5 @@ public class UserDTO {
     private String jmbg;
     private Gender gender;
     private Role role;
+
 }

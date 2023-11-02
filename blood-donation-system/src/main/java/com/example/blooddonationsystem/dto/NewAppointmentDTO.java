@@ -1,17 +1,15 @@
 package com.example.blooddonationsystem.dto;
 
-import com.example.blooddonationsystem.model.BloodCenter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
-public class DonorAppointmentResponseDTO {
-
-    private Long id;
+public class NewAppointmentDTO {
+    private Long centerId;
+    private String donorUsername;
     private LocalDateTime startDateTime;
-    private BloodCenter center;
 }

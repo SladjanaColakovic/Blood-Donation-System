@@ -4,11 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
-public class EditBloodCenterDTO {
-    private Long id;
+public class NewBloodCenterDTO {
     private String name;
     private String email;
     private String address;
@@ -19,4 +18,6 @@ public class EditBloodCenterDTO {
     private int workingTimeTo;
     private int capacity;
     private String description;
+    private NewUserDTO manager;
+
 }
