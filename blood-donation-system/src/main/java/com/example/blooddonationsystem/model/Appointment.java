@@ -2,12 +2,18 @@ package com.example.blooddonationsystem.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @SQLDelete(sql = "UPDATE appointment SET canceled = true WHERE id = ?")
 @Where(clause = "canceled = false")
 public class Appointment {
@@ -31,47 +37,8 @@ public class Appointment {
 
     private static int duration = 30;
 
-    public Long getId() {
-        return id;
-    }
-
-    public LocalDateTime getStartDateTime() {
-        return startDateTime;
-    }
-
-    public User getDonor() {
-        return donor;
-    }
-
-    public BloodCenter getCenter() {
-        return center;
-    }
-
-    public Boolean getCanceled() {
-        return canceled;
-    }
-
     public static int getDuration() {
         return duration;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setStartDateTime(LocalDateTime startDateTime) {
-        this.startDateTime = startDateTime;
-    }
-
-    public void setDonor(User donor) {
-        this.donor = donor;
-    }
-
-    public void setCenter(BloodCenter center) {
-        this.center = center;
-    }
-
-    public void setCanceled(Boolean canceled) {
-        this.canceled = canceled;
     }
 
     public Boolean isOverlapping(LocalDateTime newAppointment) {
